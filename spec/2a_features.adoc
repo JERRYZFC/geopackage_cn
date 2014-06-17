@@ -1,5 +1,5 @@
 [[features]]
-=== Features
+=== 要素
 
 [[sfsql_intro]]
 ==== Simple Features SQL Introduction
