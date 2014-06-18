@@ -114,16 +114,16 @@ Document language: 	English<br></p>
 <li>
 <ul class="sectlevel3">
 <li><a href="#_sqlite">1.1.1. SQLite 容器</a></li>
-<li><a href="#spatial_ref_sys">1.1.2. Spatial Reference Systems 空间参考系统</a></li>
-<li><a href="#__9">1.1.3. 内容</a></li>
+<li><a href="#spatial_ref_sys">1.1.2. 空间参考系统</a></li>
+<li><a href="#__10">1.1.3. 内容</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#_options">2. Options</a></li>
+<li><a href="#__14">2. 选项</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#features">2.1. Features</a></li>
+<li><a href="#features">2.1. 要素</a></li>
 <li>
 <ul class="sectlevel3">
 <li><a href="#sfsql_intro">2.1.1. Simple Features SQL Introduction</a></li>
@@ -204,7 +204,7 @@ Document language: 	English<br></p>
 <li><a href="#_core">A.1.1. Core</a></li>
 </ul>
 </li>
-<li><a href="#_options_2">A.2. Options</a></li>
+<li><a href="#_options">A.2. Options</a></li>
 <li>
 <ul class="sectlevel3">
 <li><a href="#_features_2">A.2.1. Features</a></li>
@@ -541,7 +541,7 @@ Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and 
 </div>
 </div>
 <div class="sect3">
-<h4 id="spatial_ref_sys">1.1.2. Spatial Reference Systems 空间参考系统</h4>
+<h4 id="spatial_ref_sys">1.1.2. 空间参考系统</h4>
 <div class="sect4">
 <h5 id="__8">1.1.2.1. 数据</h5>
 <div class="sect5">
@@ -549,7 +549,7 @@ Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and 
 <div id="_requirement-10" class="quoteblock">
 <div class="title">Requirement 10</div>
 <blockquote>
-A GeoPackage SHALL include a <code>gpkg_spatial_ref_sys</code> table per clause 1.1.2.1.1 <a href="#spatial_ref_sys_data_table_definition">表的定义</a>, Table <a href="#gpkg_spatial_ref_sys_cols">Spatial Ref Sys Table Definition 空间参考系统表的定义</a> and Table <a href="#gpkg_spatial_ref_sys_sql">gpkg_spatial_ref_sys Table Definition SQL</a>.geopackage规范应包括gpkg_spatial_ref_sys表的每项条款
+A GeoPackage SHALL include a <code>gpkg_spatial_ref_sys</code> table per clause 1.1.2.1.1 <a href="#spatial_ref_sys_data_table_definition">表的定义</a>, Table <a href="#gpkg_spatial_ref_sys_cols">空间参考系统表的定义</a> and Table <a href="#gpkg_spatial_ref_sys_sql">gpkg_spatial_ref_sys Table Definition SQL</a>.geopackage规范应包括gpkg_spatial_ref_sys表的每项条款
 </blockquote>
 </div>
 <div class="paragraph">
@@ -558,12 +558,12 @@ The coordinate reference system definitions it contains are referenced by the Ge
 名为gpkg_spatial_ref_sys表是标准SQL模式的第一个部分。在下面的2.1.1中描述了简单功能。坐标参考系统的定义，它包含引用的geopackage gpkg_contents和gpkg_geometry_columns表，以及与表关联的用用户表中的矢量和瓦片数据在地球上定位。</p>
 </div>
 <div class="paragraph">
-<p>The <code>gpkg_spatial_ref_sys</code> table includes at a minimum the columns specified in SQL/MM (ISO 13249-3) <a href="#12">[12]</a> and shown in <a href="#gpkg_spatial_ref_sys_cols">Spatial Ref Sys Table Definition 空间参考系统表的定义</a> below containing data that defines spatial reference systems.
+<p>The <code>gpkg_spatial_ref_sys</code> table includes at a minimum the columns specified in SQL/MM (ISO 13249-3) <a href="#12">[12]</a> and shown in <a href="#gpkg_spatial_ref_sys_cols">空间参考系统表的定义</a> below containing data that defines spatial reference systems.
 Views of this table MAY be used to provide compatibility with the <a href="http://www.iso.org/iso/home/store/catalogue_ics/catalogue_detail_ics.htm?csnumber=53698">SQL/MM</a> <a href="#12">[12]</a> (see <a href="#sqlmm_gpkg_spatial_ref_sys_sql">SQL/MM View of gpkg_spatial_ref_sys Definition SQL (Informative)</a>) and OGC <a href="http://portal.opengeospatial.org/files/?artifact_id=25354">Simple Features SQL</a> <a href="#9">[9]</a><a href="#10">[10]</a><a href="#11">[11]</a> (Table 21) specifications.
 该gpkg_spatial_ref_sys表至少包括在SQL / MM（ISO13249-3）规定，和在下表3中展示出的列，表3中包含定义空间参考系统的数据。 此表的视图可以用于提供与SQL /毫米的兼容性（表19）和SQL（表20）规定的OGC简单要素。</p>
 </div>
 <table id="gpkg_spatial_ref_sys_cols" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 3. Spatial Ref Sys Table Definition 空间参考系统表的定义</caption>
+<caption class="title">Table 3. 空间参考系统表的定义</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -631,7 +631,7 @@ Views of this table MAY be used to provide compatibility with the <a href="http:
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values">1.1.2.1.2. Table Data Values 表中数据值</h6>
+<h6 id="__9">1.1.2.1.2. 表中数据值</h6>
 <div class="paragraph">
 <p>Definition column WKT values in the gpkg_spatial_ref_sys table SHALL define the Spatial Reference Systems used by feature geometries and tile images, unless these SRS are unknown and therefore undefined as specified in <a href="#_requirement-11">Requirement 11</a>. Values SHALL be constructed per the EBNF syntax in <a href="#32">[32]</a> clause 7. Values SHALL include optional &lt;authority&gt; EBNF entities. Values for SRS other than WGS-84 SHOULD include optional &lt;to wgs84&gt; EBNF entities. Values MAY omit optional &lt;to wgs84&gt; and &lt;twin axes&gt; EBNF entities. EBNF name and number values MAY be obtained from any specified &lt;authority&gt;, e.g. <a href="#13">[13]</a><a href="#14">[14]</a>. For example, see the return value in <a href="#spatial_ref_sys_data_values_default">[spatial_ref_sys_data_values_default]</a> Test Method step (3) used to test the definition for WGS-84 per <a href="#_requirement-11">Requirement 11</a>:
 在gpkg_spatial_ref_sys表中定义的WKT列值，将定义使用了集合要素和图片的空间参考系统。除非这些SRS是未知的，因此不需要在要求11中指定。值应该按第7条款中的EBNF语法构建。值应包括可选的&lt;局&gt; EBNF实体。SRS除了WGS-84外，应包括可选的&lt; WGS84 &gt; EBNF实体值。值可以忽略可选的&lt; WGS84 &gt;和&lt; &lt; WGS84双轴&gt; EBNF实体。EBNF的名字和号码的值可以从任何指定的&lt;局&gt;获得。例如，看到A.1.1.2.1.2试验方法步骤的返回值，用于测试每个请求11 的WGS-84坐标定义。</p>
@@ -653,11 +653,11 @@ The <code>gpkg_spatial_ref_sys</code> table in a GeoPackage SHALL contain record
 </div>
 </div>
 <div class="sect3">
-<h4 id="__9">1.1.3. 内容</h4>
+<h4 id="__10">1.1.3. 内容</h4>
 <div class="sect4">
-<h5 id="__10">1.1.3.1. 数据</h5>
+<h5 id="__11">1.1.3.1. 数据</h5>
 <div class="sect5">
-<h6 id="__11">1.1.3.1.1. 表定义</h6>
+<h6 id="__12">1.1.3.1.1. 表定义</h6>
 <div id="_requirement-13" class="quoteblock">
 <div class="title">Requirement 13</div>
 <blockquote>
@@ -665,7 +665,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 </blockquote>
 </div>
 <div class="paragraph">
-<p>The purpose of the <code>gpkg_contents</code> table is to provide identifying and descriptive information that an application can display to a user in a menu of geospatial data that is available for access and/or update.</p>
+<p>The purpose of the <code>gpkg_contents</code> table is to provide identifying and descriptive information that an application can display to a user in a menu of geospatial data that is available for access and/or update.该gpkg_contents表的作用是提供一种识别和描述性信息，这种信息指的是应用程序可以以菜单的形式向用户展示可访问或更新的地理空间数据。</p>
 </div>
 <table id="gpkg_contents_cols" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 4. Contents Table or View Definition</caption>
@@ -681,7 +681,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <th class="tableblock halign-left valign-top">Column Name</th>
 <th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Description 描述</th>
 <th class="tableblock halign-left valign-top">Null</th>
 <th class="tableblock halign-left valign-top">Default</th>
 <th class="tableblock halign-left valign-top">Key</th>
@@ -691,7 +691,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>table_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the tiles, or feature table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">视图或要素表的名字</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
@@ -699,7 +699,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data_type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Type of data stored in the table:. “features” per clause <a href="#features">Features</a>, “tiles” per clause <a href="#tiles">Tiles</a>, or an implementer-defined value for other data tables per clause in an Extended GeoPackage.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of data stored in the table:. “features” per clause <a href="#features">要素</a>, “tiles” per clause <a href="#tiles">Tiles</a>, or an implementer-defined value for other data tables per clause in an Extended GeoPackage. 存储在表中的数据类型，“要素”在章节2.1.2.1.1中做了描述，“视图”在章节2.2.2.1.1中做了描述，扩展GeoPackage其他数据表定义的值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -707,7 +707,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>identifier</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable identifier (e.g. short name) for the table_name content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable identifier (e.g. short name) for the table_name content 为table_name内容标识符（如短名称）</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -715,7 +715,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable description for the table_name content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable description for the table_name content 为table_name内容的描述</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">“”</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -731,7 +731,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min_x</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box minimum easting or longitude for all content in table_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box minimum easting or longitude for all content in table_name  table_name表所有选项中,X坐标或经度的最小值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -739,7 +739,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min_y</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box minimum northing or latitude for all content in table_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box minimum northing or latitude for all content in table_name  table_name表所有选项中， Y坐标或纬度的最小值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -747,7 +747,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max_x</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box maximum easting or longitude for all content in table_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box maximum easting or longitude for all content in table_name  table_name表所有选项中， X坐标或经度的最大值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -755,7 +755,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max_y</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box maximum northing or latitude for all content in table_name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bounding box maximum northing or latitude for all content in table_name  table_name表所有选项中， Y坐标或纬度的最大值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -763,7 +763,7 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>srs_id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Spatial Reference System ID: <code>gpkg_spatial_ref_sys.srs_id</code>; when <code>data_type</code> is features, SHALL also match <code>gpkg_geometry_columns.srs_id</code>; When data_type is tiles, SHALL also match gpkg_tile_matrix_set.srs.id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spatial Reference System ID: <code>gpkg_spatial_ref_sys.srs_id</code>; when <code>data_type</code> is features, SHALL also match <code>gpkg_geometry_columns.srs_id</code>; When data_type is tiles, SHALL also match gpkg_tile_matrix_set.srs.id  空间参考系统ID：gpkg_spatial_ref_sys.srs_id；当数据类型为features 时，ID默认值为 gpkg_geometry_columns.srs_id；当数据类型为tiles 时，ID默认值为gpkg_tile_matrix_set.srs.id</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
@@ -775,30 +775,34 @@ A GeoPackage file SHALL include a <code>gpkg_contents</code> table per table <a 
 <p>The <code>gpkg_contents</code> table is intended to provide a list of all geospatial contents in a GeoPackage.
 The <code>data_type</code> specifies the type of content.
 The bounding box (<code>min_x</code>, <code>min_y</code>, <code>max_x</code>, <code>max_y</code>) provides an informative bounding box (not necessarily minimum bounding box) of the content.
-If the <code>srs_id</code> column value references a geographic coordinate reference system (CRS), then the min/max x/y values are in decimal degrees; otherwise, the srs_id references a projected CRS and the min/max x/y values are in the units specified by that CRS.</p>
+If the <code>srs_id</code> column value references a geographic coordinate reference system (CRS), then the min/max x/y values are in decimal degrees; otherwise, the srs_id references a projected CRS and the min/max x/y values are in the units specified by that CRS.
+gpkg_contents_table表的目的是按geopackage规范以列表的方式提供所有空间数据，data_type指定了内容的类型。边界框（min_x，min_y，max_x，max_y）提供了边界框（不一定是最小的边界框）内容信息。如果srs_id列值为地理坐标参考系统（CRS），那么最小/最大x/ y的值是十进制数；否则，srs_id引用引用的事CRS，最小/最大x / y的值是由指定的CRS单位确定。</p>
 </div>
 <div class="paragraph">
 <p>See <a href="#gpkg_contents_sql">gpkg_contents Table Definition SQL</a>.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_2">1.1.3.1.2. Table Data Values</h6>
+<h6 id="__13">1.1.3.1.2. 表中数据值</h6>
 <div id="_requirement-14" class="quoteblock">
 <div class="title">Requirement 14</div>
 <blockquote>
-The <code>table_name</code> column value in a <code>gpkg_contents</code> table row SHALL contain the name of a SQLite table or view.
+The <code>table_name</code> column value in a <code>gpkg_contents</code> table row SHALL contain the name of a SQLite table or view.  在gpkg_contents表的行中，table_name列的值应包含SQLite数据库表或视图的名称。
+:req13_foot1: <span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span>
 </blockquote>
 </div>
 <div id="_requirement-15" class="quoteblock">
 <div class="title">Requirement 15</div>
 <blockquote>
-Values of the <code>gpkg_contents</code> table <code>last_change</code> column SHALL be in <a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874">ISO 8601</a> <a href="#29">[29]</a> format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC. <span class="footnote">[<a id="_footnoteref_5" class="footnote" href="#_footnote_5" title="View footnote.">5</a>]</span>
+Values of the <code>gpkg_contents</code> table <code>last_change</code> column SHALL be in <a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874">ISO 8601</a> <a href="#29">[29]</a> format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC. {req13_foot1}
+gpkg_contents表的last_change列的值应为ISO 8601 [ 29 ]格式，这种格式包含了完整的日期加UTC小时，分钟，秒和秒的小数部分，用“Z”（'zulu”）的后缀表示UTC。
 </blockquote>
 </div>
 <div id="_requirement-16" class="quoteblock">
 <div class="title">Requirement 16</div>
 <blockquote>
 Values of the <code>gpkg_contents</code> table <code>srs_id</code> column SHALL reference values in the <code>gpkg_spatial_ref_sys</code> table <code>srs_id</code> column.
+gpkg_contents表的srs_id列的值应该参考gpkg_spatial_ref_sys表的srs_id列的值。
 </blockquote>
 </div>
 </div>
@@ -808,29 +812,29 @@ Values of the <code>gpkg_contents</code> table <code>srs_id</code> column SHALL 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_options">2. Options</h2>
+<h2 id="__14">2. 选项</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The optional capabilities specified in this clause depend on the required capabilities specified in clause <a href="#_base">Base</a> above.
-Each subclause of this clause defines an indivisible module of functionality that can be used in GeoPackages. These modules are referred to as options.
-GeoPackages MAY use one or more options defined in this section.
-GeoPackages MAY omit the tables for options that are not used.
-As a minimum, a GeoPackage SHALL contain one user data table as defined by the Features or Tiles options in clauses <a href="#features">Features</a> and <a href="#tiles">Tiles</a> respectively.</p>
+<p>The optional capabilities specified in this clause depend on the required capabilities specified in clause <a href="#_base">Base</a> above. 在本条款中指定的可选功能取决于上面章节<a href="#_base">Base</a> ，指定的需要的功能。
+Each subclause of this clause defines an indivisible module of functionality that can be used in GeoPackages. These modules are referred to as options. 本条款中的每个子条款定义的不可分割的功能模块，可用于geopackages ，这些模块被称为选项。
+GeoPackages可能使用本节中定义的一个或多个选项。GeoPackages可以忽略未使用的选项表。
+As a minimum, a GeoPackage SHALL contain one user data table as defined by the Features or Tiles options in clauses <a href="#features">要素</a> and <a href="#tiles">Tiles</a> respectively.  作为最低要求，GeoPackage 应该包含一个由Features 或 Tiles选项定义的用户数据表，该用户数据表在<a href="#features">要素</a> 和<a href="#tiles">Tiles</a> 中分别进行了定义。</p>
 </div>
 <div id="_requirement-17" class="quoteblock">
 <div class="title">Requirement 17</div>
 <blockquote>
-A GeoPackage SHALL contain features per clause <a href="#features">Features</a> and/or tiles per clause <a href="#tiles">Tiles</a> and row(s) in the <code>gpkg_contents</code> table with lowercase <code>data_type</code> column values of “features” and/or “tiles” describing the user data tables.
+A GeoPackage SHALL contain features per clause <a href="#features">要素</a> and/or tiles per clause <a href="#tiles">Tiles</a> and row(s) in the <code>gpkg_contents</code> table with lowercase <code>data_type</code> column values of “features” and/or “tiles” describing the user data tables.
+geopackage规范应包含 <a href="#features">要素</a> 条款中的每个要素，<a href="#tiles">Tiles</a> 条款中的每个瓦片以及<code>gpkg_contents</code> 表中data_type列的值为小写的“features” 或 “tiles”的行，这些行描述了用户数据表。
 </blockquote>
 </div>
 <div class="sect2">
-<h3 id="features">2.1. Features</h3>
+<h3 id="features">2.1. 要素</h3>
 <div class="sect3">
 <h4 id="sfsql_intro">2.1.1. Simple Features SQL Introduction</h4>
 <div class="paragraph">
 <p>Vector feature data represents geolocated entities including conceptual ones such as districts, real world objects such as roads and rivers, and observations thereof.
 International specifications <a href="#9">[9]</a><a href="#10">[10]</a><a href="#11">[11]</a><a href="#12">[12]</a> have standardized practices for the storage, access and use of vector geospatial features and geometries via SQL in relational databases.
-The first component of the SQL schema for vector features in a GeoPackage is the <code>gpkg_spatial_ref_sys</code> table defined in clause <a href="#spatial_ref_sys">Spatial Reference Systems 空间参考系统</a> above.
+The first component of the SQL schema for vector features in a GeoPackage is the <code>gpkg_spatial_ref_sys</code> table defined in clause <a href="#spatial_ref_sys">空间参考系统</a> above.
 Other components are defined below.</p>
 </div>
 <div class="paragraph">
@@ -1215,7 +1219,7 @@ identifies the geometry columns in tables that contain user data representing fe
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_3">2.1.5.1.2. Table Data Values</h6>
+<h6 id="_table_data_values">2.1.5.1.2. Table Data Values</h6>
 <div id="_requirement-22" class="quoteblock">
 <div class="title">Requirement 22</div>
 <blockquote>
@@ -1369,7 +1373,7 @@ A feature table SHALL have only one geometry column.
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_4">2.1.6.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_2">2.1.6.1.2. Table Data Values</h6>
 <div class="paragraph">
 <p>A feature geometry is stored in a geometry column specified by the lowercase <code>geometry_column</code> value for the feature table in the <code>gpkg_geometry_columns</code> table defined in clause <a href="#_geometry_columns">Geometry Columns</a> above.</p>
 </div>
@@ -1870,7 +1874,7 @@ Each tile matrix set in a GeoPackage SHALL be stored in a different tile pyramid
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_5">2.2.8.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_3">2.2.8.1.2. Table Data Values</h6>
 <div class="paragraph">
 <p>Each tile pyramid user data table or view <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span> MAY contain tile matrices at zero or more zoom levels of different spatial resolution (map scale).</p>
 </div>
@@ -2001,7 +2005,7 @@ The <code>gpkg_data_columns</code> data CAN be used to provide more specific col
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_6">2.3.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_4">2.3.2.1.2. Table Data Values</h6>
 <div id="_requirement-57" class="quoteblock">
 <div class="title">Requirement 57</div>
 <blockquote>
@@ -2127,7 +2131,7 @@ The constraint_name column is referenced by the <code>constraint_name</code> col
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_7">2.3.3.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_5">2.3.3.1.2. Table Data Values</h6>
 <div class="paragraph">
 <p>The lowercase gpkg_data_column_constraints constraint_type column value specifies the type of constraint: "range", "enum", or "glob" (text pattern match).
 The case sensitive value column contains an enumerated legal value for constraint_type "enum", a pattern match string for constraint_type "glob", or NULL for constraint_type "range". The set of value column values in rows of constraint_type "enum" with the same constraint_name contains all possible enumerated values for the constraint name. The min and max column values specify the minim and maximum valid values for constraint_type "range", or are NULL for constraint_type "enum" or "glob". The minIsInclusive and maxIsInclusive column values contain 1 if the min and max values are inclusive, 0 if they are exclusive, or are NULL for constraint_type "enum" or "glob".
@@ -2376,7 +2380,7 @@ The structure (schema) information could be in whatever encoding is used by the 
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_8">2.4.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_6">2.4.2.1.2. Table Data Values</h6>
 <div class="paragraph">
 <p>The <code>md_scope</code> column in the <code>gpkg_metadata</code> table is the name of the applicable scope for the contents of the metadata column for a given row.
 The list of valid scope names and their definitions is provided in <a href="#metadata_scopes">Metadata Scopes</a> below.
@@ -2608,7 +2612,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_9">2.4.3.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_7">2.4.3.1.2. Table Data Values</h6>
 <div id="_requirement-71" class="quoteblock">
 <div class="title">Requirement 71</div>
 <blockquote>
@@ -2750,7 +2754,7 @@ An application that access a GeoPackage can query the <code>gpkg_extensions</cod
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_10">2.5.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_8">2.5.2.1.2. Table Data Values</h6>
 <div id="_requirement-79" class="quoteblock">
 <div class="title">Requirement 79</div>
 <blockquote>
@@ -2827,7 +2831,7 @@ Definitions of those extensions in the form specified by the template in <a href
 <div class="sect2">
 <h3 id="_features">3.1. Features</h3>
 <div class="paragraph">
-<p>The extensions defined in the following sub clauses MAY be implemented in a GeoPackage that implements features per clause <a href="#features">Features</a>.</p>
+<p>The extensions defined in the following sub clauses MAY be implemented in a GeoPackage that implements features per clause <a href="#features">要素</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="gpkg_geometry_types_extension">3.1.1. GeoPackage Geometry Types Extension</h4>
@@ -4001,7 +4005,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_options_2">A.2. Options</h3>
+<h3 id="_options">A.2. Options</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
 <col style="width:16%;">
@@ -10151,7 +10155,7 @@ integrity constraints, an SQL API exposed via a "C" CLI and JDBC, and manifest t
 <dl>
 <dt>Empty GeoPackage</dt>
 <dd>
-<p>A GeoPackage that contains a <code>gpkg_spatial_ref_sys</code> table, a <code>gpkg_contents</code> table with row record(s) with <code>data_type</code> column values of "features" or "tiles", and corresponding features tables per clause <a href="#features">Features</a> and/or tiles tables per clause <a href="#tiles">Tiles</a> where the user data tables per clauses 2.1.6. and 2.2.8 exist but contain no rows.</p>
+<p>A GeoPackage that contains a <code>gpkg_spatial_ref_sys</code> table, a <code>gpkg_contents</code> table with row record(s) with <code>data_type</code> column values of "features" or "tiles", and corresponding features tables per clause <a href="#features">要素</a> and/or tiles tables per clause <a href="#tiles">Tiles</a> where the user data tables per clauses 2.1.6. and 2.2.8 exist but contain no rows.</p>
 </dd>
 <dt>Extended GeoPackage</dt>
 <dd>
@@ -15856,7 +15860,7 @@ For undated references, the latest edition of the normative document referred to
 <a href="#_footnoteref_4">4</a>. New applications should use the latest available SQLite version software <<8>>
 </div>
 <div class="footnote" id="_footnote_5">
-<a href="#_footnoteref_5">5</a>. The following statement selects an ISO 8601timestamp value using the SQLite strftime function: SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
+<a href="#_footnoteref_5">5</a>. The following statement selects an ISO 8601timestamp value using the SQLite strftime function: SELECT (strftime(<em>%Y-%m-%dT%H:%M:%fZ</em>,<em>now</em>)).
 </div>
 <div class="footnote" id="_footnote_6">
 <a href="#_footnoteref_6">6</a>. OGC WKB simple feature geometry types specified in <<13>> are a subset of the ISO WKB geometry types specified in <<16>>
@@ -15951,7 +15955,7 @@ For undated references, the latest edition of the normative document referred to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-06-11 13:36:08 CST
+Last updated 2014-06-16 14:58:26 CST
 </div>
 </div>
 </body>
