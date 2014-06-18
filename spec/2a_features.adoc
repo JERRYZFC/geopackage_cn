@@ -208,7 +208,6 @@ Feature attributes are columns in a feature table, including geometries.
 Features are rows in a feature table.
 {features_data_table_foot2}
 
-
 [[requirement_feature_integer_pk]]
 [requirement]
 A GeoPackage MAY contain tables or updateable views containing vector features.
