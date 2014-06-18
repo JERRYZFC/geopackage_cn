@@ -1,4 +1,4 @@
-== 选择
+== 选项
 
 The optional capabilities specified in this clause depend on the required capabilities specified in clause <<_base>> above. 在本条款中指定的可选功能取决于上面章节<<_base>> ，指定的需要的功能。
 Each subclause of this clause defines an indivisible module of functionality that can be used in GeoPackages. These modules are referred to as options. 本条款中的每个子条款定义的不可分割的功能模块，可用于geopackages ，这些模块被称为选项。
