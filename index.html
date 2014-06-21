@@ -360,18 +360,18 @@ GeoPackage可能包含几何要素的空间索引，以及用于维护索引、�
 <div id="_requirement-1" class="quoteblock">
 <div class="title">Requirement 1</div>
 <blockquote>
-A GeoPackage SHALL be a <a href="http://www.sqlite.org/">SQLite</a> <a href="#5">[5]</a> database file using <a href="http://sqlite.org/fileformat2.html">version 3 of the SQLite file format</a> <a href="#6">[6]</a> <a href="#7">[7]</a>.
-The first 16 bytes of a GeoPackage SHALL contain “SQLite format 3” <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> in ASCII <a href="#B4">[B4]</a>. <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>
+一个GeoPackage应该是一个http://www.sqlite.org/[SQLite] <a href="#5">[5]</a>数据库文件，该数据库文件应使用http://sqlite.org/fileformat2.html[3.x版本的SQLite文件格式] <a href="#6">[6]</a> <a href="#7">[7]</a>。
+GeoPackage文件用ASCII格式 <a href="#B4">[B4]</a>打开的前16个字节应该包含“SQLite format 3” <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> 字符串。 <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>
 </blockquote>
 </div>
 <div id="_requirement-2" class="quoteblock">
 <div class="title">Requirement 2</div>
 <blockquote>
-SQLite数据库头的应用ID字段应包含0x47503130（在ASCII 中的“10”），来表明是geopackage 1.0 版文件。 <span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>
+GeoPackage的SQLite数据库头（header）中，平台ID（application id）字段应该包含0x47503130（ASCII转码后为“GP10”）来表明文件为GeoPackage 1.0版本。<span class="footnote">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</span>
 </blockquote>
 </div>
 <div class="paragraph">
-<p>GeoPackage的最大存储空间约为140TB。在实际应用中，较低存储空间可能受写入文件系统中的文件限制。许多移动设备需要外部存储卡，这些外部存储卡可以使用增加了4GB最大大小的FAT32文件系统进行格式化。</p>
+<p>GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储体积为4GB。</p>
 </div>
 </div>
 <div class="sect5">
