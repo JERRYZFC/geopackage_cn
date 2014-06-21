@@ -41,7 +41,7 @@ Document language: 	English +
 
 
 
-== License Agreement ==
+== 许可说明 ==
 
 Permission is hereby granted by the Open Geospatial Consortium, ("Licensor"), free of charge and subject to the terms set forth below, to any person obtaining a copy of this Intellectual Property and any associated documentation, to deal in the Intellectual Property without restriction (except as set forth below), including without limitation the rights to implement, use, copy, modify, merge, publish, distribute, and/or sublicense copies of the Intellectual Property, and to permit persons to whom the Intellectual Property is furnished to do so, provided that all copyright notices on the intellectual property are retained intact and that each person to whom the Intellectual Property is furnished agrees to the terms of this Agreement.
 
@@ -57,7 +57,7 @@ Except as contained in this notice, the name of LICENSOR or of any other holder 
 
 This Agreement is governed by the laws of the Commonwealth of Massachusetts. The application to this Agreement of the United Nations Convention on Contracts for the International Sale of Goods is hereby expressly excluded. In the event any provision of this Agreement shall be deemed unenforceable, void or invalid, such provision shall be modified so as to make it valid and enforceable, and as so modified the entire Agreement shall remain in full force and effect. No decision, action or inaction by LICENSOR shall be construed to be a waiver of any rights or remedies available to it. None of the Intellectual Property or underlying information or technology may be downloaded or otherwise exported or reexported in violation of U.S. export laws and regulations. In addition, you are responsible for complying with any local laws in your jurisdiction which may impact your right to import, export or use the Intellectual Property, and you represent that you have complied with any regulations or registration procedures required by applicable law to make this license enforceable.
 
-== Patent Call ==
+== 专利请求 ==
  
 _Attention is drawn to the possibility that some of the elements of this document may be the subject of patent rights. The Open Geospatial Consortium Inc. shall not be held responsible for identifying any or all such patent rights._
 
@@ -65,9 +65,9 @@ _Recipients of this document are requested to submit, with their comments, notif
 
 == 摘要 ==
 
-OGC® 编码标准定义了用于数据交换的GeoPackage协议，定义了GeoPackage SQLite扩展用于在多种比例尺级别直接使用矢量地理空间要素信息，以及地球影像、栅格地图的瓦片矩阵集合。直接使用意味着有能力以原生（native）的格式访问和更新数据，而不需要中间格式转换（例如，通过API），这样能确保数据模型和数据集的完整性，以及在对来自各个不同的客户端的请求进行响应时，返回完全相同的访问、更新结果。geopackages是可互操作的所有企业和个人计算环境，在移动设备上特别有用，如有限的带宽通信环境中的手机和平板电脑。
+OGC® 编码标准定义了用于数据交换的GeoPackage协议，定义了GeoPackage SQLite扩展用于在多种比例尺级别直接使用矢量地理空间要素信息，以及地球影像、栅格地图的瓦片矩阵集合。直接使用意味着有能力以原生（native）的格式访问和更新数据，而不需要中间格式转换（例如，通过API），这样能确保数据模型和数据集的完整性，以及在对来自各个不同的客户端的请求进行响应时，返回完全相同的访问、更新结果。GeoPackage不论在企业级还是在个人计算机环境中都支持互操作，而当通讯连接不稳定、带宽有限时，对移动设备（例如手机、平板电脑）格外有用。
 
-== Keywords ==
+== 关键字 ==
 
 ogcdoc, geopackage, sqllite, raster, tiles, vector, feature, data, storage, exchange, mobile, smartphone, tablet
 
