@@ -26,14 +26,15 @@ SQLite软件库提供了一个自包含的、单文件、跨平台的、服务�
 :req1_foot2: footnote:[SQLite is in the public domain (see http://www.sqlite.org/copyright.html)]
 :req2_foot1: footnote:[With SQLite versions 3.7.17 and later this value MAY be set with the "PRAGMA application_id=1196437808;" SQL statement, where 1196437808 is the 32-bit integer value of 0x47503130. With earlier versions of SQLite the application id can be set by writing the byte sequence 0x47, 0x50, 0x31, 0x30 at offset 68 in the SQLite database file (see http://www.sqlite.org/fileformat2.html#database_header for details).]
 
-[requirement]
-A GeoPackage SHALL be a http://www.sqlite.org/[SQLite] <<5>> database file using http://sqlite.org/fileformat2.html[version 3 of the SQLite file format] <<6>> <<7>>.
-The first 16 bytes of a GeoPackage SHALL contain “SQLite format 3” {req1_foot1} in ASCII <<B4>>. {req1_foot2}
 
 [requirement]
-SQLite数据库头的应用ID字段应包含0x47503130（在ASCII 中的“10”），来表明是geopackage 1.0 版文件。 {req2_foot1}
+一个GeoPackage应该是一个http://www.sqlite.org/[SQLite] <<5>>数据库文件，该数据库文件应使用http://sqlite.org/fileformat2.html[3.x版本的SQLite文件格式] <<6>> <<7>>。
+GeoPackage文件用ASCII格式 <<B4>>打开的前16个字节应该包含“SQLite format 3” {req1_foot1} 字符串。 {req1_foot2}
 
-GeoPackage的最大存储空间约为140TB。在实际应用中，较低存储空间可能受写入文件系统中的文件限制。许多移动设备需要外部存储卡，这些外部存储卡可以使用增加了4GB最大大小的FAT32文件系统进行格式化。
+[requirement]
+GeoPackage的SQLite数据库头（header）中，平台ID（application id）字段应该包含0x47503130（ASCII转码后为“GP10”）来表明文件为GeoPackage 1.0版本。{req2_foot1}
+
+GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储体积为4GB。
 
 ====== File Extension Name
 
