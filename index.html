@@ -115,29 +115,29 @@ Document language: 	English<br></p>
 <ul class="sectlevel3">
 <li><a href="#_sqlite">1.1.1. SQLite 容器</a></li>
 <li><a href="#spatial_ref_sys">1.1.2. 空间参考系统</a></li>
-<li><a href="#__13">1.1.3. 内容</a></li>
+<li><a href="#__15">1.1.3. 内容</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#__17">2. 选项</a></li>
+<li><a href="#__19">2. 选项</a></li>
 <li>
 <ul class="sectlevel2">
 <li><a href="#features">2.1. 要素</a></li>
 <li>
 <ul class="sectlevel3">
 <li><a href="#sfsql_intro">2.1.1. SQL 简单要素介绍</a></li>
-<li><a href="#__18">2.1.2. 内容</a></li>
+<li><a href="#__20">2.1.2. 内容</a></li>
 <li><a href="#gpb_format">2.1.3. 几何编码</a></li>
 <li><a href="#sql_geometry_types">2.1.4. SQL几何类型</a></li>
-<li><a href="#__24">2.1.5. 几何要素列</a></li>
+<li><a href="#__26">2.1.5. 几何要素列</a></li>
 <li><a href="#feature_user_tables">2.1.6. 矢量要素用户数据表</a></li>
 </ul>
 </li>
 <li><a href="#tiles">2.2. 瓦片</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__30">2.2.1. 瓦片矩阵介绍</a></li>
+<li><a href="#__32">2.2.1. 瓦片矩阵介绍</a></li>
 <li><a href="#_contents">2.2.2. Contents</a></li>
 <li><a href="#zoom_levels">2.2.3. Zoom Levels</a></li>
 <li><a href="#tile_enc_png">2.2.4. Tile Encoding PNG</a></li>
@@ -360,7 +360,7 @@ GeoPackage可能包含几何要素的空间索引，以及用于维护索引、�
 <div id="_requirement-1" class="quoteblock">
 <div class="title">Requirement 1</div>
 <blockquote>
-一个GeoPackage应该是一个http://www.sqlite.org/[SQLite] <a href="#5">[5]</a>数据库文件，该数据库文件应使用http://sqlite.org/fileformat2.html[3.x版本的SQLite文件格式] <a href="#6">[6]</a> <a href="#7">[7]</a>。
+一个GeoPackage应该是一个 <a href="http://www.sqlite.org/">SQLite</a> <a href="#5">[5]</a>数据库文件，该数据库文件应使用 <a href="http://sqlite.org/fileformat2.html">3.x版本的SQLite文件格式</a> <a href="#6">[6]</a> <a href="#7">[7]</a>。
 GeoPackage文件用ASCII格式 <a href="#B4">[B4]</a>打开的前16个字节应该包含“SQLite format 3” <span class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</span> 字符串。 <span class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</span>
 </blockquote>
 </div>
@@ -371,44 +371,41 @@ GeoPackage的SQLite数据库头（header）中，平台ID（application id）字
 </blockquote>
 </div>
 <div class="paragraph">
-<p>GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储体积为4GB。</p>
+<p>GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储空间为4GB。</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_file_extension_name">1.1.1.1.2. File Extension Name</h6>
+<h6 id="__10">1.1.1.1.2. 文件扩展名</h6>
 <div id="_requirement-3" class="quoteblock">
 <div class="title">Requirement 3</div>
 <blockquote>
-geopackage应当有文件扩展名“*.gpkg”。
+GeoPackage文件的扩展名为“*.gpkg”。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>推荐扩展geopackages 使用文件扩展名”*.gpkx”，但这不是geopackage规范要求。</p>
+<p>推荐扩展的GeoPackage文件使用扩展名“*.gpkx”，但GeoPackage规范并不做规定。</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="__10">1.1.1.1.3. 文件内容</h6>
+<h6 id="__11">1.1.1.1.3. 文件内容</h6>
 <div id="_requirement-4" class="quoteblock">
 <div class="title">Requirement 4</div>
 <blockquote>
-A GeoPackage SHALL only contain data elements, SQL constructs and GeoPackage extensions with the “gpkg” author name specified in this encoding standard.
-geopackage应只包含数据元素，SQL构造和带有“.gpkg”的GeoPackage扩展。使用这种编码标准指定作者的名字。
+GeoPackage文件应该只包含数据要素、SQL元素、以及GeoPackage扩展，按照本标准要求，GeoPackage扩展应该带有“gpkg”作者名字。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>In order to guarantee maximum interoperability between applications, GeoPackages SHALL NOT contain data elements (tables or columns), SQL constructs (data types, indexes, constraints or triggers) or extensions that are not specified in this encoding standard.
-SQLite databases that use constructs from the GeoPackage specification but extend that to contain any of these elements are referred to as Extended GeoPackages throughout this specification.
-为了保证应用程序之间最大的互操作性，geopackages应该不包含数据元素（表或列），SQL结构（数据类型，索引，约束或触发器）或者未使用此编码标准指定的扩展。SQLite数据库使用由geopackage规范指定但是可扩展的结构，扩展后包含任何元素被称为扩展geopackages使用整个规范。</p>
+<p>为了保证应用程序之间最大的互操作性，GeoPackage文件不应包含本标准之外的数据要素（表或列）、SQL元素（数据类型，索引，约束或触发器）、以及扩展。
+本规范中的扩展GeoPackage文件（Extended GeoPackages）是指SQLite数据库不仅使用了GeoPackage规范中规定的基本元素，还对这些元素进行了扩展。</p>
 </div>
 <div id="_requirement-5" class="quoteblock">
 <div class="title">Requirement 5</div>
 <blockquote>
-The columns of tables in a GeoPackage SHALL only be declared using one of the data types specified in table <a href="#table_column_data_types">GeoPackage Data Types</a>.
-geopackage表列应仅使用在表1中指定的数据类型进行申明
+GeoPackage数据表中的列仅可以使用<a href="#table_column_data_types">GeoPackage 数据类型</a>中规定的数据类型进行声明。
 </blockquote>
 </div>
 <table id="table_column_data_types" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 1. GeoPackage Data Types</caption>
+<caption class="title">Table 1. GeoPackage 数据类型</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;"> 
@@ -422,71 +419,68 @@ geopackage表列应仅使用在表1中指定的数据类型进行申明
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A boolean value representing true or false. Stored as SQLite INTEGER with value 0 for false or 1 for true .布尔逻辑的值是true或false
-存储为SQLite的整数，值0代表false，1代表true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示true，1标识false</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TINYINT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit signed two&#8217;s complement integer. Stored as SQLite INTEGER with values in the range [-128, 127] 8位带符号二进制整形补码
-存储为SQLite的整数，值的范围是[-128, 127]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-128, 127]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SMALLINT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit signed two&#8217;s complement integer. Stored as SQLite INTEGER with values in the range [-32768, 32767] 16位有符号二进制补码整数
-存储为SQLite的整数，值的范围是[-32768，32767]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-32768, 32767]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUMINT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit signed two&#8217;s complement integer. Stored as SQLite INTEGER with values in the range [-2147483648, 2147483647].32位有符号二进制补码整数.存储为SQLite的整数，值的范围是[-2147483648, 2147483647]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-2147483648, 2147483647]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INT, INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit signed two&#8217;s complement integer. Stored as SQLite INTEGER with values in the range [-9223372036854775808, 9223372036854775807].64位有符号二进制补码整数.存储为SQLite的整数，值的范围是[-9223372036854775808, 9223372036854775807]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-9223372036854775808, 9223372036854775807]</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit IEEE floating point number. Stored as SQLite REAL limited to values that can be represented as a 4-byte IEEE floating point number.32位IEEE 浮点数.存储为SQLite的实限值可以被表示为一个4字节的IEEE浮点数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IEEE 32位浮点数。在SQLite中存储为REAL类型，取值需要能被4个字节的IEEE浮点数表示</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE, REAL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit IEEE floating point number. Stored as SQLite REAL.64位IEEE 浮点数.存储为SQLite的实际值</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IEEE 64位浮点数。在SQLite中存储为REAL类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT{(maxchar_count)}</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Variable length string encoded in either UTF-8 or UTF-16, determined by PRAGMA encoding; see <a href="http://www.sqlite.org/pragma.html#pragma_encoding">http://www.sqlite.org/pragma.html#pragma_encoding</a>. The optional maxchar_count defines the maximum number of characters in the string. If not specified, the length is unbounded. The count is provided for informational purposes, and applications MAY choose to truncate longer strings if encountered. When present, it is best practice for applications to adhere to the character count. Stored as SQLite TEXT.由PRAGMA编码决定是使用UTF-8还是UTF-16编码长度可变的字符串;可参考http://www.sqlite.org/pragma.html#pragma_encoding  .可选参数maxchar_count定义了字符串中最大字符数目。如果未指定，则长度是无限的。计数是为了提供信息，还有当遇到问题时，在应用中可以选择截断更长的字符串。如果指定，它是坚持字数统计的最佳实际应用。存储为文本的SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UTF-8或UTF-16编码的变长字符串，编码类型取决于PRAGMA encoding指令（参见：http://www.sqlite.org/pragma.html#pragma_encoding）。maxchar_count是可选的，它限定了字符串长度。如果未指定，则字符串长度是无限的。限制字符串长度是为了更好的表达信息，当字符串过长时，应用程序可能会把字符串截断。定义maxchar_count使应用程序能够根据字符串长度上限进行最佳处理。在SQLite中存储为TEXT类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BLOB{(max_size)}</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Variable length binary data. The optional max_size defines the maximum number of bytes in the blob. If not specified, the length is unbounded. The size is provided for informational purposes. When present, it is best practice for applications adhere to the maximum blob size. Stored as SQLite BLOB.长度可变的二进制数据。  可选的max_size在blob中定义了最大字节数。如果未指定，则长度是无限的。大小提供了信息参考。如果指定，它是符合最大BLOB大小的最佳实际应用。存储为SQLite的BLOB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">变长的二进制数据。max_size是可选的，它限定了数据的二进制长度。如果未指定，则长度是无限的。数据大小提供了信息参考。定义max_size使应用程序能够根据数据大小上限进行最佳处理。在SQLite中存储为BLOB类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;geometry_type_name&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Geometry encoded as per clause <a href="#_geometry_encoding">Geometry Encoding</a>. &lt;geometry type_name&gt; is one of the geometry types listed in <a href="#geometry_types">Geometry Types (Normative)</a> encoded per clause 2.1.3 or a user-defined geometry type encoded per clause 3.1.2 and <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a>. Geometry Types XY, XYZ, XYM and XYZM geometries use the same data type. Stored as SQLite BLOB.&lt;geometry type_name&gt;是一种几何类型，在附录E中列出，每个句子都经过了编码。 2.1.3或3.1.2条和附录K中用户自定义的每个句子经过编码的几何数据类型。几何类型XY，XYZ，XYM和XYZM的几何要素使用的是相同数据类型。存储为BLOB的SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">几何对象（Geometry）根据<a href="#_geometry_encoding">Geometry Encoding</a> 进行编码。 &lt;geometry type_name&gt; 是符合2.1.3条款的<a href="#geometry_types">Geometry Types (Normative)</a>所列的其中一个几何类型，或是符合3.1.2条款和 <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DATE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ISO-8601 date string in the form YYYY-MM-DD encoded in either UTF-8 or UTF-16. See TEXT. Stored as SQLite TEXT.以YYYY-MM-DD这种形式存在的，ISO-8601日期字符串，用UTF-8或UTF-16方式进行编码。请参见正文。 存储为文本的SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ISO-8601标准的日期字符串，字符串格式为YYYY-MM-DD，使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DATETIME</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ISO-8601 date/time string in the form YYYY-MM-DDTHH:MM:SS.SSSZ with T separator character and Z suffix for coordinated universal time (UTC) encoded in either UTF-8 or UTF-16. See TEXT. Stored as SQLite TEXT.以YYYY-MM-DDTHH：MM：SS.SSSZ形式存的，ISO-8601日期/时间字符串，以T分隔符和Z后缀，使用UTF-8或UTF-16编码协调世界时(UTC)。请参见正文。存储为文本的SQLite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ISO-8601标准的日期/时间字符串，字符串格式为YYYY-MM-DDTHH：MM：SS.SSSZ，T用作分隔符，后缀Z表示DATETIME为协调世界时（UTC）,字符串使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型</p></td>
 </tr>
 </tbody>
 </table>
 
 </div>
 <div class="sect5">
-<h6 id="_file_integrity">1.1.1.1.4. File Integrity文件完整</h6>
+<h6 id="__12">1.1.1.1.4. 文件完整性</h6>
 <div id="_requirement-6" class="quoteblock">
 <div class="title">Requirement 6</div>
 <blockquote>
-The SQLite PRAGMA integrity_check SQL command SHALL return “ok” for a GeoPackage file.使用SQLite语法中的integrity_check SQL命令，将为GeoPackage返回“OK”。
+对GeoPackage文件中运行SQLite的PRAGMA integrity_check命令，应该返回“ok”。
 </blockquote>
 </div>
 <div id="_requirement-7" class="quoteblock">
 <div class="title">Requirement 7</div>
 <blockquote>
-The SQLite PRAGMA foreign_key_check SQL with no parameter value SHALL return an empty result set indicating no invalid foreign key values for a GeoPackage file.使用SQLite语法中不带参数值的foreign_key_check SQL命令，将返回一个空的结果集，表示geopackage没有无效的外键值。
+对GeoPackage文件中运行SQLite的PRAGMA foreign_key_check命令，不传参数时应该返回空的结果集，表示该GeoPackage文件的所有外键（foreign key）都有效。
 </blockquote>
 </div>
 </div>
@@ -494,28 +488,29 @@ The SQLite PRAGMA foreign_key_check SQL with no parameter value SHALL return an 
 <div class="sect4">
 <h5 id="_api">1.1.1.2. API</h5>
 <div class="sect5">
-<h6 id="api_sql">1.1.1.2.1. Structured Query Language (SQL)结构化查询语言（SQL）</h6>
+<h6 id="api_sql">1.1.1.2.1. 结构化查询语言（SQL）</h6>
 <div id="_requirement-8" class="quoteblock">
 <div class="title">Requirement 8</div>
 <blockquote>
-A GeoPackage SQLite Configuration SHALL provide SQL access to GeoPackage contents via <a href="http://www.sqlite.org/download.html">SQLite version 3</a> <a href="#6">[6]</a> software APIs.GeoPackage SQLite的配置应该提供通过SQLite3版本软件的API， 使SQL可访问GeoPackage的内容。 <span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span>
+A GeoPackage SQLite Configuration SHALL provide SQL access to GeoPackage contents via <a href="http://www.sqlite.org/download.html">SQLite version 3</a> <a href="#6">[6]</a> software APIs.
+GeoPackage的SQLite配置应该通过 <a href="http://www.sqlite.org/download.html">SQLite 3.x版本</a> <a href="#6">[6]</a> 的软件API，提供对GeoPackage内容的SQL访问方式。<span class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</span>
 </blockquote>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_every_gpkg_sqlite_configuration_geopackage_sqlite">1.1.1.2.2. Every GPKG SQLite Configuration Geopackage SQLite 的配置</h6>
+<h6 id="__gpkg_sqlite">1.1.1.2.2. 每个GPKG的SQLite配置</h6>
 <div class="paragraph">
-<p>The <a href="http://www.sqlite.org/download.html">SQLite</a> <a href="#8">[8]</a> library has many <a href="http://www.sqlite.org/compile.html">compile time</a> and <a href="http://www.sqlite.org/pragma.html">run time</a> options that MAY be used to configure SQLite for different uses. Certain elements of the GeoPackage specification depend on the availability of SQLite functionality at runtime. This clause specifies the set of compile- and runtime options that SHALL or SHALL NOT be used.
-SQLite软件有许多编译和运行时的选项，可用于针对不同用途配置SQLite 。该GeoPackage规范的某些内容依赖于SQLite在运行时功能的可用性。这个子句指定了应该或是不应该被使用的一系列编译和运行时选项。</p>
+<p><a href="http://www.sqlite.org/download.html">SQLite</a> <a href="#8">[8]</a> 库有许多 <a href="http://www.sqlite.org/compile.html">编译</a> 和 <a href="http://www.sqlite.org/pragma.html">运行</a> 时参数，在针对不同用途配置SQLite时可能被使用。
+GeoPackage规范中的元素在运行时依赖于SQLite功能的可用性，本条款规定了编译和运行时，哪些参数可以使用，哪些参数不允许使用。</p>
 </div>
 <div id="_requirement-9" class="quoteblock">
 <div class="title">Requirement 9</div>
 <blockquote>
-Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and run time options specified in table <a href="#every_gpkg_sqlite_config_table">Every GeoPackage SQLite Configuration GeoPackage SQLite 配置</a>.每个geopackage SQLite配置应该有在第1.1.1.2.2Table2中指定的SQLite软件运行和编译时的选项。
+每个GeoPackge的SQLite配置都应该符合<a href="#every_gpkg_sqlite_config_table">每个GeoPackage的SQLite配置</a>中指定的SQLite编译和运行时参数说明。
 </blockquote>
 </div>
 <table id="every_gpkg_sqlite_config_table" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 2. Every GeoPackage SQLite Configuration GeoPackage SQLite 配置</caption>
+<caption class="title">Table 2. 每个GeoPackage的SQLite配置</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -525,8 +520,8 @@ Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and 
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Setting</th>
-<th class="tableblock halign-left valign-top">Option</th>
-<th class="tableblock halign-left valign-top">Shall / Not</th>
+<th class="tableblock halign-left valign-top">参数</th>
+<th class="tableblock halign-left valign-top">应该 / 不应该</th>
 <th class="tableblock halign-left valign-top">Discussion</th>
 </tr>
 </thead>
@@ -534,14 +529,14 @@ Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">compile</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SQLITE_OMIT_*</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">SHALL NOT include any OMIT options from <a href="http://www.sqlite.org/compile.html#omitfeatures">http://www.sqlite.org/compile.html#omitfeatures</a>. 不应该包括任何OMIT选项，来源于http://www.sqlite.org/compile.html#omitfeatures.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不应该</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不应该包括任何 <a href="http://www.sqlite.org/compile.html#omitfeatures">http://www.sqlite.org/compile.html#omitfeatures</a> 中的OMIT参数</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">run</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PRAGMA foreign_keys</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Not (OFF)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Foreign key constraints are used to maintain GeoPackage referential integrity.外键约束用来维持GeoPackage关系的完整性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不应该 (关闭)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">外键约束用来维持GeoPackage引用的完整性</p></td>
 </tr>
 </tbody>
 </table>
@@ -552,7 +547,7 @@ Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and 
 <div class="sect3">
 <h4 id="spatial_ref_sys">1.1.2. 空间参考系统</h4>
 <div class="sect4">
-<h5 id="__11">1.1.2.1. 数据</h5>
+<h5 id="__13">1.1.2.1. 数据</h5>
 <div class="sect5">
 <h6 id="spatial_ref_sys_data_table_definition">1.1.2.1.1. 表的定义</h6>
 <div id="_requirement-10" class="quoteblock">
@@ -640,7 +635,7 @@ Views of this table MAY be used to provide compatibility with the <a href="http:
 </div>
 </div>
 <div class="sect5">
-<h6 id="__12">1.1.2.1.2. 表中数据值</h6>
+<h6 id="__14">1.1.2.1.2. 表中数据值</h6>
 <div class="paragraph">
 <p>Definition column WKT values in the gpkg_spatial_ref_sys table SHALL define the Spatial Reference Systems used by feature geometries and tile images, unless these SRS are unknown and therefore undefined as specified in <a href="#_requirement-11">Requirement 11</a>. Values SHALL be constructed per the EBNF syntax in <a href="#32">[32]</a> clause 7. Values SHALL include optional &lt;authority&gt; EBNF entities. Values for SRS other than WGS-84 SHOULD include optional &lt;to wgs84&gt; EBNF entities. Values MAY omit optional &lt;to wgs84&gt; and &lt;twin axes&gt; EBNF entities. EBNF name and number values MAY be obtained from any specified &lt;authority&gt;, e.g. <a href="#13">[13]</a><a href="#14">[14]</a>. For example, see the return value in <a href="#spatial_ref_sys_data_values_default">[spatial_ref_sys_data_values_default]</a> Test Method step (3) used to test the definition for WGS-84 per <a href="#_requirement-11">Requirement 11</a>:
 在gpkg_spatial_ref_sys表中定义的WKT列值，将定义使用了集合要素和图片的空间参考系统。除非这些SRS是未知的，因此不需要在要求11中指定。值应该按第7条款中的EBNF语法构建。值应包括可选的&lt;局&gt; EBNF实体。SRS除了WGS-84外，应包括可选的&lt; WGS84 &gt; EBNF实体值。值可以忽略可选的&lt; WGS84 &gt;和&lt; &lt; WGS84双轴&gt; EBNF实体。EBNF的名字和号码的值可以从任何指定的&lt;局&gt;获得。例如，看到A.1.1.2.1.2试验方法步骤的返回值，用于测试每个请求11 的WGS-84坐标定义。</p>
@@ -662,11 +657,11 @@ The <code>gpkg_spatial_ref_sys</code> table in a GeoPackage SHALL contain record
 </div>
 </div>
 <div class="sect3">
-<h4 id="__13">1.1.3. 内容</h4>
+<h4 id="__15">1.1.3. 内容</h4>
 <div class="sect4">
-<h5 id="__14">1.1.3.1. 数据</h5>
+<h5 id="__16">1.1.3.1. 数据</h5>
 <div class="sect5">
-<h6 id="__15">1.1.3.1.1. 表定义</h6>
+<h6 id="__17">1.1.3.1.1. 表定义</h6>
 <div id="_requirement-13" class="quoteblock">
 <div class="title">Requirement 13</div>
 <blockquote>
@@ -792,7 +787,7 @@ gpkg_contents_table表的目的是按geopackage规范以列表的方式提供所
 </div>
 </div>
 <div class="sect5">
-<h6 id="__16">1.1.3.1.2. 表中数据值</h6>
+<h6 id="__18">1.1.3.1.2. 表中数据值</h6>
 <div id="_requirement-14" class="quoteblock">
 <div class="title">Requirement 14</div>
 <blockquote>
@@ -821,7 +816,7 @@ gpkg_contents表的srs_id列的值应该参考gpkg_spatial_ref_sys表的srs_id�
 </div>
 </div>
 <div class="sect1">
-<h2 id="__17">2. 选项</h2>
+<h2 id="__19">2. 选项</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The optional capabilities specified in this clause depend on the required capabilities specified in clause <a href="#_base">Base</a> above. 在本条款中指定的可选功能取决于上面章节<a href="#_base">Base</a> ，指定的需要的功能。
@@ -880,11 +875,11 @@ This does not affect their representation, and open version of the same classes 
 </div>
 </div>
 <div class="sect3">
-<h4 id="__18">2.1.2. 内容</h4>
+<h4 id="__20">2.1.2. 内容</h4>
 <div class="sect4">
-<h5 id="__19">2.1.2.1. 数据</h5>
+<h5 id="__21">2.1.2.1. 数据</h5>
 <div class="sect5">
-<h6 id="__20">2.1.2.1.1. 表内容 – 要素行</h6>
+<h6 id="__22">2.1.2.1.1. 表内容 – 要素行</h6>
 <div id="_requirement-18" class="quoteblock">
 <div class="title">Requirement 18</div>
 <blockquote>
@@ -897,7 +892,7 @@ The <code>gpkg_contents</code> table SHALL contain a row with a lowercase <code>
 <div class="sect3">
 <h4 id="gpb_format">2.1.3. 几何编码</h4>
 <div class="sect4">
-<h5 id="__21">2.1.3.1. 数据</h5>
+<h5 id="__23">2.1.3.1. 数据</h5>
 <div class="sect5">
 <h6 id="gpb_data_blob_format">2.1.3.1.1. BLOB 格式</h6>
 <div id="_requirement-19" class="quoteblock">
@@ -1084,9 +1079,9 @@ GeoPackages SHALL use big endian 0x7ff8000000000000 or little endian 0x000000000
 <div class="sect3">
 <h4 id="sql_geometry_types">2.1.4. SQL几何类型</h4>
 <div class="sect4">
-<h5 id="__22">2.1.4.1. 数据</h5>
+<h5 id="__24">2.1.4.1. 数据</h5>
 <div class="sect5">
-<h6 id="__23">2.1.4.1.1. 核心类型</h6>
+<h6 id="__25">2.1.4.1.1. 核心类型</h6>
 <div id="_requirement-20" class="quoteblock">
 <div class="title">Requirement 20</div>
 <blockquote>
@@ -1098,11 +1093,11 @@ A GeoPackage SHALL store feature table geometries with the basic simple feature 
 </div>
 </div>
 <div class="sect3">
-<h4 id="__24">2.1.5. 几何要素列</h4>
+<h4 id="__26">2.1.5. 几何要素列</h4>
 <div class="sect4">
-<h5 id="__25">2.1.5.1. 数据</h5>
+<h5 id="__27">2.1.5.1. 数据</h5>
 <div class="sect5">
-<h6 id="__26">2.1.5.1.1. 表定义</h6>
+<h6 id="__28">2.1.5.1.1. 表定义</h6>
 <div id="_requirement-21" class="quoteblock">
 <div class="title">Requirement 21</div>
 <blockquote>
@@ -1184,7 +1179,7 @@ identifies the geometry columns in tables that contain user data representing fe
 </div>
 </div>
 <div class="sect5">
-<h6 id="__27">2.1.5.1.2. 表数据值</h6>
+<h6 id="__29">2.1.5.1.2. 表数据值</h6>
 <div id="_requirement-22" class="quoteblock">
 <div class="title">Requirement 22</div>
 <blockquote>
@@ -1237,7 +1232,7 @@ The m value in a <code>gpkg_geometry_columns</code> table row SHALL be one of 0,
 <div class="sect3">
 <h4 id="feature_user_tables">2.1.6. 矢量要素用户数据表</h4>
 <div class="sect4">
-<h5 id="__28">2.1.6.1. 数据</h5>
+<h5 id="__30">2.1.6.1. 数据</h5>
 <div class="paragraph">
 <p>======表定义</p>
 </div>
@@ -1347,7 +1342,7 @@ A feature table SHALL have only one geometry column.
 <p>See <a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a>.</p>
 </div>
 <div class="sect5">
-<h6 id="__29">2.1.6.1.1. 表数据值</h6>
+<h6 id="__31">2.1.6.1.1. 表数据值</h6>
 <div class="paragraph">
 <p>A feature geometry is stored in a geometry column specified by the lowercase <code>geometry_column</code> value for the feature table in the <code>gpkg_geometry_columns</code> table defined in clause <a href="#_geometry_columns">Geometry Columns</a> above.
 几何要素以列的形式存储，这个列被上面<a href="#_geometry_columns">Geometry Columns</a> 条款中定义的<code>gpkg_geometry_columns</code>表中的值为小写的<code>geometry_column</code>列限定。</p>
@@ -1392,7 +1387,7 @@ Feature table geometry columns SHALL contain geometries with the <code>srs_id</c
 <div class="sect2">
 <h3 id="tiles">2.2. 瓦片</h3>
 <div class="sect3">
-<h4 id="__30">2.2.1. 瓦片矩阵介绍</h4>
+<h4 id="__32">2.2.1. 瓦片矩阵介绍</h4>
 <div class="paragraph">
 <p>There are a wide variety of commercial and open source conventions for storing, indexing, accessing and describing tiles in tile pyramids. Unfortunately, no applicable existing consensus, national or international specifications have standardized practices in this domain. In addition, various image file formats have different representational capabilities, and include different self-descriptive metadata.
 有各种各样用于存储，索引，访问和描述金字塔的商业和开源规则。不幸的是，在这个领域，还没有符合现行共识，国家或国际规范的标准实例。此外，不同的图像文件格式有不同的表示能力，包括不同的自我描述性元数据。</p>
