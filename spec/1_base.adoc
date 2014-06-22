@@ -28,90 +28,85 @@ SQLite软件库提供了一个自包含的、单文件、跨平台的、服务�
 
 
 [requirement]
-一个GeoPackage应该是一个http://www.sqlite.org/[SQLite] <<5>>数据库文件，该数据库文件应使用http://sqlite.org/fileformat2.html[3.x版本的SQLite文件格式] <<6>> <<7>>。
+一个GeoPackage应该是一个 http://www.sqlite.org/[SQLite] <<5>>数据库文件，该数据库文件应使用 http://sqlite.org/fileformat2.html[3.x版本的SQLite文件格式] <<6>> <<7>>。
 GeoPackage文件用ASCII格式 <<B4>>打开的前16个字节应该包含“SQLite format 3” {req1_foot1} 字符串。 {req1_foot2}
 
 [requirement]
 GeoPackage的SQLite数据库头（header）中，平台ID（application id）字段应该包含0x47503130（ASCII转码后为“GP10”）来表明文件为GeoPackage 1.0版本。{req2_foot1}
 
-GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储体积为4GB。
+GeoPackage的最大存储空间约为140TB。在实际应用写文件的时候，因受到文件系统的影响，存储空间可能更小。很多移动设备的外部存储卡需要使用FAT32格式化，而FAT32文件系统也限制了GeoPackage单个文件的最大存储空间为4GB。
 
-====== File Extension Name
+====== 文件扩展名
 
 [requirement]
-geopackage应当有文件扩展名“*.gpkg”。
+GeoPackage文件的扩展名为“*.gpkg”。
 
-推荐扩展geopackages 使用文件扩展名”*.gpkx”，但这不是geopackage规范要求。
+推荐扩展的GeoPackage文件使用扩展名“*.gpkx”，但GeoPackage规范并不做规定。
 
 ====== 文件内容
 
 [requirement]
-A GeoPackage SHALL only contain data elements, SQL constructs and GeoPackage extensions with the “gpkg” author name specified in this encoding standard.
-geopackage应只包含数据元素，SQL构造和带有“.gpkg”的GeoPackage扩展。使用这种编码标准指定作者的名字。
+GeoPackage文件应该只包含数据要素、SQL元素、以及GeoPackage扩展，按照本标准要求，GeoPackage扩展应该带有“gpkg”作者名字。
 
-In order to guarantee maximum interoperability between applications, GeoPackages SHALL NOT contain data elements (tables or columns), SQL constructs (data types, indexes, constraints or triggers) or extensions that are not specified in this encoding standard.
-SQLite databases that use constructs from the GeoPackage specification but extend that to contain any of these elements are referred to as Extended GeoPackages throughout this specification.
-为了保证应用程序之间最大的互操作性，geopackages应该不包含数据元素（表或列），SQL结构（数据类型，索引，约束或触发器）或者未使用此编码标准指定的扩展。SQLite数据库使用由geopackage规范指定但是可扩展的结构，扩展后包含任何元素被称为扩展geopackages使用整个规范。
+为了保证应用程序之间最大的互操作性，GeoPackage文件不应包含本标准之外的数据要素（表或列）、SQL元素（数据类型，索引，约束或触发器）、以及扩展。
+本规范中的扩展GeoPackage文件（Extended GeoPackages）是指SQLite数据库不仅使用了GeoPackage规范中规定的基本元素，还对这些元素进行了扩展。
 
 [requirement]
-The columns of tables in a GeoPackage SHALL only be declared using one of the data types specified in table <<table_column_data_types>>.
-geopackage表列应仅使用在表1中指定的数据类型进行申明
+GeoPackage数据表中的列仅可以使用<<table_column_data_types>>中规定的数据类型进行声明。
 
 [[table_column_data_types]]
-.GeoPackage Data Types
+.GeoPackage 数据类型
 [cols=",,,,,",options="header"]
 |=======================================================================
 |数据类型             | 大小与说明
-|BOOLEAN              | A boolean value representing true or false. Stored as SQLite INTEGER with value 0 for false or 1 for true .布尔逻辑的值是true或false 
-存储为SQLite的整数，值0代表false，1代表true
-|TINYINT              | 8-bit signed two's complement integer. Stored as SQLite INTEGER with values in the range [-128, 127] 8位带符号二进制整形补码
-存储为SQLite的整数，值的范围是[-128, 127] 
-|SMALLINT             | 16-bit signed two's complement integer. Stored as SQLite INTEGER with values in the range [-32768, 32767] 16位有符号二进制补码整数 
-存储为SQLite的整数，值的范围是[-32768，32767]
-|MEDIUMINT            | 32-bit signed two's complement integer. Stored as SQLite INTEGER with values in the range [-2147483648, 2147483647].32位有符号二进制补码整数.存储为SQLite的整数，值的范围是[-2147483648, 2147483647] 
-|INT, INTEGER         | 64-bit signed two's complement integer. Stored as SQLite INTEGER with values in the range [-9223372036854775808, 9223372036854775807].64位有符号二进制补码整数.存储为SQLite的整数，值的范围是[-9223372036854775808, 9223372036854775807] 
-|FLOAT                | 32-bit IEEE floating point number. Stored as SQLite REAL limited to values that can be represented as a 4-byte IEEE floating point number.32位IEEE 浮点数.存储为SQLite的实限值可以被表示为一个4字节的IEEE浮点数
-|DOUBLE, REAL         | 64-bit IEEE floating point number. Stored as SQLite REAL.64位IEEE 浮点数.存储为SQLite的实际值
-|TEXT{(maxchar_count)}| Variable length string encoded in either UTF-8 or UTF-16, determined by PRAGMA encoding; see http://www.sqlite.org/pragma.html#pragma_encoding. The optional maxchar_count defines the maximum number of characters in the string. If not specified, the length is unbounded. The count is provided for informational purposes, and applications MAY choose to truncate longer strings if encountered. When present, it is best practice for applications to adhere to the character count. Stored as SQLite TEXT.由PRAGMA编码决定是使用UTF-8还是UTF-16编码长度可变的字符串;可参考http://www.sqlite.org/pragma.html#pragma_encoding  .可选参数maxchar_count定义了字符串中最大字符数目。如果未指定，则长度是无限的。计数是为了提供信息，还有当遇到问题时，在应用中可以选择截断更长的字符串。如果指定，它是坚持字数统计的最佳实际应用。存储为文本的SQLite
-|BLOB{(max_size)}     | Variable length binary data. The optional max_size defines the maximum number of bytes in the blob. If not specified, the length is unbounded. The size is provided for informational purposes. When present, it is best practice for applications adhere to the maximum blob size. Stored as SQLite BLOB.长度可变的二进制数据。  可选的max_size在blob中定义了最大字节数。如果未指定，则长度是无限的。大小提供了信息参考。如果指定，它是符合最大BLOB大小的最佳实际应用。存储为SQLite的BLOB 
-|<geometry_type_name> | Geometry encoded as per clause <<_geometry_encoding>>. <geometry type_name> is one of the geometry types listed in <<geometry_types>> encoded per clause 2.1.3 or a user-defined geometry type encoded per clause 3.1.2 and <<extension_geometry_encoding>>. Geometry Types XY, XYZ, XYM and XYZM geometries use the same data type. Stored as SQLite BLOB.<geometry type_name>是一种几何类型，在附录E中列出，每个句子都经过了编码。 2.1.3或3.1.2条和附录K中用户自定义的每个句子经过编码的几何数据类型。几何类型XY，XYZ，XYM和XYZM的几何要素使用的是相同数据类型。存储为BLOB的SQLite
-|DATE                 | ISO-8601 date string in the form YYYY-MM-DD encoded in either UTF-8 or UTF-16. See TEXT. Stored as SQLite TEXT.以YYYY-MM-DD这种形式存在的，ISO-8601日期字符串，用UTF-8或UTF-16方式进行编码。请参见正文。 存储为文本的SQLite
-|DATETIME             | ISO-8601 date/time string in the form YYYY-MM-DDTHH:MM:SS.SSSZ with T separator character and Z suffix for coordinated universal time (UTC) encoded in either UTF-8 or UTF-16. See TEXT. Stored as SQLite TEXT.以YYYY-MM-DDTHH：MM：SS.SSSZ形式存的，ISO-8601日期/时间字符串，以T分隔符和Z后缀，使用UTF-8或UTF-16编码协调世界时(UTC)。请参见正文。存储为文本的SQLite
+|BOOLEAN              | 标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示true，1标识false
+|TINYINT              | 8位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-128, 127]
+|SMALLINT             | 16位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-32768, 32767]
+|MEDIUMINT            | 32位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-2147483648, 2147483647] 
+|INT, INTEGER         | 64位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-9223372036854775808, 9223372036854775807] 
+|FLOAT                | IEEE 32位浮点数。在SQLite中存储为REAL类型，取值需要能被4个字节的IEEE浮点数表示
+|DOUBLE, REAL         | IEEE 64位浮点数。在SQLite中存储为REAL类型
+|TEXT{(maxchar_count)}| UTF-8或UTF-16编码的变长字符串，编码类型取决于PRAGMA encoding指令（参见：http://www.sqlite.org/pragma.html#pragma_encoding）。maxchar_count是可选的，它限定了字符串长度。如果未指定，则字符串长度是无限的。限制字符串长度是为了更好的表达信息，当字符串过长时，应用程序可能会把字符串截断。定义maxchar_count使应用程序能够根据字符串长度上限进行最佳处理。在SQLite中存储为TEXT类型
+|BLOB{(max_size)}     |变长的二进制数据。max_size是可选的，它限定了数据的二进制长度。如果未指定，则长度是无限的。数据大小提供了信息参考。定义max_size使应用程序能够根据数据大小上限进行最佳处理。在SQLite中存储为BLOB类型
+|<geometry_type_name> | 几何对象（Geometry）根据<<_geometry_encoding>> 进行编码。 <geometry type_name> 是符合2.1.3条款的<<geometry_types>>所列的其中一个几何类型，或是符合3.1.2条款和 <<extension_geometry_encoding>>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型
+|DATE                 | ISO-8601标准的日期字符串，字符串格式为YYYY-MM-DD，使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型
+|DATETIME             | ISO-8601标准的日期/时间字符串，字符串格式为YYYY-MM-DDTHH：MM：SS.SSSZ，T用作分隔符，后缀Z表示DATETIME为协调世界时（UTC）,字符串使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型
 |=======================================================================
 
-====== File Integrity文件完整
+====== 文件完整性
 
 [requirement]
-The SQLite PRAGMA integrity_check SQL command SHALL return “ok” for a GeoPackage file.使用SQLite语法中的integrity_check SQL命令，将为GeoPackage返回“OK”。
+对GeoPackage文件中运行SQLite的PRAGMA integrity_check命令，应该返回“ok”。
 
 [requirement]
-The SQLite PRAGMA foreign_key_check SQL with no parameter value SHALL return an empty result set indicating no invalid foreign key values for a GeoPackage file.使用SQLite语法中不带参数值的foreign_key_check SQL命令，将返回一个空的结果集，表示geopackage没有无效的外键值。
+对GeoPackage文件中运行SQLite的PRAGMA foreign_key_check命令，不传参数时应该返回空的结果集，表示该GeoPackage文件的所有外键（foreign key）都有效。
 
 ===== API
 
 [[api_sql]]
-====== Structured Query Language (SQL)结构化查询语言（SQL）
+====== 结构化查询语言（SQL）
 
 :req4_foot1: footnote:[New applications should use the latest available SQLite version software <<8>>]
 
 [requirement]
-A GeoPackage SQLite Configuration SHALL provide SQL access to GeoPackage contents via http://www.sqlite.org/download.html[SQLite version 3] <<6>> software APIs.GeoPackage SQLite的配置应该提供通过SQLite3版本软件的API， 使SQL可访问GeoPackage的内容。 {req4_foot1}
+A GeoPackage SQLite Configuration SHALL provide SQL access to GeoPackage contents via http://www.sqlite.org/download.html[SQLite version 3] <<6>> software APIs.
+GeoPackage的SQLite配置应该通过 http://www.sqlite.org/download.html[SQLite 3.x版本] <<6>> 的软件API，提供对GeoPackage内容的SQL访问方式。{req4_foot1}
 
-====== Every GPKG SQLite Configuration Geopackage SQLite 的配置
+====== 每个GPKG的SQLite配置
 
-The http://www.sqlite.org/download.html[SQLite] <<8>> library has many http://www.sqlite.org/compile.html[compile time] and http://www.sqlite.org/pragma.html[run time] options that MAY be used to configure SQLite for different uses. Certain elements of the GeoPackage specification depend on the availability of SQLite functionality at runtime. This clause specifies the set of compile- and runtime options that SHALL or SHALL NOT be used.
-SQLite软件有许多编译和运行时的选项，可用于针对不同用途配置SQLite 。该GeoPackage规范的某些内容依赖于SQLite在运行时功能的可用性。这个子句指定了应该或是不应该被使用的一系列编译和运行时选项。
+http://www.sqlite.org/download.html[SQLite] <<8>> 库有许多 http://www.sqlite.org/compile.html[编译] 和 http://www.sqlite.org/pragma.html[运行] 时参数，在针对不同用途配置SQLite时可能被使用。
+GeoPackage规范中的元素在运行时依赖于SQLite功能的可用性，本条款规定了编译和运行时，哪些参数可以使用，哪些参数不允许使用。
 
 [requirement]
-Every GeoPackage SQLite Configuration SHALL have the SQLite library compile and run time options specified in table <<every_gpkg_sqlite_config_table>>.每个geopackage SQLite配置应该有在第1.1.1.2.2Table2中指定的SQLite软件运行和编译时的选项。
+每个GeoPackge的SQLite配置都应该符合<<every_gpkg_sqlite_config_table>>中指定的SQLite编译和运行时参数说明。
 
 [[every_gpkg_sqlite_config_table]]
-.Every GeoPackage SQLite Configuration GeoPackage SQLite 配置
+.每个GeoPackage的SQLite配置
 [cols=",,,",options="header",]
 |=======================================================================
-|Setting |Option |Shall / Not |Discussion
-|compile |SQLITE_OMIT_* |Not |SHALL NOT include any OMIT options from http://www.sqlite.org/compile.html#omitfeatures. 不应该包括任何OMIT选项，来源于http://www.sqlite.org/compile.html#omitfeatures.
-|run |PRAGMA foreign_keys |Not (OFF) |Foreign key constraints are used to maintain GeoPackage referential integrity.外键约束用来维持GeoPackage关系的完整性
+|Setting |参数 |应该 / 不应该 |Discussion
+|compile |SQLITE_OMIT_* |不应该 |不应该包括任何 http://www.sqlite.org/compile.html#omitfeatures 中的OMIT参数
+|run |PRAGMA foreign_keys |不应该 (关闭) |外键约束用来维持GeoPackage引用的完整性
 |=======================================================================
 
 [[spatial_ref_sys]]
