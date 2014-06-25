@@ -1603,7 +1603,7 @@ Values of the <code>gpkg_tile_matrix_set</code> <code>srs_id</code> column SHALL
 <div id="_requirement-41" class="quoteblock">
 <div class="title">Requirement 41</div>
 <blockquote>
-包含瓦片金字塔数据表的GeoPackage，应包含一个‘gpkg_tile_matrix’表或视图，‘gpkg_tile_matrix’表或视图要符合2.2.7.1.1 <a href="#tile_matrix_data_table_definition">表的定义</a>、表<a href="#gpkg_tile_matrix_cols">瓦片矩阵元数据表或视图的定义</a>以及表 <a href="#gpkg_tile_matrix_sql">gpkg_tile_matrix Table Creation SQL</a>的规定。
+包含瓦片金字塔数据表的GeoPackage，应包含一个<code>gpkg_tile_matrix</code>表或视图，<code>gpkg_tile_matrix</code>表或视图要符合2.2.7.1.1 <a href="#tile_matrix_data_table_definition">表的定义</a>、表<a href="#gpkg_tile_matrix_cols">瓦片矩阵元数据表或视图的定义</a>以及表 <a href="#gpkg_tile_matrix_sql">gpkg_tile_matrix Table Creation SQL</a>的规定。
 </blockquote>
 </div>
 <table id="gpkg_tile_matrix_cols" class="tableblock frame-all grid-all" style="width:100%; ">
@@ -1685,7 +1685,7 @@ Values of the <code>gpkg_tile_matrix_set</code> <code>srs_id</code> column SHALL
 </table>
 
 <div class="paragraph">
-<p><em>gpkg_tile_matrix</em>表或可更新的视图记录了每个tiles表中每个缩放级别下的tile matrix的结构。GeoPackage不仅允许包含正方形的瓦片，也允许包含长方形的瓦片（例如，为了更好的表达两极地区）。瓦片金字塔允许有这样的缩放级别：相邻级别分辨率相差2倍、相邻级别分辨率变化不规律、或者相邻级别分辨率变化虽然规律，但不是相差2倍。</p>
+<p><code>gpkg_tile_matrix</code>表或可更新的视图记录了每个tiles表中每个缩放级别下的tile matrix的结构。GeoPackage不仅允许包含正方形的瓦片，也允许包含长方形的瓦片（例如，为了更好的表达两极地区）。瓦片金字塔允许有这样的缩放级别：相邻级别分辨率相差2倍、相邻级别分辨率变化不规律、或者相邻级别分辨率变化虽然规律，但不是相差2倍。</p>
 </div>
 <div class="paragraph">
 <p>See <a href="#gpkg_tile_matrix_sql">gpkg_tile_matrix Table Creation SQL</a></p>
@@ -1696,17 +1696,17 @@ Values of the <code>gpkg_tile_matrix_set</code> <code>srs_id</code> column SHALL
 <div id="_requirement-42" class="quoteblock">
 <div class="title">Requirement 42</div>
 <blockquote>
-gpkg_tile_matrix表中的 table_name 列的值，应该与gpkg_contents表中，data_type值为“tiles”的行的table_name值一一对应。
+<code>gpkg_tile_matrix</code>表中的 <code>table_name</code> 列的值，应该与<code>gpkg_contents</code>表中，<code>data_type</code>值为“tiles”的行的table_name值一一对应。
 </blockquote>
 </div>
 <div id="_requirement-43" class="quoteblock">
 <div class="title">Requirement 43</div>
 <blockquote>
-gpkg_tile_matrix表或视图应该针对每一个缩放级别包含一行记录，该行记录对应的瓦片金字塔数据或视图应该包含一个或多个瓦片。
+<code>gpkg_tile_matrix</code>表或视图应该针对每一个缩放级别包含一行记录，该行记录对应的瓦片金字塔数据或视图应该包含一个或多个瓦片。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>在瓦片金字塔数据表中，缩放级别中没有瓦片时，gpkg_tile_matrix表或视图中也可以有对应的记录行。</p>
+<p>在瓦片金字塔数据表中，缩放级别中没有瓦片时，<code>gpkg_tile_matrix</code>表或视图中也可以有对应的记录行。</p>
 </div>
 <div class="paragraph">
 <p>GeoPackages 遵循最常用的惯例，如 <a href="http://portal.opengeospatial.org/files/?artifact_id=35326">WMTS</a> <a href="#16">[16]</a>所指定，瓦片的原点在左上，缩放到“whole world”级别 下对应的比例尺是最小比例尺，对应的缩放级别为 0 级 <span class="footnote">[<a id="_footnoteref_16" class="footnote" href="#_footnote_16" title="View footnote.">16</a>]</span>。
@@ -1715,55 +1715,55 @@ gpkg_tile_matrix表或视图应该针对每一个缩放级别包含一行记录�
 <div id="_requirement-44" class="quoteblock">
 <div class="title">Requirement 44</div>
 <blockquote>
-gpkg_tile_matrix表中zoom_level这一列的值不能为负值
+<code>gpkg_tile_matrix</code>表中<code>zoom_level</code>这一列的值不能为负值
 </blockquote>
 </div>
 <div id="_requirement-45" class="quoteblock">
 <div class="title">Requirement 45</div>
 <blockquote>
-gpkg_tile_matrix表中matrix_width这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>matrix_width</code>这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-46" class="quoteblock">
 <div class="title">Requirement 46</div>
 <blockquote>
-gpkg_tile_matrix表中matrix_height这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>matrix_height</code>这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-47" class="quoteblock">
 <div class="title">Requirement 47</div>
 <blockquote>
-gpkg_tile_matrix表中tile_width 这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>tile_width</code> 这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-48" class="quoteblock">
 <div class="title">Requirement 48</div>
 <blockquote>
-gpkg_tile_matrix表中tile_height 这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>tile_height</code> 这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-49" class="quoteblock">
 <div class="title">Requirement 49</div>
 <blockquote>
-gpkg_tile_matrix表中pixel_x_size这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>pixel_x_size</code>这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-50" class="quoteblock">
 <div class="title">Requirement 50</div>
 <blockquote>
-gpkg_tile_matrix表中pixel_ y _size这一列的值必须大于0
+<code>gpkg_tile_matrix</code>表中<code>pixel_ y _size</code>这一列的值必须大于0
 </blockquote>
 </div>
 <div id="_requirement-51" class="quoteblock">
 <div class="title">Requirement 51</div>
 <blockquote>
-gpkg_tile_matrix表中，当zoom_level列升序排列时，pixel_x_size 和 pixel_y_size列的值应该为降序排列。
+<code>gpkg_tile_matrix</code>表中，当<code>zoom_level</code>列升序排列时，<code>pixel_x_siz`e 和`pixel_y_size</code>列的值应该为降序排列。
 </blockquote>
 </div>
 <div class="paragraph">
 <p>0级别或者其它缩放级别可能有瓦片，也可能没有瓦片。 <span class="footnote">[<a id="_footnoteref_17" class="footnote" href="#_footnote_17" title="View footnote.">17</a>]</span>
-这意味着tile matrix set 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
-<span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span>这并不影响gpkg_contents表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响gpkg_tile_matrix_set表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span></p>
+这意味着<code>tile matrix set</code> 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
+<span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span>这并不影响<code>gpkg_contents</code>表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响<code>gpkg_tile_matrix_set</code>表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span></p>
 </div>
 </div>
 </div>
@@ -1777,7 +1777,7 @@ gpkg_tile_matrix表中，当zoom_level列升序排列时，pixel_x_size 和 pixe
 <div id="_requirement-52" class="quoteblock">
 <div class="title">Requirement 52</div>
 <blockquote>
-GeoPakage中的每个瓦片矩阵集（tile matrix set）必须存储在独立的瓦片金字塔数据表或可更新的视图（view）中。这些数据表或视图必须具备唯一的名称，必须包含类型为INTGER的名为“id”的列，该列必须有<em>PRIMARY KEY AUTOINCREMENT</em>列约束。参见2.2.8.1.1 <a href="#tiles_user_tables_data_table_definition">表定义</a>、<a href="#example_tiles_table_cols">瓦片金字塔数据表或视图定义</a> 以及 <a href="#example_tiles_table_insert_sql">EXAMPLE: tiles table Insert Statement (Informative)</a>中的规定。
+GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立的瓦片金字塔数据表或可更新的视图（view）中。这些数据表或视图必须具备唯一的名称，必须包含类型为INTGER的名为“id”的列，该列必须有<em>PRIMARY KEY AUTOINCREMENT</em>列约束。参见2.2.8.1.1 <a href="#tiles_user_tables_data_table_definition">表定义</a>、<a href="#example_tiles_table_cols">瓦片金字塔数据表或视图定义</a> 以及 <a href="#example_tiles_table_insert_sql">EXAMPLE: tiles table Insert Statement (Informative)</a>中的规定。
 </blockquote>
 </div>
 <table id="example_tiles_table_cols" class="tableblock frame-all grid-all" style="width:100%; ">
@@ -1856,19 +1856,19 @@ GeoPakage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 <div id="_requirement-53" class="quoteblock">
 <div class="title">Requirement 53</div>
 <blockquote>
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， zoom_level列的值应该符合以下条件：min(tm.zoom_level) &#8656; tp.zoom_level &#8656; max(tm.zoom_level)
+在GeoPackage文件中，<code>gpkg_tile_matrix</code>(tm)表中的每个不同的<code>table_name</code>所对应的瓦片金字塔（tp）数据表中， <code>zoom_level</code>列的值应该符合以下条件：min(tm.zoom_level) &#8656; tp.zoom_level &#8656; max(tm.zoom_level)
 </blockquote>
 </div>
 <div id="_requirement-54" class="quoteblock">
 <div class="title">Requirement 54</div>
 <blockquote>
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_column列的值应该符合以下条件：当tm和tp的<code>zoom_level</code> 列值相同时，0 &#8656; tp.tile_column &#8656; tm.matrix_width – 1。
+在GeoPackage文件中，<code>gpkg_tile_matrix</code> (tm)表中的每个不同的<code>table_name</code>所对应的瓦片金字塔（tp）数据表中， tile_column列的值应该符合以下条件：当tm和tp的<code>zoom_level</code> 列值相同时，0 &#8656; tp.tile_column &#8656; tm.matrix_width – 1。
 </blockquote>
 </div>
 <div id="_requirement-55" class="quoteblock">
 <div class="title">Requirement 55</div>
 <blockquote>
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的<code>zoom_level</code> 列值相同时，0 &#8656; tp.tile_row &#8656; tm.matrix_height – 1。
+在GeoPackage文件中，<code>gpkg_tile_matrix</code> (tm)表中的每个不同的<code>table_name</code>所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的<code>zoom_level</code> 列值相同时，0 &#8656; tp.tile_row &#8656; tm.matrix_height – 1。
 </blockquote>
 </div>
 <div class="paragraph">
