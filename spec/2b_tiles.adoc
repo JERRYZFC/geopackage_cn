@@ -179,7 +179,7 @@ GeoPackages 遵循最常用的惯例，如 http://portal.opengeospatial.org/file
 `gpkg_tile_matrix`表中`pixel_ y _size`这一列的值必须大于0
 
 [requirement]
-`gpkg_tile_matrix`表中，当`zoom_level`列升序排列时，`pixel_x_siz`e 和`pixel_y_size`列的值应该为降序排列。
+`gpkg_tile_matrix`表中，当`zoom_level`列升序排列时，`pixel_x_size` 和`pixel_y_size`列的值应该为降序排列。
 
 :sparse_tiles_foot1: footnote:[GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.]
 :sparse_tiles_foot2: footnote:[GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.]
@@ -231,4 +231,4 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 [requirement]
 在GeoPackage文件中，`gpkg_tile_matrix` (tm)表中的每个不同的`table_name`所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_row <= tm.matrix_height – 1。
 
-同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，缩放级别对应瓦片表，以及瓦片表的`pixel_x_size`和`pixel_y_size`值是在gpkg_tile_matrix表中指定的。{tile_data_foot1_ref}
+同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，缩放级别对应瓦片表，以及瓦片表的`pixel_x_size`和`pixel_y_size`值是在`gpkg_tile_matrix`表中指定的。{tile_data_foot1_ref}
