@@ -112,125 +112,123 @@ The gpkg_tile_matrix_set table or view SHALL contain one row record for each til
 Values of the `gpkg_tile_matrix_set` `srs_id` column SHALL reference values in the `gpkg_spatial_ref_sys` `srs_id` column.
 
 [[tile_matrix]]
-==== Tile Matrix
+==== 瓦片矩阵
 
-===== Data
+===== 数据
 
 [[tile_matrix_data_table_definition]]
-====== Table Definition
+====== 表的定义
 
 [requirement]
-A GeoPackage that contains a tile pyramid user data table SHALL contain a `gpkg_tile_matrix` table or view per clause 2.2.7.1.1 <<tile_matrix_data_table_definition>>, Table <<gpkg_tile_matrix_cols>> and Table <<gpkg_tile_matrix_sql>>.
+包含瓦片金字塔数据表的GeoPackage，应包含一个‘gpkg_tile_matrix’表或视图，‘gpkg_tile_matrix’表或视图要符合2.2.7.1.1 <<tile_matrix_data_table_definition>>、表<<gpkg_tile_matrix_cols>>以及表 <<gpkg_tile_matrix_sql>>的规定。
 
 [[gpkg_tile_matrix_cols]]
-.Tile Matrix Metadata Table or View Definition
+.瓦片矩阵元数据表或视图的定义
 [cols=",,,,",options="header",]
 |=======================================================================
 |Column Name |Column Type |Column Description |Null  |Key
-|`table_name` |TEXT |Tile Pyramid User Data Table Name |no |PK, FK
+|`table_name` |TEXT |瓦片金字塔用户数据表的表名 |no |PK, FK
 |`zoom_level` |INTEGER | 0 <= `zoom_level` <= max_level for `table_name` |no |PK
-|`matrix_width` |INTEGER |Number of columns (>= 1) in tile matrix at this zoom level |1 |
-|`matrix_height` |INTEGER |Number of rows (>= 1) in tile matrix at this zoom level |1 |
-|`tile_width` |INTEGER |Tile width in pixels (>= 1)for this zoom level |no |
-|`tile_height` |INTEGER |Tile height in pixels (>= 1) for this zoom level |no |
-|`pixel_x_size` |DOUBLE |In `t_table_name` srid units or default meters for srid 0 (>0) |no |
-|`pixel_y_size` |DOUBLE |In `t_table_name` srid units or default meters for srid 0 (>0) |no |
+|`matrix_width` |INTEGER |在当前缩放级别下，瓦片矩阵的列数。（>=1）|1 |
+|`matrix_height` |INTEGER |在当前缩放级别下，瓦片矩阵的行数。（>=1） |1 |
+|`tile_width` |INTEGER |在当前缩放级别下，瓦片的宽度（以像素为单位）。（>=1） |no |
+|`tile_height` |INTEGER |在当前缩放级别下，瓦片的高度（以像素为单位。（>=1）|no |
+|`pixel_x_size` |DOUBLE |以t_table_name 的srid单位表示，默认单位是米（srid为0时）。（>=0）|no |
+|`pixel_y_size` |DOUBLE |以t_table_name 的srid单位表示，默认单位是米（srid为0时）。（>=0）|no |
 |=======================================================================
 
-The `gpkg_tile_matrix` table or updateable view documents the structure of the tile matrix at each zoom level in each tiles table.
-It allows GeoPackages to contain rectangular as well as square tiles (e.g. for better representation of polar regions).
-It allows tile pyramids with zoom levels that differ in resolution by factors of 2, irregular intervals, or regular intervals other than factors of 2.
+'gpkg_tile_matrix'表或可更新的视图记录了每个tiles表中每个缩放级别下的tile matrix的结构。GeoPackage不仅允许包含正方形的瓦片，也允许包含长方形的瓦片（例如，为了更好的表达两极地区）。瓦片金字塔允许有这样的缩放级别：相邻级别分辨率相差2倍、相邻级别分辨率变化不规律、或者相邻级别分辨率变化虽然规律，但不是相差2倍。
 
 See <<gpkg_tile_matrix_sql>>
 
 [[clause_tile_matrix_table_data_values]]
-====== Table Data Values
+====== 表数据的取值
 
 [requirement]
-Values of the `gpkg_tile_matrix` `table_name` column SHALL reference values in the `gpkg_contents` `table_name` column for rows with a `data_type` of “tiles”.
+gpkg_tile_matrix表中的 table_name 列的值，应该与gpkg_contents表中，data_type值为“tiles”的行的table_name值一一对应。
 
 [requirement]
-The `gpkg_tile_matrix` table or view SHALL contain one row record for each zoom level that contains one or more tiles in each tile pyramid user data table or view.
+gpkg_tile_matrix表或视图应该针对每一个缩放级别包含一行记录，该行记录对应的瓦片金字塔数据或视图应该包含一个或多个瓦片。
 
-The `gpkg_tile_matrix` table or view MAY contain row records for zoom levels in a tile pyramid user data table that do not contain tiles.
+在瓦片金字塔数据表中，缩放级别中没有瓦片时，gpkg_tile_matrix表或视图中也可以有对应的记录行。
 
 :tile_matrix_meta_foot1: footnote:[GeoPackage applications MAY query the gpkg_tile_matrix table or the tile pyramid user data table to determine the minimum and maximum zoom levels for a given tile pyramid table.]
 
-GeoPackages follow the most frequently used conventions of a tile origin at the upper left and a zoom-out-level of 0 for the smallest map scale “whole world” zoom level view {tile_matrix_meta_foot1}, as specified by http://portal.opengeospatial.org/files/?artifact_id=35326[WMTS] <<16>>.
-The tile coordinate (0,0) always refers to the tile in the upper left corner of the tile matrix at any zoom level, regardless of the actual availability of that tile.
+GeoPackages 遵循最常用的惯例，如 http://portal.opengeospatial.org/files/?artifact_id=35326[WMTS] <<16>>所指定，瓦片的原点在左上，缩放到“whole world”级别 下对应的比例尺是最小比例尺，对应的缩放级别为 0 级 {tile_matrix_meta_foot1}。
+瓦片坐标（0,0）通常指在任何缩放级别下 tile matrix的左上角，该左上角的瓦片可以不是实际存在的。
 
 [requirement]
-The `zoom_level` column value in a `gpkg_tile_matrix` table row SHALL not be negative.
+gpkg_tile_matrix表中zoom_level这一列的值不能为负值
 
 [requirement]
-The `matrix_width` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中matrix_width这一列的值必须大于0
 
 [requirement]
-The `matrix_height` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中matrix_height这一列的值必须大于0
 
 [requirement]
-The `tile_width` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中tile_width 这一列的值必须大于0
 
 [requirement]
-The `tile_height` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中tile_height 这一列的值必须大于0
 
 [requirement]
-The `pixel_x_size` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中pixel_x_size这一列的值必须大于0
 
 [requirement]
-The `pixel_y_size` column value in a `gpkg_tile_matrix` table row SHALL be greater than 0.
+gpkg_tile_matrix表中pixel_ y _size这一列的值必须大于0
 
 [requirement]
-The `pixel_x_size` and `pixel_y_size` column values for `zoom_level` column values in a `gpkg_tile_matrix` table sorted in ascending order SHALL be sorted in descending order.
+gpkg_tile_matrix表中，当zoom_level列升序排列时，pixel_x_size 和 pixel_y_size列的值应该为降序排列。
 
 :sparse_tiles_foot1: footnote:[GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.]
 :sparse_tiles_foot2: footnote:[GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.]
 :sparse_tiles_foot3: footnote:[The `gpkg_tile_matrix_set` table contains coordinates that define a bounding box as the exact stated spatial extent for all tiles in a tile (matrix set) table. If the geographic extent of the image data contained in tiles at a particular zoom level is within but not equal to this bounding box, then the non-image area of matrix edge tiles must be padded with no-data values, preferably transparent ones.]
 
-Tiles MAY or MAY NOT be provided for level 0 or any other particular zoom level. {sparse_tiles_foot1}
-This means that a tile matrix set can be sparse, i.e. not contain a tile for any particular position at a certain tile zoom level.
-{sparse_tiles_foot2} This does not affect the informative spatial extent stated by the min/max x/y columns values in the `gpkg_contents` record for the same `table_name`, the exact spatial extent stated by the min/max x/y columns values in the `gpkg_tile_matrix_set` record for the same table name, or the tile matrix width and height at that level. {sparse_tiles_foot3}
+0级别或者其它缩放级别可能有瓦片，也可能没有瓦片。 {sparse_tiles_foot1}
+这意味着tile matrix set 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
+{sparse_tiles_foot2}这并不影响gpkg_contents表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响gpkg_tile_matrix_set表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 {sparse_tiles_foot3}
 
 [[tiles_user_tables]]
-==== Tile Pyramid User Data Tables
+==== 瓦片金字塔数据表
 
-===== Data
+===== 数据
 
 [[tiles_user_tables_data_table_definition]]
-====== Table Definition
+====== 表定义
 
 [requirement]
-Each tile matrix set in a GeoPackage SHALL be stored in a different tile pyramid user data table or updateable view with a unique name that SHALL have a column named "id" with column type INTEGER and 'PRIMARY KEY AUTOINCREMENT' column constraints per Clause 2.2.8.1.1 <<tiles_user_tables_data_table_definition>>, <<example_tiles_table_cols>> and <<example_tiles_table_insert_sql>>.
+GeoPakage中的每个瓦片矩阵集（tile matrix set）必须存储在独立的瓦片金字塔数据表或可更新的视图（view）中。这些数据表或视图必须具备唯一的名称，必须包含类型为INTGER的名为“id”的列，该列必须有'PRIMARY KEY AUTOINCREMENT'列约束。参见2.2.8.1.1 <<tiles_user_tables_data_table_definition>>、<<example_tiles_table_cols>> 以及 <<example_tiles_table_insert_sql>>中的规定。
 
 [[example_tiles_table_cols]]
-.Tiles Table or View Definition
+.瓦片金字塔数据表或视图定义
 [cols=",,,,,",options="header",]
 |=======================================================================
 |Column Name |Column Type |Column Description |Null |Default |Key
-|`id` |INTEGER |Autoincrement primary key |no | |PK
+|`id` |INTEGER |自动增长的主键（primary key）  |no | |PK
 |`zoom_level` |INTEGER |min(zoom_level) <= `zoom_level` <= max(zoom_level) for `t_table_name` |no |0 |UK
-|`tile_column` |INTEGER |0 to `tile_matrix` `matrix_width` – 1 |no |0 |UK
-|`tile_row` |INTEGER |0 to `tile_matrix` `matrix_height` - 1 |no |0 |UK
-|`tile_data` |BLOB |Of an image MIME type specified in clauses <<tile_enc_png>>, <<tile_enc_jpeg>>, <<tile_enc_webp>>, <<tile_enc_tiff>>, <<tile_enc_nitf>> |no | |
+|`tile_column` |INTEGER |大于0，小于gpkg_tile_matrix表的matrix_width值 |no |0 |UK
+|`tile_row` |INTEGER |大于0，小于gpkg_tile_matrix表的matrix_height值 |no |0 |UK
+|`tile_data` |BLOB | 条款<<tile_enc_png>>, <<tile_enc_jpeg>>, <<tile_enc_webp>>, <<tile_enc_tiff>>, <<tile_enc_nitf>>中定义的影像 MIME 类型。 |no | |
 |=======================================================================
 
-See <<example_tiles_table_sql>>.
+参见 <<example_tiles_table_sql>>.
 
-====== Table Data Values
+====== 表数据取值
 
 :tile_data_foot1: footnote:[A GeoPackage is not required to contain any tile pyramid user data tables. Tile pyramid user data tables in a GeoPackage MAY be empty.]
 
 :tile_data_foot1_ref: footnote:[The zoom_level / tile_column / tile_row unique key is automatically indexed, and allows tiles to be selected and accessed by "z, x, y", a common convention used by some implementations.  This table / view definition MAY also allow tiles to be selected based on a spatially indexed bounding box in a separate metadata table.]
 
-Each tile pyramid user data table or view {tile_data_foot1} MAY contain tile matrices at zero or more zoom levels of different spatial resolution (map scale).
+每个瓦片金字塔用户数据表或视图 {tile_data_foot1}都可以包含多个瓦片矩阵，这些瓦片矩阵对应第0级或更多缩放级别，每个缩放级别对应不同的空间分辨率（地图比例尺）。
 
 [requirement]
-For each distinct `table_name` from the `gpkg_tile_matrix` (tm) table, the tile pyramid (tp) user data table `zoom_level` column value in a GeoPackage SHALL be in the range min(tm.zoom_level) <= tp.zoom_level <= max(tm.zoom_level).
+在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， zoom_level列的值应该符合以下条件：min(tm.zoom_level) <= tp.zoom_level <= max(tm.zoom_level)
 
 [requirement]
-For each distinct `table_name` from the `gpkg_tile_matrix` (tm) table, the tile pyramid (tp) user data table `tile_column` column value in a GeoPackage SHALL be in the range 0 <= tp.tile_column <= tm.matrix_width – 1 where the tm and tp `zoom_level` column values are equal.
+在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_column列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_column <= tm.matrix_width – 1。
 
 [requirement]
-For each distinct `table_name` from the `gpkg_tile_matrix` (tm) table, the tile pyramid (tp) user data table `tile_row` column value in a GeoPackage SHALL be in the range 0 <= tp.tile_row <= tm.matrix_height – 1 where the tm and tp `zoom_level` column values are equal.
+在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_row <= tm.matrix_height – 1。
 
-All tiles at a particular zoom level have the same `pixel_x_size` and `pixel_y_size` values specified in the `gpkg_tile_matrix` row record for that tiles table and zoom level. {tile_data_foot1_ref}
+同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，缩放级别对应瓦片表，以及瓦片表的`pixel_x_size`和`pixel_y_size`值是在gpkg_tile_matrix表中指定的。{tile_data_foot1_ref}

@@ -89,12 +89,11 @@ GeoPackage数据表中的列仅可以使用<<table_column_data_types>>中规定�
 :req4_foot1: footnote:[New applications should use the latest available SQLite version software <<8>>]
 
 [requirement]
-A GeoPackage SQLite Configuration SHALL provide SQL access to GeoPackage contents via http://www.sqlite.org/download.html[SQLite version 3] <<6>> software APIs.
 GeoPackage的SQLite配置应该通过 http://www.sqlite.org/download.html[SQLite 3.x版本] <<6>> 的软件API，提供对GeoPackage内容的SQL访问方式。{req4_foot1}
 
 ====== 每个GPKG的SQLite配置
 
-http://www.sqlite.org/download.html[SQLite] <<8>> 库有许多 http://www.sqlite.org/compile.html[编译] 和 http://www.sqlite.org/pragma.html[运行] 时参数，在针对不同用途配置SQLite时可能被使用。
+http://www.sqlite.org/download.html[SQLite] <<8>> 库有许多http://www.sqlite.org/compile.html[编译]和http://www.sqlite.org/pragma.html[运行] 时参数，在针对不同用途配置SQLite时可能被使用。
 GeoPackage规范中的元素在运行时依赖于SQLite功能的可用性，本条款规定了编译和运行时，哪些参数可以使用，哪些参数不允许使用。
 
 [requirement]
