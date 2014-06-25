@@ -120,7 +120,7 @@ Values of the `gpkg_tile_matrix_set` `srs_id` column SHALL reference values in t
 ====== 表的定义
 
 [requirement]
-包含瓦片金字塔数据表的GeoPackage，应包含一个‘gpkg_tile_matrix’表或视图，‘gpkg_tile_matrix’表或视图要符合2.2.7.1.1 <<tile_matrix_data_table_definition>>、表<<gpkg_tile_matrix_cols>>以及表 <<gpkg_tile_matrix_sql>>的规定。
+包含瓦片金字塔数据表的GeoPackage，应包含一个`gpkg_tile_matrix`表或视图，`gpkg_tile_matrix`表或视图要符合2.2.7.1.1 <<tile_matrix_data_table_definition>>、表<<gpkg_tile_matrix_cols>>以及表 <<gpkg_tile_matrix_sql>>的规定。
 
 [[gpkg_tile_matrix_cols]]
 .瓦片矩阵元数据表或视图的定义
@@ -137,7 +137,7 @@ Values of the `gpkg_tile_matrix_set` `srs_id` column SHALL reference values in t
 |`pixel_y_size` |DOUBLE |以t_table_name 的srid单位表示，默认单位是米（srid为0时）。（>=0）|no |
 |=======================================================================
 
-'gpkg_tile_matrix'表或可更新的视图记录了每个tiles表中每个缩放级别下的tile matrix的结构。GeoPackage不仅允许包含正方形的瓦片，也允许包含长方形的瓦片（例如，为了更好的表达两极地区）。瓦片金字塔允许有这样的缩放级别：相邻级别分辨率相差2倍、相邻级别分辨率变化不规律、或者相邻级别分辨率变化虽然规律，但不是相差2倍。
+`gpkg_tile_matrix`表或可更新的视图记录了每个tiles表中每个缩放级别下的tile matrix的结构。GeoPackage不仅允许包含正方形的瓦片，也允许包含长方形的瓦片（例如，为了更好的表达两极地区）。瓦片金字塔允许有这样的缩放级别：相邻级别分辨率相差2倍、相邻级别分辨率变化不规律、或者相邻级别分辨率变化虽然规律，但不是相差2倍。
 
 See <<gpkg_tile_matrix_sql>>
 
@@ -145,12 +145,12 @@ See <<gpkg_tile_matrix_sql>>
 ====== 表数据的取值
 
 [requirement]
-gpkg_tile_matrix表中的 table_name 列的值，应该与gpkg_contents表中，data_type值为“tiles”的行的table_name值一一对应。
+`gpkg_tile_matrix`表中的 `table_name` 列的值，应该与`gpkg_contents`表中，`data_type`值为“tiles”的行的table_name值一一对应。
 
 [requirement]
-gpkg_tile_matrix表或视图应该针对每一个缩放级别包含一行记录，该行记录对应的瓦片金字塔数据或视图应该包含一个或多个瓦片。
+`gpkg_tile_matrix`表或视图应该针对每一个缩放级别包含一行记录，该行记录对应的瓦片金字塔数据或视图应该包含一个或多个瓦片。
 
-在瓦片金字塔数据表中，缩放级别中没有瓦片时，gpkg_tile_matrix表或视图中也可以有对应的记录行。
+在瓦片金字塔数据表中，缩放级别中没有瓦片时，`gpkg_tile_matrix`表或视图中也可以有对应的记录行。
 
 :tile_matrix_meta_foot1: footnote:[GeoPackage applications MAY query the gpkg_tile_matrix table or the tile pyramid user data table to determine the minimum and maximum zoom levels for a given tile pyramid table.]
 
@@ -158,36 +158,36 @@ GeoPackages 遵循最常用的惯例，如 http://portal.opengeospatial.org/file
 瓦片坐标（0,0）通常指在任何缩放级别下 tile matrix的左上角，该左上角的瓦片可以不是实际存在的。
 
 [requirement]
-gpkg_tile_matrix表中zoom_level这一列的值不能为负值
+`gpkg_tile_matrix`表中`zoom_level`这一列的值不能为负值
 
 [requirement]
-gpkg_tile_matrix表中matrix_width这一列的值必须大于0
+`gpkg_tile_matrix`表中`matrix_width`这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中matrix_height这一列的值必须大于0
+`gpkg_tile_matrix`表中`matrix_height`这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中tile_width 这一列的值必须大于0
+`gpkg_tile_matrix`表中`tile_width` 这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中tile_height 这一列的值必须大于0
+`gpkg_tile_matrix`表中`tile_height` 这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中pixel_x_size这一列的值必须大于0
+`gpkg_tile_matrix`表中`pixel_x_size`这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中pixel_ y _size这一列的值必须大于0
+`gpkg_tile_matrix`表中`pixel_ y _size`这一列的值必须大于0
 
 [requirement]
-gpkg_tile_matrix表中，当zoom_level列升序排列时，pixel_x_size 和 pixel_y_size列的值应该为降序排列。
+`gpkg_tile_matrix`表中，当`zoom_level`列升序排列时，`pixel_x_siz`e 和`pixel_y_size`列的值应该为降序排列。
 
 :sparse_tiles_foot1: footnote:[GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.]
 :sparse_tiles_foot2: footnote:[GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.]
 :sparse_tiles_foot3: footnote:[The `gpkg_tile_matrix_set` table contains coordinates that define a bounding box as the exact stated spatial extent for all tiles in a tile (matrix set) table. If the geographic extent of the image data contained in tiles at a particular zoom level is within but not equal to this bounding box, then the non-image area of matrix edge tiles must be padded with no-data values, preferably transparent ones.]
 
 0级别或者其它缩放级别可能有瓦片，也可能没有瓦片。 {sparse_tiles_foot1}
-这意味着tile matrix set 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
-{sparse_tiles_foot2}这并不影响gpkg_contents表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响gpkg_tile_matrix_set表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 {sparse_tiles_foot3}
+这意味着`tile matrix set` 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
+{sparse_tiles_foot2}这并不影响`gpkg_contents`表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响`gpkg_tile_matrix_set`表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 {sparse_tiles_foot3}
 
 [[tiles_user_tables]]
 ==== 瓦片金字塔数据表
@@ -198,7 +198,7 @@ gpkg_tile_matrix表中，当zoom_level列升序排列时，pixel_x_size 和 pixe
 ====== 表定义
 
 [requirement]
-GeoPakage中的每个瓦片矩阵集（tile matrix set）必须存储在独立的瓦片金字塔数据表或可更新的视图（view）中。这些数据表或视图必须具备唯一的名称，必须包含类型为INTGER的名为“id”的列，该列必须有'PRIMARY KEY AUTOINCREMENT'列约束。参见2.2.8.1.1 <<tiles_user_tables_data_table_definition>>、<<example_tiles_table_cols>> 以及 <<example_tiles_table_insert_sql>>中的规定。
+GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立的瓦片金字塔数据表或可更新的视图（view）中。这些数据表或视图必须具备唯一的名称，必须包含类型为INTGER的名为“id”的列，该列必须有'PRIMARY KEY AUTOINCREMENT'列约束。参见2.2.8.1.1 <<tiles_user_tables_data_table_definition>>、<<example_tiles_table_cols>> 以及 <<example_tiles_table_insert_sql>>中的规定。
 
 [[example_tiles_table_cols]]
 .瓦片金字塔数据表或视图定义
@@ -223,12 +223,12 @@ GeoPakage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 每个瓦片金字塔用户数据表或视图 {tile_data_foot1}都可以包含多个瓦片矩阵，这些瓦片矩阵对应第0级或更多缩放级别，每个缩放级别对应不同的空间分辨率（地图比例尺）。
 
 [requirement]
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， zoom_level列的值应该符合以下条件：min(tm.zoom_level) <= tp.zoom_level <= max(tm.zoom_level)
+在GeoPackage文件中，`gpkg_tile_matrix`(tm)表中的每个不同的`table_name`所对应的瓦片金字塔（tp）数据表中， `zoom_level`列的值应该符合以下条件：min(tm.zoom_level) <= tp.zoom_level <= max(tm.zoom_level)
 
 [requirement]
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_column列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_column <= tm.matrix_width – 1。
+在GeoPackage文件中，`gpkg_tile_matrix` (tm)表中的每个不同的`table_name`所对应的瓦片金字塔（tp）数据表中， tile_column列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_column <= tm.matrix_width – 1。
 
 [requirement]
-在GeoPackage文件中，gpkg_tile_matrix (tm)表中的每个不同的table_name所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_row <= tm.matrix_height – 1。
+在GeoPackage文件中，`gpkg_tile_matrix` (tm)表中的每个不同的`table_name`所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_row <= tm.matrix_height – 1。
 
 同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，缩放级别对应瓦片表，以及瓦片表的`pixel_x_size`和`pixel_y_size`值是在gpkg_tile_matrix表中指定的。{tile_data_foot1_ref}
