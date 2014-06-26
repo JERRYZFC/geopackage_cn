@@ -1,41 +1,47 @@
-[[features]]
+
 === 要素
 
-[[sfsql_intro]]
+
 ==== SQL 简单要素介绍  
 
-Vector feature data represents geolocated entities including conceptual ones such as districts, real world objects such as roads and rivers, and observations thereof.  矢量要素数据代表的地理定位实体包括笼统对象，如地区，现实世界中的对象，如道路，河流，和观察物。
-International specifications <<9>><<10>><<11>><<12>> have standardized practices for the storage, access and use of vector geospatial features and geometries via SQL in relational databases.  国际规范中有标准的存储，访问和通过SQL关系数据库使用矢量地理空间要素和几何要素的做法。
+矢量要素数据代表的地理定位实体包括概念上的对象，如地区，现实世界中的对象，如道路，河流，和及其观测结果。
+国际规范<<9>><<10>><<11>><<12>>中对通过SQL在关系数据库的存储，访问和使用矢量地理空间要素和几何要素已经有了标准化的实践。
 按GeoPackage规范存储矢量要素的SQL 架构的第一个组成部分是，在上面<<spatial_ref_sys>> 条款中定义的`gpkg_spatial_ref_sys`表。 
-Other components are defined below.  其他组成部分在下面进行了定义。
+其他组成部分在下面进行了定义。
 按geopackage 规范，简单要素使用SQL/ MM（ISO13249-3）几何模型的线性几何子集定位，几何模型如下图<<core_geometry_model_figure>>所示：
 [[core_geometry_model_figure]]
 .Core Geometry Model
 image::core-geometry-model.png[Core geometry model]
 
-用这种标准定义的具体几何实例（不是抽象的）被限制为0，1和2的二维几何对象，这些几何对象以2，3或4维空间坐标（R2，R3和R4）存在。二维空间中的几何要素是由一系列具有坐标x和y值的点组成。三维空间中的几何要素是由一系列具有坐标x、y和z值,或x, y 和m值的点组成。四维空间中的几何要素是由一系列具有坐标x, y , z和m值的点组成。坐标的解释受与点相关的坐标参考系统的影响。一个几何对象内的所有坐标应该有同一个坐标参考系统。 
-几何要素可包括z坐标值。Z坐标值传统上代表第三个维度（即3D）。在地理信息系统（GIS）中，Z坐标值可能会高于或低于海平面的高度。例如：在一副地图上，可能会根据一座山在地球上的位置，然后用一个点去标识山峰，这个点具有x和y坐标值，和山的高度，与z坐标值。
-Geometries MAY include m coordinate values.
-The m coordinate value allows the application environment to associate some measure with the point values.
-For example: A stream network may be modeled as multilinestring value with the m coordinate values measuring the distance from the mouth of stream.
-几何要素可包括M的坐标值。M坐标值允许应用程序环境和测量点关联。例如：可以利用河网建模multilinestring ，建模使用的m值，可以从流口测量距离得到。
+这种标准中定义的具体几何体类型（不是抽象的）被限制为0，1和2维几何对象，这些几何对象存在于2，3或4维坐标空间（R2，R3和R4）中。
+二维空间中的几何要素是由一系列具有坐标x和y值的点组成。三维空间中的几何要素是由一系列具有坐标x、y和z值,或x, y 和m值的点组成。
+四维空间中的几何要素是由一系列具有坐标x, y , z和m值的点组成。
+坐标的解释受与点相关的坐标参考系统的影响。一个几何对象内的所有坐标应该在同一个坐标参考系统中。 
+几何要素可包括z坐标值。Z坐标值传统上代表第三个维度（即3D）。在地理信息系统（GIS）中，Z坐标值可能代表会高于或低于海平面的高度。例如：在一幅地图上，
+可能会用x和y标识一个山峰在地球上的位置，z表示山峰的高度。
+几何要素可包括M的坐标值。M坐标值允许应用程序环境用这些点值进行一些测量。
+例如：河网可以被建模为具有m坐标的multilinestring ，评估这些m值，可以测量与河口的距离。
 All geometry types described in this standard are defined so that instances of Geometry are topologically closed, i.e. all represented geometries include their boundary as point sets.
 This does not affect their representation, and open version of the same classes MAY be used in other circumstances, such as topological representations.
-所有用这个标准描述的几何类型都必须定义，使几何实例拓补闭合，即所有代表的几何要素，包括他们作为点集的边界。这并不影响他们的表现，并且同一类开放版本可在其他情况下运用，如拓扑表示。
+
+所有在这个标准描述的几何类型都是确定的，以便几何实例是拓扑闭合的，例如所有表示出来的几何要素都包括以点集表示的边界。
+这并不影响他们的表现，并且相同类型的开放版本可运用在其他情况下，如拓扑表示。
+
 每种几何类型的简要说明如下，更详细的说明可在ISO13249-3中找到。
-* Geometry: the root of the geometry type hierarchy. 几何类型层次结构的根。
-* Point:在空间中的一个位置。每个点都有一个X和Y坐标。有些点还可以有一个Z和/或M值。
-* Curve:所有1维几何类型的基本类型。1维几何要素是有长度但没有面积的几何要素。曲线如果不与自身相交（在起点和终点除外），则它属于简单类型。当曲线的起点和终点重合，则认为曲线闭合，圆就是其中的一个简单例子。
+* Geometry:  几何类型层次结构的根。
+* Point:在空间中的一个位置。每个点都有一个X和Y坐标。点可以选择包含一个Z和/或M值。
+* Curve:所有1维几何类型的基本类型。1维几何要素是有长度但没有面积的几何要素。曲线如果不与自身相交（在起点和终点除外），则它属于简单类型。
+当曲线的起点和终点重合，则认为曲线闭合，环就是其中的一个简单例子。
 * LineString: 在空间连接两个或多个点的曲线。
 * Surface: 所有2维几何类型的基本类型，2维几何类型是一种具有面积的几何类型。
-* CurvePolygon:由外部环和零个或多个内部环所限定的平面。每个环由曲线实例定义。
-* Polygon: A restricted form of CurvePolygon where each ring is defined as a simple, closed LineString.  CurvePolygon的限制形式，曲面的每一个环被定为简单的封闭的线。
+* CurvePolygon:由一个外部环和零个或多个内部环所组成的平面。每个环由Curve实例定义。
+* Polygon: CurvePolygon的限制形式，每一个环被定为简单的封闭的LineString。
 * GeometryCollection:零个或多个几何实例集合。
-* MultiSurface: A restricted form of GeometryCollection where each Geometry in the collection must be of type Surface.  GeometryCollection的限制形式，要求该集合中的每个几何要素都必须是Surface类型。
-* MultiPolygon: A restricted form of MultiSurface where each Surface in the collection must be of type Polygon.  MultiSurface的限制形式，要求集合中的每个表面都是Polygon类型。
-* MultiCurve: A restricted form of GeometryCollection where each Geometry in the collection must be of type Curve.  GeometryCollection的限制形式，要求集合中的每条曲线都必须是Curve类型。
-* MultiLineString: A restricted form of MultiCurve where each Curve in the collection must be of type LineString.  MultiCurve的限制形式，要求集合中每一条曲线都必须是LineString类型。
-* MultiPoint: A restricted form of GeometryCollection where each Geometry in the collection must be of type Point.  GeometryCollection 的限制形式，要求集合中每个几何要素都必须是Point 类型。
+* MultiSurface:GeometryCollection的限制形式，要求该集合中的每个几何要素都必须是Surface类型。
+* MultiPolygon: MultiSurface的限制形式，要求集合中的每个表面都是Polygon类型。
+* MultiCurve: GeometryCollection的限制形式，要求集合中的每条曲线都必须是Curve类型。
+* MultiLineString:  MultiCurve的限制形式，要求集合中每一条曲线都必须是LineString类型。
+* MultiPoint: GeometryCollection 的限制形式，要求集合中每个几何要素都必须是Point 类型。
 
 ==== 内容
 
@@ -44,8 +50,8 @@ This does not affect their representation, and open version of the same classes 
 ====== 表内容 – 要素行
 
 [requirement]
-The `gpkg_contents` table SHALL contain a row with a lowercase `data_type` column value of “features” for each vector features user data table or view.   用户数据表或视图中的每个矢量要素都应该包括值为小写“features”的列。
-[[gpb_format]]
+对于每个矢量要素用户数据表或视图  `gpkg_contents` 表必须有一行包含 列名为小写的 `data_type`  ，列值为 “features”与之对应。
+
 ==== 几何编码
 
 ===== 数据
@@ -54,8 +60,10 @@ The `gpkg_contents` table SHALL contain a row with a lowercase `data_type` colum
 ====== BLOB 格式
 
 [requirement]
-A GeoPackage SHALL store feature table geometries with or without optional elevation (Z) and/or measure (M) values in SQL BLOBs using the Standard GeoPackageBinary format specified in table <<gpb_spec>> and clause <<gpb_data_blob_format>>.
-按GeoPackage 规范存储在SQL 数据库中的数据，应该包括有或没有可选的海拔（Z）和/或测量（M）的值的几何要素表，这些值使用的是表<<gpb_spec>>和条款<<gpb_data_blob_format>>中指定的StandardGeoPackageBinary格式。
+A GeoPackage SHALL store feature table geometries with or without optional elevation (Z) and/or measure (M) values 
+in SQL BLOBs using the Standard GeoPackageBinary format specified in table <<gpb_spec>> and clause <<gpb_data_blob_format>>.
+GeoPackage必须要在所有要素表中以SQL BLOBS 存储几何要素，这些几何要素可以有或没有可选的海拔（Z）和/或测量（M）的值，
+SQL BLOBS使用的是表<<gpb_spec>>和条款<<gpb_data_blob_format>>中指定的StandardGeoPackageBinary格式。
 :geopackage_binary_foot1: footnote:[OGC WKB simple feature geometry types specified in <<13>> are a subset of the ISO WKB geometry types specified in <<16>>]
 :geopackage_binary_foot2: footnote:[WKB geometry types are are restricted to 0, 1 and 2-dimensional geometric objects that exist in 2, 3 or 4-dimensional coordinate space; they are not geographic or geodesic geometry types.]
 :geopackage_binary_foot3: footnote:[The axis order in WKB is always (x,y{,z}{,m}) where x is easting or longitude, y is northing or latitude, z is optional elevation and m is optional measure.]
@@ -113,12 +121,13 @@ StandardGeoPackageBinary {
 ** 1: Little Endian (least significant byte first)
 
 
-Well-Known Binary as defined in ISO 13249-3 <<12>> does not provide a standardized encoding for an empty point set (i.e., 'Point Empty' in Well-Known Text).
-In GeoPackages these points SHALL be encoded as a Point where each coordinate value is set to an IEEE-754 quiet NaN value.
-GeoPackages SHALL use big endian 0x7ff8000000000000 or little endian 0x000000000000f87f as the binary encoding of the NaN values. 
-熟知用ISO 13249-3 <<12>> 定义的二进制没有为空的点集提供标准的编码（即用熟知文本的“空点”）。使用GeoPackages协议的这些点应该被编码为一个点，这个点的坐标值被设置为一个IEEE-754静态的NaN值。geopackages应使用大端口为0x7ff8000000000000或小端口为0x000000000000f87f的字节序列，作为NaN值的二进制编码。
+GEOPACKAGES SHALL USE BIG ENDIAN 0X7FF8000000000000 OR LITTLE ENDIAN 0X000000000000F87F AS THE BINARY ENCODING OF THE NAN VALUES. 
+熟知的ISO 13249-3 <<12>> 所定义的二进制没有为空的点集提供标准的编码（即用熟知文本的“空点”）。使用GeoPackages协议的这些点必须被编码为一个点，
+这个点的坐标值被设置为一个IEEE-754静态的NaN值。geopackages应使用大端口为0x7ff8000000000000或小端口为0x000000000000f87f的字节序列，
+作为NaN值的二进制编码。
 
-When the WKBGeometry in a GeoPackageBinary is empty, either the envelope contents indicator code SHALL be 0 indicating no envelope, or the envelope SHALL have its values set to NaN as defined for an empty point.
+WHEN THE WKBGEOMETRY IN A GEOPACKAGEBINARY IS EMPTY, EITHER THE ENVELOPE CONTENTS INDICATOR CODE SHALL BE 0 INDICATING NO ENVELOPE, 
+OR THE ENVELOPE SHALL HAVE ITS VALUES SET TO NAN AS DEFINED FOR AN EMPTY POINT.
 当GeoPackageBinary的WKBGeometry值为空时，要么信封内容的指标代码为0，表示无信封，要么信封的值设置为NaN，定义为空点。
 
 [[sql_geometry_types]]
@@ -129,8 +138,11 @@ When the WKBGeometry in a GeoPackageBinary is empty, either the envelope content
 ====== 核心类型
 
 [requirement] 
-A GeoPackage SHALL store feature table geometries with the basic simple feature geometry types (Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeomCollection) in <<geometry_types>> <<geometry_types_core>> in the GeoPackageBinary geometry encoding format.
-按GeoPackage规范，SQL数据库中应该存储有具有简单几何要素类型（几何，点，线，多边形，多点，multilinestring，multipolygon，geomcollection）的几何要素表，在附表<<geometry_types>> 和<<geometry_types_core>> 中使用了GeoPackageBinary几何编码格式。
+A GeoPackage SHALL store feature table geometries with the basic simple feature geometry types
+ (Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeomCollection)
+ in <<geometry_types>> <<geometry_types_core>> in the GeoPackageBinary geometry encoding format.
+按GeoPackage规范，SQL数据库中应该在要素表中存储有具有简单几何要素类型（几何，点，线，多边形，多点，multilinestring，multipolygon，geomcollection）的
+几何要素，几何要素类型在附表<<geometry_types>> 和<<geometry_types_core>> 中使用了GeoPackageBinary几何编码格式。
 
 ==== 几何要素列
 
@@ -139,12 +151,12 @@ A GeoPackage SHALL store feature table geometries with the basic simple feature 
 ====== 表定义
 
 [requirement]
-A GeoPackage with a `gpkg_contents` table row with a “features” `data_type` SHALL contain a `gpkg_geometry_columns` table or updateable view per <<gpkg_geometry_columns_cols>> and <<gpkg_geometry_columns_sql>>.
-GeoPackage 包含一个`gpkg_contents` 表，表的每一行都是一个要素，`data_type`应该包括一个`gpkg_geometry_columns`表或更新视图的<<gpkg_geometry_columns_cols>> 和<<gpkg_geometry_columns_sql>>。
+包含一个`gpkg_contents` 表的GeoPackage ，并且表的每一行都有一个值为“feature”，列名为`data_type` ，这样的GeoPackage应该包括
+一个`gpkg_geometry_columns`表或可更新视图的 按照 <<gpkg_geometry_columns_cols>> 和<<gpkg_geometry_columns_sql>>。
 
 The second component of the SQL schema for vector features in a GeoPackage is a `gpkg_geometry_columns` table that
 identifies the geometry columns in tables that contain user data representing features.
-按geopackage规范存储矢量要素的SQL框架的第二个组成部分是`gpkg_geometry_columns`表，这个表用于标识包含用户数据的几何要素列。
+按geopackage规范存储矢量要素的SQL框架的第二个组成部分是`gpkg_geometry_columns`表，这个表用于标识 那些包含了以用户数据来表示要素的表 中的几何要素列。
 
 
 [[gpkg_geometry_columns_cols]]
@@ -152,37 +164,35 @@ identifies the geometry columns in tables that contain user data representing fe
 [cols=",,,",options="header",]
 |=======================================================================
 |Column Name |Type |Description |Key
-|`table_name` |TEXT |Name of the table containing the geometry column 包含几何要素列的表名 |PK, FK
-|`column_name` |TEXT |Name of a column in the feature table that is a Geometry Column 要素表中的列名，代表的是一个几何要素列|PK
+|`table_name` |TEXT | 包含几何要素列的表名 |PK, FK
+|`column_name` |TEXT | 要素表中的列名，是一个几何要素列|PK
 |`geometry_type_name` |TEXT |Name from <<geometry_types_core>> or <<geometry_types_extension>> in <<geometry_types>> |
 |`srs_id` |INTEGER |空间参考系统 ID: `gpkg_spatial_ref_sys.srs_id` |FK
-|`z` |TINYINT |0: z values prohibited; 1: z values mandatory; 2: z values optional  0：禁止z值; 1：z值的强制性; 2：z值可选|
-|`m` |TINYINT |0: m values prohibited; 1: m values mandatory; 2: m values optional  0：禁止m值; 1：m值的强制性; 2：m值可选|
+|`z` |TINYINT |  0：禁止z值; 1：z值必须有; 2：z值可选|
+|`m` |TINYINT |  0：禁止m值; 1：m值必须有; 2：m值可选|
 |=======================================================================
 
-The FK on `gpkg_geometry_columns.srs_id` references the PK on `gpkg_spatial_ref_sys.srs_id` to ensure that geometry columns are only defined in feature tables for defined spatial reference systems.
-在gpkg_geometry_columns.srs_id上的FK引用gpkg_spatial_ref_sys.srs_id上的PK，以确保几何列仅在定义空间参考系的要素表中定义。
+在 `gpkg_geometry_columns.srs_id` 上的FK references `gpkg_spatial_ref_sys.srs_id` 上的PK，以确保几何列仅在定义空间参考系的要素表中定义。
 
-Views of this table or view MAY be used to provide compatibility with the SQL/MM <<12>> <<sqlmm_gpkg_geometry_columns_sql>> and OGC Simple Features SQL <<9>><<10>><<11>> <<sfsql_gpkg_geometry_columns_sql>> specifications.
-此表或视图的视图可以被用来提供SQL/ MM<<12>> <<sqlmm_gpkg_geometry_columns_sql>>和OGC简单要素<<9>><<10>><<11>> <<sfsql_gpkg_geometry_columns_sql>> 规范的兼容性。 
+上面定义可以是表或视图，它的视图可以被用来兼容SQL/ MM<<12>> <<sqlmm_gpkg_geometry_columns_sql>>和OGC简单要素SQL<<9>><<10>><<11>> <<sfsql_gpkg_geometry_columns_sql>> 
+规范。 
 
 See <<gpkg_geometry_columns_sql>>.
 
 ====== 表数据值
 [requirement]
-The `gpkg_geometry_columns` table or updateable view SHALL contain one row record for the geometry column in each vector feature data table (clause <<feature_user_tables>>) in a GeoPackage.
-该gpkg_geometry_columns表或可更新视图应包含一行记录，该记录针对符合GeoPackage 规范的每个矢量要素用户表的几何列。
+该gpkg_geometry_columns表或可更新视图应 对GeoPackage 中的每个矢量要素用户表clause <<feature_user_tables>>)的几何列 都对应 有一行记录。
 
 [requirement]
-Values of the `gpkg_geometry_columns` `table_name` column SHALL reference values in the `gpkg_contents` `table_name` column for rows with a `data_type` of 'features'.
-`gpkg_geometry_columns` 和`table_name` 列的值应该参考`gpkg_contents` `table_name` 列的值 。
+`gpkg_geometry_columns` 和`table_name` 列的值必须 reference  `gpkg_contents` 中`table_name` 列的值 ，`gpkg_contents` 中`table_name` 列所在的行中，
+要带有值为 'features'的`data_type`列。
 
 [requirement]
-The `column_name` column value in a `gpkg_geometry_columns` row SHALL be the name of a column in the table or view specified by the `table_name` column value for that row.
-`gpkg_geometry_columns` 行的`column_name` 列的值是通过该行`table_name` 列的值指定的表或视图的列名。
+目前`gpkg_geometry_columns` 中`column_name` 列的值 必须是 某个表或视图中的某一列的列名， 这个表或视图的名字记录在 `table_name` 这一列中。
 
 [requirement]
-The `geometry_type_name` value in a `gpkg_geometry_columns` row SHALL be one of the uppercase geometry type names specified in <<geometry_types>>.  `gpkg_geometry_columns` 行的`geometry_type_name` 的值应该是附录<<geometry_types>>中大写的几何类型名字之一。
+The `geometry_type_name` value in a `gpkg_geometry_columns` row SHALL be 
+one of the uppercase geometry type names specified in <<geometry_types>>.  `gpkg_geometry_columns` 行的`geometry_type_name` 的值应该是附录<<geometry_types>>中大写的几何类型名字之一。
 
 [requirement]
 The `srs_id` value in a `gpkg_geometry_columns` table row SHALL be an `srs_id` column value from the `gpkg_spatial_ref_sys` table.
