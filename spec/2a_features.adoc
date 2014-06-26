@@ -2,40 +2,55 @@
 === 要素
 
 [[sfsql_intro]]
-==== SQL 简单要素介绍  
+==== 简单要素的SQL访问介绍  
 
-Vector feature data represents geolocated entities including conceptual ones such as districts, real world objects such as roads and rivers, and observations thereof.  矢量要素数据代表的地理定位实体包括笼统对象，如地区，现实世界中的对象，如道路，河流，和观察物。
-International specifications <<9>><<10>><<11>><<12>> have standardized practices for the storage, access and use of vector geospatial features and geometries via SQL in relational databases.  国际规范中有标准的存储，访问和通过SQL关系数据库使用矢量地理空间要素和几何要素的做法。
-按GeoPackage规范存储矢量要素的SQL 架构的第一个组成部分是，在上面<<spatial_ref_sys>> 条款中定义的`gpkg_spatial_ref_sys`表。 
-Other components are defined below.  其他组成部分在下面进行了定义。
-按geopackage 规范，简单要素使用SQL/ MM（ISO13249-3）几何模型的线性几何子集定位，几何模型如下图<<core_geometry_model_figure>>所示：
+矢量要素数据表达具有地理位置信息的地物，包括类似行政区划的概念对象，诸如道路、河流的现实对象，以及它们包含的具体信息。
+在通过关系型数据库的SQL语句存储、访问和使用地理空间要素/几何对象方面，已经有许多国际标准<<9>><<10>><<11>><<12>> 。
+在GeoPackage文件中，表`gpkg_spatial_ref_sys`是SQL schema中描述矢量要素的第一个部分，参见<<spatial_ref_sys>>一节。
+SQL schema中描述矢量要素的其他部分定义如下。
+
+GeoPackage中，“简单”要素是通过 SQL/MM (ISO 13249-3) <<12>>几何模型中的线性几何子集来表达的，如下图 <<core_geometry_model_figure>> 所示。
+
 [[core_geometry_model_figure]]
-.Core Geometry Model
+.核心几何模型
 image::core-geometry-model.png[Core geometry model]
 
-用这种标准定义的具体几何实例（不是抽象的）被限制为0，1和2的二维几何对象，这些几何对象以2，3或4维空间坐标（R2，R3和R4）存在。二维空间中的几何要素是由一系列具有坐标x和y值的点组成。三维空间中的几何要素是由一系列具有坐标x、y和z值,或x, y 和m值的点组成。四维空间中的几何要素是由一系列具有坐标x, y , z和m值的点组成。坐标的解释受与点相关的坐标参考系统的影响。一个几何对象内的所有坐标应该有同一个坐标参考系统。 
-几何要素可包括z坐标值。Z坐标值传统上代表第三个维度（即3D）。在地理信息系统（GIS）中，Z坐标值可能会高于或低于海平面的高度。例如：在一副地图上，可能会根据一座山在地球上的位置，然后用一个点去标识山峰，这个点具有x和y坐标值，和山的高度，与z坐标值。
-Geometries MAY include m coordinate values.
-The m coordinate value allows the application environment to associate some measure with the point values.
-For example: A stream network may be modeled as multilinestring value with the m coordinate values measuring the distance from the mouth of stream.
-几何要素可包括M的坐标值。M坐标值允许应用程序环境和测量点关联。例如：可以利用河网建模multilinestring ，建模使用的m值，可以从流口测量距离得到。
-All geometry types described in this standard are defined so that instances of Geometry are topologically closed, i.e. all represented geometries include their boundary as point sets.
-This does not affect their representation, and open version of the same classes MAY be used in other circumstances, such as topological representations.
-所有用这个标准描述的几何类型都必须定义，使几何实例拓补闭合，即所有代表的几何要素，包括他们作为点集的边界。这并不影响他们的表现，并且同一类开放版本可在其他情况下运用，如拓扑表示。
-每种几何类型的简要说明如下，更详细的说明可在ISO13249-3中找到。
-* Geometry: the root of the geometry type hierarchy. 几何类型层次结构的根。
-* Point:在空间中的一个位置。每个点都有一个X和Y坐标。有些点还可以有一个Z和/或M值。
-* Curve:所有1维几何类型的基本类型。1维几何要素是有长度但没有面积的几何要素。曲线如果不与自身相交（在起点和终点除外），则它属于简单类型。当曲线的起点和终点重合，则认为曲线闭合，圆就是其中的一个简单例子。
-* LineString: 在空间连接两个或多个点的曲线。
-* Surface: 所有2维几何类型的基本类型，2维几何类型是一种具有面积的几何类型。
-* CurvePolygon:由外部环和零个或多个内部环所限定的平面。每个环由曲线实例定义。
-* Polygon: A restricted form of CurvePolygon where each ring is defined as a simple, closed LineString.  CurvePolygon的限制形式，曲面的每一个环被定为简单的封闭的线。
-* GeometryCollection:零个或多个几何实例集合。
-* MultiSurface: A restricted form of GeometryCollection where each Geometry in the collection must be of type Surface.  GeometryCollection的限制形式，要求该集合中的每个几何要素都必须是Surface类型。
-* MultiPolygon: A restricted form of MultiSurface where each Surface in the collection must be of type Polygon.  MultiSurface的限制形式，要求集合中的每个表面都是Polygon类型。
-* MultiCurve: A restricted form of GeometryCollection where each Geometry in the collection must be of type Curve.  GeometryCollection的限制形式，要求集合中的每条曲线都必须是Curve类型。
-* MultiLineString: A restricted form of MultiCurve where each Curve in the collection must be of type LineString.  MultiCurve的限制形式，要求集合中每一条曲线都必须是LineString类型。
-* MultiPoint: A restricted form of GeometryCollection where each Geometry in the collection must be of type Point.  GeometryCollection 的限制形式，要求集合中每个几何要素都必须是Point 类型。
+这个标准对具体的（非抽象的）几何对象类型做了限制，必须为2，3或4维坐标空间（R2，R3和R4）中的0，1或2维二维对象。
+R2中的几何对象的点拥有x和y坐标。
+R3中的几何对象的点拥有x、y、z坐标，或x、y、m坐标。
+R4中的几何对象的点拥有x、y、z和m坐标。
+真实坐标由点所属的坐标系决定。
+几何对象中的所有点应该属于同一个坐标系。
+
+几何对象可能拥有z坐标值。
+z表示三维（例如，3D）。
+在地理信息系统（GIS）中，通常是指海拔高度。
+例如，在地图中可以使用x、y值来表示一座山峰在地球上的位置，使用z值来表示这座山峰的高度。
+
+几何对象可能拥有m坐标值。
+m值在实际应用中，表示与参考点的距离。
+例如，一个水系网可以被表示为具有m坐标的多线性值，m值表示当前位置距水源头的距离。
+
+根据本标准中几何类型的定义，所有的几何对象都必须是拓扑闭合的，例如，所有的几何对象都有拓扑边界，边界用点集合表示。这并不影响它们的表达，在其他应用场景下（例如拓扑展现），可以使用同样类型的开放版本。
+
+每种几何类型的简要说明如下，
+更详细的说明可参见ISO 13249-3 <<12>>。
+* Geometry: 几何类型继承关系的根。
+* Point: 点，空间中的一个位置。每个点都有一个X和Y坐标值，有些点还可能Z和（或）M值。
+* Curve: 曲线，所有1维几何类型的基本类型。1维几何要素具有长度但没有面积。
+curve如果不与自身相交（在起点和终点除外），则认为它是简单曲线。
+如果curve的起点和终点重合，则认为它是闭合曲线。
+一个简单、闭合的curve（曲线）被称为环（ring）。
+* LineString: 连接两个或多个点的曲线。
+* Surface: 面，所有2维几何类型的基本类型，2维几何类型具有面积。
+* CurvePolygon: 由一个外环、零个或多个内环构成的曲面，每个环都是曲线（Curve）类型的。
+* Polygon: 当CurvePolygon中的每个环都是简单、闭合的LineString类型时，它被称为Polygon。
+* GeometryCollection: 零个或多个几何对象的集合。
+* MultiSurface: GeometryCollection中的每个几何对象都是Surface类型时，它被称为MultiSurface。
+* MultiPolygon: GeometryCollection中的每个几何对象都是Polygon类型时，它被称为MultiPolygon。
+* MultiCurve: GeometryCollection中的每个几何对象都是Curve类型时，它被称为MultiCurve。
+* MultiLineString: GeometryCollection中的每个几何对象都是LineString类型时，它被称为MultiLineString。
+* MultiPoint: GeometryCollection中的每个几何对象都是Point类型时，它被称为MultiPoint。
 
 ==== 内容
 
