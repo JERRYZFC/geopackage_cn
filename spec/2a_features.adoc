@@ -29,7 +29,8 @@ R4中的几何对象的点拥有x、y、z和m坐标。
 例如，所有的几何对象都有拓扑边界，边界用点集合表示。这并不影响它们的表达，
 在其他应用场景下（例如拓扑展现），可以使用同样类型的开放版本。
 
-每种几何类型的简要说明如下，更详细的说明可在更详细的说明可参见ISO 13249-3 <<12>>。中找到。
+每种几何类型的简要说明如下，更详细的说明可在更详细的说明可参见ISO 13249-3 <<12>>。
+
 * Geometry:  几何类型继承关系的根。
 * Point:在空间中的一个位置。每个点都有一个X和Y坐标。点可以选择包含一个Z和/或M值。
 * Curve:所有1维几何类型的基本类型。1维几何要素是有长度但没有面积的几何要素。
@@ -64,8 +65,7 @@ Curve如果不与自身相交（在起点和终点除外），则认为它是简
 ====== BLOB 格式
 
 [requirement]
-A GeoPackage SHALL store feature table geometries with or without optional elevation (Z) and/or measure (M) values 
-in SQL BLOBs using the Standard GeoPackageBinary format specified in table <<gpb_spec>> and clause <<gpb_data_blob_format>>.
+
 GeoPackage必须要在所有要素表中以SQL BLOBS 存储几何要素，这些几何要素可以有或没有可选的海拔（Z）和/或测量（M）的值，
 SQL BLOBS使用的是表<<gpb_spec>>和条款<<gpb_data_blob_format>>中指定的StandardGeoPackageBinary格式。
 :geopackage_binary_foot1: footnote:[OGC WKB simple feature geometry types specified in <<13>> are a subset of the ISO WKB geometry types specified in <<16>>]
@@ -125,14 +125,11 @@ StandardGeoPackageBinary {
 ** 1: Little Endian (least significant byte first)
 
 
-GEOPACKAGES SHALL USE BIG ENDIAN 0X7FF8000000000000 OR LITTLE ENDIAN 0X000000000000F87F AS THE BINARY ENCODING OF THE NAN VALUES. 
-熟知的ISO 13249-3 <<12>> 所定义的二进制没有为空的点集提供标准的编码（即用熟知文本的“空点”）。使用GeoPackages协议的这些点必须被编码为一个点，
-这个点的坐标值被设置为一个IEEE-754静态的NaN值。geopackages应使用大端口为0x7ff8000000000000或小端口为0x000000000000f87f的字节序列，
+熟知的ISO 13249-3 <<12>> 所定义的二进制没有为空的点集提供标准的编码（即用熟知文本的“空点”）。在GeoPackages中这些点必须被编码为一个点，
+这个点的每个坐标值被设置为一个IEEE-754静态的NaN值。geopackages应使用大低字节序0x7ff8000000000000或小低字节序0x000000000000f87f
 作为NaN值的二进制编码。
 
-when the wkbgeometry in a geopackagebinary is empty, either the envelope contents indicator code shall be 0 indicating no envelope, 
-or the envelope shall have its values set to nan as defined for an empty point.
-当GeoPackageBinary的WKBGeometry值为空时，要么信封内容的指标代码为0，表示无信封，要么信封的值设置为NaN，定义为空点。
+当GeoPackageBinary的WKBGeometry值为空时，要么最小外接矩形的内容的指标代码为0，代表最小外接矩形，要么最小外接矩形的值设置为NaN，代表没有点。
 
 [[sql_geometry_types]]
 ==== SQL几何类型
@@ -188,25 +185,23 @@ See <<gpkg_geometry_columns_sql>>.
 该gpkg_geometry_columns表或可更新视图应 对GeoPackage 中的每个矢量要素用户表clause <<feature_user_tables>>)的几何列 都对应 有一行记录。
 
 [requirement]
-`gpkg_geometry_columns` 和`table_name` 列的值必须 reference  `gpkg_contents` 中`table_name` 列的值 ，`gpkg_contents` 中`table_name` 列所在的行中，
+`gpkg_geometry_columns` 中`table_name` 列的值必须 reference  `gpkg_contents` 中`table_name` 列的值 ，`gpkg_contents` 中`table_name` 列所在的行中，
 要带有值为 'features'的`data_type`列。
 
 [requirement]
 目前`gpkg_geometry_columns` 中`column_name` 列的值 必须是 某个表或视图中的某一列的列名， 这个表或视图的名字记录在 `table_name` 这一列中。
 
 [requirement]
-The `geometry_type_name` value in a `gpkg_geometry_columns` row SHALL be 
-one of the uppercase geometry type names specified in <<geometry_types>>.  `gpkg_geometry_columns` 行的`geometry_type_name` 的值应该是附录<<geometry_types>>中大写的几何类型名字之一。
+`gpkg_geometry_columns` 中列`geometry_type_name` 的值必须是附录 <<geometry_types>> 中大写的几何类型名字之一。
 
 [requirement]
-The `srs_id` value in a `gpkg_geometry_columns` table row SHALL be an `srs_id` column value from the `gpkg_spatial_ref_sys` table.
-在`gpkg_geometry_columns`表行的srs_id值应为`gpkg_spatial_ref_sys`表中`srs_id` 列值。
+在`gpkg_geometry_columns`表中 `srs_id` 值应为 `gpkg_spatial_ref_sys` 表中 `srs_id`  某一列的值。
 
 [requirement]
-The z value in a `gpkg_geometry_columns` table row SHALL be one of 0, 1, or 2.  `gpkg_geometry_columns`表行的Z值应该是0, 1或2之一。 
+ `gpkg_geometry_columns` 表中的Z值必须是0, 1或2。 
 
 [requirement]
-The m value in a `gpkg_geometry_columns` table row SHALL be one of 0, 1, or 2.   `gpkg_geometry_columns`表行的m值应该是0, 1或2之一。
+`gpkg_geometry_columns`表行的m值必须是0, 1或2。 
 
 [[feature_user_tables]]
 ==== 矢量要素用户数据表
@@ -217,27 +212,26 @@ The m value in a `gpkg_geometry_columns` table row SHALL be one of 0, 1, or 2.  
 
 :features_data_table_foot2: footnote:[A GeoPackage is not required to contain any feature data tables. Feature data tables in a GeoPackage MAY be empty.]
 
-The third component of the SQL schema for vector features in a GeoPackage described in clause <<sfsql_intro>> above are tables that contain user data representing features.
-Feature attributes are columns in a feature table, including geometries.
-Features are rows in a feature table.
-{features_data_table_foot2}
-按上面<<sfsql_intro>>条款中描述的geopackage规范，存储矢量要素的SQL框架的第三个组成部分是包含表示功能的用户数据表。要素属性对应要素表中的列，包括几何要素。要素对应于要素表{features_data_table_foot2}的行。
+在GeoPackage文件中，上面的<sfsql_intro>>条款描述的 是SQL schema中描述矢量要素的第三个部分。
+要素属性包括几何要素，在表中以列存储。要素在表中以行存储。参见 {features_data_table_foot2}
 
 [[requirement_feature_integer_pk]]
-[requirement]
-A GeoPackage MAY contain tables or updateable views containing vector features.
-Every such feature table or view in a GeoPackage SHALL have a column with column type INTEGER and 'PRIMARY KEY AUTOINCREMENT' column constraints per <<example_feature_table_cols>> and <<example_feature_table_sql>>.
-geopackage规范包含表或含有矢量要素的可更新视图。符合GeoPackage规范的每个要素表或视图都应该有一个INTEGER类型的列和'PRIMARY KEY AUTOINCREMENT'类型的约束列，在<<example_feature_table_cols>>和<<example_feature_table_sql>>中有描述。
-
-The integer primary key of a feature table allows features to be linked to row level metadata records in the `gpkg_metadata` table by rowid <<B5>> values in the `gpkg_metadata_reference` table as described in clause <<_metadata_reference_table>> below.
-要素表的整形主键约束允许要素通过`gpkg_metadata_reference` 表的 <<B5>> 值与`gpkg_metadata`表的行级元素据关联，具体的在下面<<_metadata_reference_table>>表中进行了描述。
 
 [requirement]
-A feature table SHALL have only one geometry column.
-要素表应该仅仅有一个几何要素列。
+geopackage可以有包含有矢量要素的表或可更新的视图。
+在GeoPackage中，每个要素表或视图都必须有一个INTEGER类型的列和 'PRIMARY KEY AUTOINCREMENT' 的列约束，
+参见 <<example_feature_table_cols>>和<<example_feature_table_sql>> 。
 
-Feature data models <<B23>> from non-GeoPackage implementations that have multiple geometry columns per feature table MAY be transformed into GeoPackage implementations with a separate feature table for each geometry type whose rows have matching integer primary key values that allow them to be joined in a view with the same column definitions as the non-GeoPackage feature data model with multiple geometry columns.
-按非geopackage规范实现的要素数据模型 <<B23>>每个要素表可以有多个几何要素列，这种表可以转换为规范的表。。。。。。。
+
+要素表的 整型主键约束，允许 通过 `gpkg_metadata_reference` 表的
+ rowid <<B5>> 值  将要素表中的要素 关联到 `gpkg_metadata`表 行 级别 元数据 记录，在下面的 <<_metadata_reference_table>> 表中进行了描述。
+
+[requirement]
+要素表有且仅有一个几何要素列。
+
+
+按non-GeoPackage 的要素数据模型 <<B23>>，每个要素表可以有多个几何要素列，这种表可以转换为 GeoPackage 的表。每个几何类型对应一个要素表，
+要素表的行 需要有符合 整型主键 值，这样他们可以被关联到具有相同列的视图，列的定义在 non-GeoPackage 具有多个几何要素列的矢量数据模型有所描述。
 
 [[example_feature_table_cols]]
 .EXAMPLE : Sample Feature Table or View Definition
@@ -247,8 +241,8 @@ Feature data models <<B23>> from non-GeoPackage implementations that have multip
 |`id` |INTEGER |Autoincrement primary key 自动增量主键|no | |PK
 |`geometry` |GEOMETRY |GeoPackage Geometry 符合GeoPackage规范的几何要素 |yes | |
 |`text_attribute` |TEXT |Text attribute of feature 要素文本属性 |yes | |
-|`real_attribute` |REAL |Real attribute of feature 要素纯文本属性|yes | |
-|`boolean_attribute` |BOOLEAN |Boolean attribute of feature 要素布尔逻辑属性 |yes | |
+|`real_attribute` |REAL |Real attribute of feature 要素实属性|yes | |
+|`boolean_attribute` |BOOLEAN |Boolean attribute of feature 要素布尔属性 |yes | |
 |`raster_or_photo` |BLOB |Photograph of the area  区域图片|yes | |
 |=======================================================================
 
@@ -256,30 +250,31 @@ See <<example_feature_table_sql>>.
 
 ====== 表数据值 
 
-A feature geometry is stored in a geometry column specified by the lowercase `geometry_column` value for the feature table in the `gpkg_geometry_columns` table defined in clause <<_geometry_columns>> above.
-几何要素以列的形式存储，这个列被上面<<_geometry_columns>> 条款中定义的`gpkg_geometry_columns`表中的值为小写的`geometry_column`列限定。
 
-The geometry type of a feature geometry column specified in the `gpkg_geometry_columns` table `geometry_type_name` column is a name from <<geometry_types>>.
-被表`gpkg_geometry_columns`中列名为`geometry_type_name` 限定的几何要素列类型，是<<geometry_types>>表中名字的一种形式。
+按照上面 <<_geometry_columns>> 条款中规定的  `gpkg_geometry_columns` 表 `geometry_column` 值是小写的，矢量要素表中
+存储在 几何要素 列中的几何要素要符合这个规定。
+
+要素几何对象列的几何要素类型，要符合 表`gpkg_geometry_columns`中列名为`geometry_type_name` 要求，必须是 <<geometry_types>>中的一个 。
 
 
 :geom_type_req_foot1: footnote:[GeoPackage applications MAY use SQL triggers or tests in application code to meet this requirement]
+
 [requirement]
-Feature table geometry columns SHALL contain geometries of the type or assignable for the type specified for the column by the `gpkg_geometry_columns` table `geometry_type_name` uppercase column value {geom_type_req_foot1}.
-几何要素列应该包含几何要素类型或由`gpkg_geometry_columns`表的`geometry_type_name`列的大写值指定的可分配类型。
 
-Geometry subtypes are assignable as defined in <<geometry_types>> and shown in part in <<core_geometry_model_figure>>.   子几何类型可以被<<geometry_types>> 和<<core_geometry_model_figure>>中的类型指定。
-For example, if the `geometry_type_name` value in the `gpkg_geometry_columns` table is for a geometry type like POINT that has no subtypes, then the feature table geometry column MAY only contain geometries of that type.
-If the geometry `type_name` value in the `gpkg_geometry_columns` table is for a geometry type like GEOMCOLLECTION that has subtypes, then the feature table geometry column MAY only contain geometries of that type or any of its direct or indirect subtypes.
-If the geometry `type_name` is GEOMETRY (the root of the geometry type hierarchy) then the feature table geometry column MAY contain geometries of any geometry type.
-例如：如果表`gpkg_geometry_columns`中列 `geometry_type_name` 的值是一种几何类型，如POINT，POINT没有子类型，这种几何要素表的列可能只含有这种类型的几何要素。如果表`gpkg_geometry_columns` 中`type_name`的值是一种类似GEOMCOLLECTION的几何类型，则没有子类型，这种几何要素表的列只包含这种类型或是它的任何直接或间接子类型的几何要素。
-如果几何要素的`type_name`值为GEOMETRY （几何类型层次结构的根），这种要素表的几何列可以包含任何几何类型的几何要素。
+几何要素列应该包含几何要素类型或由`gpkg_geometry_columns`表的`geometry_type_name`列的大写值指定的可分配类型 {geom_type_req_foot1}。
+  
+子几何类型可以被<<geometry_types>> 中定义的类型所限定，部分子几何类型在 <<core_geometry_model_figure>> 中有说明。
+例如：如果表`gpkg_geometry_columns`中列 `geometry_type_name` 的值是一种如POINT没有子类型几何类型，这种几何要素表的列可只含有这种类型的几何要素。
+如果表`gpkg_geometry_columns` 中`type_name`的值是一种如GEOMCOLLECTION有子类型的几何类型，这种几何要素表的列可以只包含这种类型
+或是它的任何直接或间接子类型的几何要素。
+如果几何要素的`type_name`值为GEOMETRY （几何类型继承关系的根），这种要素表的几何列可以包含任何类型的几何要素。
 
-几何要素存在或不存在可选的高程（Z）和/或测量（M）值不会改变它的类型或可转让性。
+几何要素存在或不存在可选的高程（Z）和/或测量（M）值不会改变它的类型或类型的相关限制。
 
-The spatial reference system type of a feature geometry column specified by a `gpkg_geometry_columns` table `srs_id` column value is a code from the `gpkg_spatial_ref_sys` table `srs_id` column.
-几何要素的空间参考系统类型是由`gpkg_geometry_columns` 表中的`srs_id`列的值限定的，`srs_id`的值是一种编码，来自表`gpkg_spatial_ref_sys` 的`srs_id`列。
+
+几何要素的空间参考系统类型是由`gpkg_geometry_columns` 表中的`srs_id`列的值限定的，
+`srs_id`的值是来自表`gpkg_spatial_ref_sys` 的`srs_id`列值中的一个代码。
 
 [requirement]
 Feature table geometry columns SHALL contain geometries with the `srs_id` specified for the column by the `gpkg_geometry_columns` table `srs_id` column value.
-要素表的几何列应该包含被表`gpkg_geometry_columns`的 `srs_id` 列值指定的几何要素。
+要素表的几何要素列应该包含 有 `srs_id` 的几何要素，  `srs_id` 列值必须是表`gpkg_geometry_columns` 的 `srs_id` 列值。
