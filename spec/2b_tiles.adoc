@@ -3,11 +3,16 @@
 
 ==== 瓦片矩阵介绍
 
-There are a wide variety of commercial and open source conventions for storing, indexing, accessing and describing tiles in tile pyramids. Unfortunately, no applicable existing consensus, national or international specifications have standardized practices in this domain. In addition, various image file formats have different representational capabilities, and include different self-descriptive metadata. 
-有各种各样用于存储，索引，访问和描述金字塔的商业和开源规则。不幸的是，在这个领域，还没有符合现行共识，国家或国际规范的标准实例。此外，不同的图像文件格式有不同的表示能力，包括不同的自我描述性元数据。 
 
-The tile store data / metadata model and convention described below support direct use of tiles in a GeoPackage in two ways. First, they specify how existing application MAY create SQL Views of the data /metadata model on top of existing application tables that that follow different interface conventions. Second, they include and expose enough metadata information at both the dataset and record level to allow applications that use GeoPackage data to discover its characteristics without having to parse all of the stored images. Applications that store GeoPackage tile data, which are presumed to have this information available, SHALL store sufficient metadata to enable its intended use.
-瓦片存储数据/元数据模型和在下面描述的公约，支持用两种方式直接使用符合GeoPackage规范的瓦片。首先，它们指定了如何用现有应用程序在现有的应用程序表上，创建的数据/元数据模型的SQL视图，SQL视图遵循不同的接口约定。
+有各种各样 关于 在瓦片金字塔存储，索引，访问和描述瓦片 的商业和开源规则。
+不幸的是，在这个领域，无论国家或国际规范的标准 还没有普遍的共识。
+此外，不同的图像文件格式有不同的表示能力，包括不同的自我描述性元数据。 
+
+
+瓦片存储数据/元数据模型和在下面描述的公约，支持在GeoPackage中以两种方式直接使用瓦片。
+首先，它们指定了已有的应用程序如何在现有的表的基础上，可以创建的数据/元数据模型的SQL视图，SQL视图遵循不同的接口约定。
+其次，他们包含和呈现了 关于 数据集和记录 级别 充足的元数据信息 允许使用 GeoPackage 数据的应用不需要解析所有存储的影像，就可以发现它的特性 
+存储GeoPackage 瓦片数据，并且具 有这些信息访问权限 应用程序，必须要存储充分的元数据来支持它的未来的这种用途。
 
 The GeoPackage tile store data model MAY be implemented directly as SQL tables in a SQLite database for maximum performance, or as SQL views on top of tables in an existing SQLite tile store for maximum adaptability and loose coupling to enable widespread implementation.
 
