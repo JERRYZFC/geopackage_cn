@@ -26,7 +26,7 @@ R4中的几何对象的点拥有x、y、z和m坐标。
 在地理信息系统（GIS）中，通常是指海拔高度。
 例如，在地图中可以使用x、y值来表示一座山峰在地球上的位置，使用z值来表示这座山峰的高度。
 
-几何要素可包括m的坐标值。
+几何要素可包括m坐标值。
 m值在实际应用中，表示与参考点的距离。
 例如，一个水系网可以被表示为具有m坐标的多线性值，m值表示当前位置距水源头的距离。
 
@@ -131,11 +131,9 @@ StandardGeoPackageBinary {
 ** 1: Little Endian (least significant byte first)
 
 
-熟知的ISO 13249-3 <<12>> 所定义的二进制没有为空的点集提供标准的编码（即用熟知文本的“空点”）。在GeoPackages中这些点必须被编码为一个点，
-这个点的每个坐标值被设置为一个IEEE-754静态的NaN值。geopackages应使用大低字节序0x7ff8000000000000或小低字节序0x000000000000f87f
-作为NaN值的二进制编码。
+ISO 13249-3 <<12>>中定义的WKB(well-known binary)并没有为空的点集提供标准编码（例如，WKT(Well-known text)中的'Point Empty'）。在GeoPackage中，这些点会被表示为IEEE-754标准的沉寂非数值 (NAN)，GeoPackage应使用高字节序0x7ff8000000000000或低字节序0x000000000000f87f来为NaN值进行二进制编码。
 
-当GeoPackageBinary的WKBGeometry值为空时，要么最小外接矩形的内容的指标代码为0，代表最小外接矩形，要么最小外接矩形的值设置为NaN，代表没有点。
+当GeoPackage中的WKBGeometry的二进制值为空时，要么最小外接矩形的内容标识符为0，代表没有最小外接矩形，要么最小外接矩形的值为NaN，表示空点。
 
 [[sql_geometry_types]]
 ==== SQL几何类型
@@ -145,11 +143,7 @@ StandardGeoPackageBinary {
 ====== 核心类型
 
 [requirement] 
-A GeoPackage SHALL store feature table geometries with the basic simple feature geometry types
- (Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeomCollection)
- in <<geometry_types>> <<geometry_types_core>> in the GeoPackageBinary geometry encoding format.
-按GeoPackage规范，SQL数据库中应该在要素表中存储有具有简单几何要素类型（几何，点，线，多边形，多点，multilinestring，multipolygon，geomcollection）的
-几何要素，几何要素类型在附表<<geometry_types>> 和<<geometry_types_core>> 中使用了GeoPackageBinary几何编码格式。
+GeoPackage要素表中存储的几何对象，类型应该是表<<geometry_types>>、<<geometry_types_core>>中基本类型（Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeomCollection），应该使用GeoPackageBinary几何编码格式进行二进制编码。
 
 ==== 几何要素列
 
@@ -158,37 +152,32 @@ A GeoPackage SHALL store feature table geometries with the basic simple feature 
 ====== 表定义
 
 [requirement]
-包含一个`gpkg_contents` 表的GeoPackage ，并且表的每一行都有一个值为“feature”，列名为`data_type` ，这样的GeoPackage应该包括
-一个`gpkg_geometry_columns`表或可更新视图的 按照 <<gpkg_geometry_columns_cols>> 和<<gpkg_geometry_columns_sql>>。
+在GeoPackage中，如果表`gpkg_contents`的`data_type`列有“feature”值，那么也应该存在一个名为`gpkg_geometry_columns`的表或可更新视图，有关`gpkg_geometry_columns`表的说明参见 <<gpkg_geometry_columns_cols>> 和 <<gpkg_geometry_columns_sql>>。
 
-The second component of the SQL schema for vector features in a GeoPackage is a `gpkg_geometry_columns` table that
-identifies the geometry columns in tables that contain user data representing features.
-按geopackage规范存储矢量要素的SQL框架的第二个组成部分是`gpkg_geometry_columns`表，这个表用于标识 那些包含了以用户数据来表示要素的表 中的几何要素列。
-
+表`gpkg_geometry_columns`是对应GeoPackage矢量要素的SQL schema的第二个部分（component），该表用于标识存储要素数据的表中，哪一列存储的是几何对象。
 
 [[gpkg_geometry_columns_cols]]
 .Geometry Columns Table or View Definition
 [cols=",,,",options="header",]
 |=======================================================================
 |Column Name |Type |Description |Key
-|`table_name` |TEXT | 包含几何要素列的表名 |PK, FK
-|`column_name` |TEXT | 要素表中的列名，是一个几何要素列|PK
-|`geometry_type_name` |TEXT |Name from <<geometry_types_core>> or <<geometry_types_extension>> in <<geometry_types>> |
+|`table_name` |TEXT | 包含几何对象的表名 |PK, FK
+|`column_name` |TEXT | 表中存储几何对象的列名|PK
+|`geometry_type_name` |TEXT |取值参见附录<<geometry_types>>中的表 <<geometry_types_core>> 或表 <<geometry_types_extension>>|
 |`srs_id` |INTEGER |空间参考系统 ID: `gpkg_spatial_ref_sys.srs_id` |FK
 |`z` |TINYINT |  0：禁止z值; 1：z值必须有; 2：z值可选|
 |`m` |TINYINT |  0：禁止m值; 1：m值必须有; 2：m值可选|
 |=======================================================================
 
-在 `gpkg_geometry_columns.srs_id` 上的FK references `gpkg_spatial_ref_sys.srs_id` 上的PK，以确保几何列仅在定义空间参考系的要素表中定义。
+表`gpkg_geometry_columns`中的`srs_id`作为外键（FK）与表`gpkg_spatial_ref_sys`的主键`srs_id`关联，确保了要素表中的几何对象都属于指定的坐标系。
 
-上面定义可以是表或视图，它的视图可以被用来兼容SQL/ MM<<12>> <<sqlmm_gpkg_geometry_columns_sql>>和OGC简单要素SQL<<9>><<10>><<11>> <<sfsql_gpkg_geometry_columns_sql>> 
-规范。 
+上述表（或视图）的视图（Views）可以使SQL/MM<<12>> <<sqlmm_gpkg_geometry_columns_sql>>标准兼容OGC Simple Features SQL <<9>><<10>><<11>> <<sfsql_gpkg_geometry_columns_sql>>标准。
 
-See <<gpkg_geometry_columns_sql>>.
+参见 <<gpkg_geometry_columns_sql>>.
 
 ====== 表数据值
 [requirement]
-该gpkg_geometry_columns表或可更新视图应 对GeoPackage 中的每个矢量要素用户表clause <<feature_user_tables>>)的几何列 都对应 有一行记录。
+在GeoPackage中，针对每个矢量要素表（<<feature_user_tables>>节），`gpkg_geometry_columns`表（或可更新视图）都应该包含一行记录来标识该矢量要素表的哪一列是几何对象。
 
 [requirement]
 `gpkg_geometry_columns` 中`table_name` 列的值必须 reference  `gpkg_contents` 中`table_name` 列的值 ，`gpkg_contents` 中`table_name` 列所在的行中，
@@ -214,7 +203,7 @@ See <<gpkg_geometry_columns_sql>>.
 
 ===== 数据
 
-======表定义
+====== 表定义
 
 :features_data_table_foot2: footnote:[A GeoPackage is not required to contain any feature data tables. Feature data tables in a GeoPackage MAY be empty.]
 
