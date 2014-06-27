@@ -14,107 +14,138 @@
 其次，他们包含和呈现了 关于 数据集和记录 级别 充足的元数据信息 允许使用 GeoPackage 数据的应用不需要解析所有存储的影像，就可以发现它的特性 
 存储GeoPackage 瓦片数据，并且具 有这些信息访问权限 应用程序，必须要存储充分的元数据来支持它的未来的这种用途。
 
-The GeoPackage tile store data model MAY be implemented directly as SQL tables in a SQLite database for maximum performance, or as SQL views on top of tables in an existing SQLite tile store for maximum adaptability and loose coupling to enable widespread implementation.
+The GeoPackage 瓦片存储数据模型 可以直接 作为 SQLite 数据库的数据表得以实现，这中方法性能最佳;
+或者 在已有的瓦片存储表上建立SQL 视图，这种方法能达到最大的适应性和低耦合 ，从而能被广泛的实施.
+
 
 :tiles_intro_foot1: footnote:[Images of multiple MIME types MAY be stored in given table. For example, in a tiles table, image/png format tiles COULD be used for transparency where there is no data on the tile edges, and image/jpeg format tiles COULD be used for storage efficiency where there is image data for all pixels. Images of multiple bit depths of the same MIME type MAY also be stored in a given table, for example image/png tiles in both 8 and 24 bit depths.]
 
-A GeoPackage CAN store multiple raster and tile pyramid data sets in different tables or views in the same container.
-{tiles_intro_foot1} “Tile pyramid” refers to the concept of pyramid structure of tiles of different spatial extent an resolution at different zoom levels, and the tile data itself.
-“Tile matrix” refers to rows and columns of tiles tha all have the same spatial extent and resolution at a particular zoom level.
-“Tile matrix set” refers to the definitio of a tile pyramid’s tiling structure.
+GeoPackage CAN 存储多种栅格和瓦片金字塔数据集合在同一个容器的不同表和视图中.
+{tiles_intro_foot1} 
+“Tile pyramid”  瓦片金字塔指 不同缩放级别 不同空间范围 相同分辨率 这样一些瓦片和瓦片自身的数据 所构成的金字塔型的结构 。
+“Tile matrix” 在一个指定的缩放级别上，瓦片的行和列都具有相同的空间范围和分辨率 。
+“Tile matrix set” 瓦片金字塔中层级结构.（？？）
 
-The tables or views that implement the GeoPackage tile store data / metadata model are described and discussed individually in the following subsections.
+The tables or views that implement the GeoPackage tile store data / metadata model are described and discussed individually 
+in the following subsections.
+GeoPackage 瓦片存储数据或元数据的模型的具体实现的表和视图 会在下面的章节中分别阐述。
 
-==== Contents
+==== 内容
 
-===== Data
+===== 数据
 
-====== Contents Table – Tiles Row
+====== 内容表 – 瓦片列
 
 [requirement]
-The `gpkg_contents` table SHALL contain a row with a `data_type` column value of “tiles” for each tile pyramid user data table or view.
+ `gpkg_contents` 表必须对于每个瓦片金字塔用户数据表或视图 都对应包含一条记录， 这条记录中要包含 名为`data_type` 列，且列值为 “tiles”.
 
 [[zoom_levels]]
 ==== Zoom Levels
 
-In a GeoPackage, zoom levels are integers in sequence from 0 to n that identify tile matrix layers in a tile matrix set that contain tiles of decreasing spatial extent and finer spatial resolution.
+GeoPackage中, 缩放级别是从0到n的整数，用来表示瓦片矩阵集中的不同的瓦片矩阵图层，瓦片矩阵集中包含了具有较小的空间范围和更清晰的空间分辨率的瓦片。
 Adjacent zoom levels immediately preceed or follow each other and differ by a value of 1.
-Pixel sizes are real numbers in the terrain units of the spatial reference system of a tile image specifying the dimensions of the real world area represented by one pixel.
-Pixel size MAY vary by a constant factor or by different factors or intervals between some or all adjacent zoom levels in a tile matrix set.
-In the commonly used "zoom times two" convention, pixel sizes vary by a factor of 2 between all adjacent zoom levels, as shown in the example in <<tiles_factor2_example_appendix>>.
-Other "zoom other intervals" conventions use different factors or irregular intervals with pixel sizes chosen for intuitive cartographic representation of raster data, or to coincide with the original pixel size of commonly used global image products.
+相邻的缩放级别递增或递减，值相差1.
+Pixel sizes are real numbers in the terrain units of the spatial reference system of a tile image
+ specifying the dimensions of the real world area represented by one pixel.
+ ？？？像素大小是一个真实数字 以瓦片图像所在的空间参考系统下的 地形的单位表示，该单位定义了 一个像素所代表的在现实世界中真实区域的大小。
+Pixel size MAY vary by a constant factor or by different factors or intervals 
+between some or all adjacent zoom levels in a tile matrix set.
+在瓦片矩阵集中在某些或所有相邻的缩放级别之间，像素大小可以是以一个常量变化，或者以不同的因子和间隔 变化。
+In the commonly used "zoom times two" convention, pixel sizes vary by a factor of 2 between all adjacent zoom levels,
+ as shown in the example in <<tiles_factor2_example_appendix>>.
+ 在使用最普遍的"zoom times two"（缩放两倍）惯例中，不同缩放级别的像素大小以两倍因子变化 如 <<tiles_factor2_example_appendix>> 例子中所展示的那样。
+ 
+Other "zoom other intervals" conventions use different factors or irregular intervals with pixel sizes 
+chosen for intuitive cartographic representation of raster data,
+ or to coincide with the original pixel size of commonly used global image products.
 See WMTS <<16>> Annex E for additional examples of both conventions.
+其它 "zoom other intervals" 惯例 为了栅格数据的直观的图像显示 或 为了 与 全球通用的图像产品的原始坐标大小保持一致 ，在像素大小 使用不同的因子和不规则的间隔。
 
-===== Data
+===== 数据
 
-====== Zoom Times Two
+====== 两倍缩放
 
 :zoom_times_two_foot1: footnote:[See clause 3.2.1.1.1 for use of other zoom levels as a registered extensions.]
 [requirement]
-In a GeoPackage that contains a tile pyramid user data table that contains tile data, by default {zoom_times_two_foot1}, zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjacent zoo levels in the tile matrix metadata table.
-
+In a GeoPackage that contains a tile pyramid user data table that contains tile data, by default {zoom_times_two_foot1}, 
+zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjacent zoo levels in the tile matrix metadata table.
+在GeoPackage中，瓦片金字塔用户数据表包含瓦片数据，默认{zoom_times_two_foot1}，表中相邻缩放级别的像素大小必须要按照 瓦片矩阵元数据表中的 2倍因子变化。
 [[tile_enc_png]]
 ==== Tile Encoding PNG
 
-===== Data
+===== 数据
 
 ====== MIME Type PNG
 
 :png_req_foot1: footnote:[See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.]
 [requirement]
-In a GeoPackage that contains a tile pyramid user data table that contains tile data that is not http://www.ietf.org/rfc/rfc2046.txt[MIME type] http://www.jpeg.org/public/jfif.pdf[image/jpeg] <<17>><<18>><<19>>, by default SHALL store that tile data in http://www.iana.org/assignments/media-types/index.html[MIME type] http://libpng.org/pub/png/[image/png] <<20>><<21>>. {png_req_foot1}
+在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 http://www.ietf.org/rfc/rfc2046.txt[MIME type] http://www.jpeg.org/public/jfif.pdf[image/jpeg] <<17>><<18>><<19>>类型，那么默认就是 http://www.iana.org/assignments/media-types/index.html[MIME type] http://libpng.org/pub/png/[image/png] <<20>><<21>>类型。{png_req_foot1}
+
+
 
 [[tile_enc_jpeg]]
 ==== Tile Encoding JPEG
 
-===== Data
+===== 数据
 
 ====== MIME Type JPEG
 
 :jpg_req_foot1: footnote:[See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.]
 [requirement]
-In a GeoPackage that contains a tile pyramid user data table that contains tile data that is not http://www.iana.org/assignments/media-types/index.html[MIME type] http://libpng.org/pub/png/[image/png] <<20>><<21>>, by default SHALL store that tile data in http://www.ietf.org/rfc/rfc2046.txt[MIME type] http://www.jpeg.org/public/jfif.pdf[image/jpeg] <<17>><<18>><<19>>. {jpg_req_foot1}
+在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 http://www.iana.org/assignments/media-types/index.html[MIME type] http://libpng.org/pub/png/[image/png] <<20>><<21>>类型，那么默认就是 http://www.ietf.org/rfc/rfc2046.txt[MIME type] http://www.jpeg.org/public/jfif.pdf[image/jpeg] <<17>><<18>><<19>>类型。{jpg_req_foot1}
 
-==== Tile Matrix Set
+==== 瓦片矩阵集合
 
-===== Data
+===== 数据
 
 [[tile_matrix_set_data_table_definition]]
-====== Table Definition
+====== 表定义
 
 [requirement]
-A GeoPackage that contains a tile pyramid user data table SHALL contain  `gpkg_tile_matrix_set` table or view per <<tile_matrix_set_data_table_definition>>, <<gpkg_tile_matrix_set_cols>> and <<gpkg_tile_matrix_set_sql>>.
+包含瓦片金字塔数据表的Geopackage文件，必须有一个符合<<tile_matrix_set_data_table_definition>>条款、表<<gpkg_tile_matrix_set_cols>> 和表<<gpkg_tile_matrix_set_sql>>规定的`gpkg_tile_matrix_set`表或视图，
 
 [[gpkg_tile_matrix_set_cols]]
-.Tile Matrix Set Table or View Definition
+.瓦片矩阵集合的表或视图定义
 [cols=",,,,,",options="header",]
 |=======================================================================
 |Column Name |Column Type |Column Description |Null |Default |Key
-|`table_name` |TEXT |Tile Pyramid User Data Table Name |no | | PK, FK
-|`srs_id` |INTEGER | Spatial Reference System ID: gpkg_spatial_ref_sys.srs_id |no |  |FK
-|`min_x` |DOUBLE |Bounding box minimum easting or longitude for all content in table_name |no | |
-|`min_y` |DOUBLE |Bounding box minimum northing or latitude for all content in table_name |no | |
-|`max_x` |DOUBLE |Bounding box maximum easting or longitude for all content in table_name |no | |
-|`max_y` |DOUBLE |Bounding box maximum northing or latitude for all content in table_name |no | |
+|`table_name` |TEXT |瓦片金字塔数据表名 |no | | PK, FK
+|`srs_id` |INTEGER | 空间参考系ID: gpkg_spatial_ref_sys.srs_id |no |  |FK
+|`min_x` |DOUBLE |table_name 中所有瓦片的Bounding box 的最小 easting or longitude |no | |
+|`min_y` |DOUBLE |table_name 中所有瓦片的Bounding box minimum northing or latitude  |no | |
+|`max_x` |DOUBLE |table_name 中所有瓦片的Bounding box maximum easting or longitude  |no | |
+|`max_y` |DOUBLE |table_name 中所有瓦片的Bounding box maximum northing or latitude |no | |
 |=======================================================================
 
-The gpkg_tile_matrix_set table or updateable view defines the minimum bounding box (min_x, min_y, max_x, max_y) and spatial reference system (srs_id) for all content in a tile pyramid user data table.
+在 gpkg_tile_matrix_set 表或可更新的视图中为瓦片金字塔用户数据表中的所有瓦片定义了最小的bounding box (min_x, min_y, max_x, max_y)
+和空间参考系统(srs_id)。
 
-See <<gpkg_tile_matrix_set_sql>>.
+参见 <<gpkg_tile_matrix_set_sql>>.
 
 [[clause_tile_matrix_set_table_data_values]]
-====== Table Data Values
+====== 表数据值
 
-The minimum bounding box defined in the gpkg_tile_matrix_set table or view for a tile pyramid user data table SHALL be exact so that the bounding box coordinates for individual tiles in a tile pyramid MAY be calculated based on the column values for the user data table in the gpkg_tile_matrix table or view.  For example, because GeoPackages use the upper left tile origin convention defined in clause <<clause_tile_matrix_table_data_values>> below, the gpkg_tile_matrix_set (min_x, max_y) ordinate is the upper-left corner of tile (0,0) for all zoom levels in a table_name tile pyramid user data table.
+The minimum bounding box defined in the gpkg_tile_matrix_set table or view for a tile pyramid user data table SHALL be exact 
+so that the bounding box coordinates for individual tiles in a tile pyramid MAY be calculated
+ based on the column values for the user data table in the gpkg_tile_matrix table or view.  For example,
+ because GeoPackages use the upper left tile origin convention defined in clause <<clause_tile_matrix_table_data_values>> below, 
+ the gpkg_tile_matrix_set (min_x, max_y) ordinate is the upper-left corner of tile (0,0) for all zoom levels in
+ a table_name tile pyramid user data table.
+gpkg_tile_matrix_set表或视图中 为瓦片金字塔用户数据表 定义的最小的bounding box 必须是 确定的 以便对于瓦片金字塔中的单个tiles 的bounding box的坐标
+都可以被计算。计算时基于gpkg_tile_matrix表或视图中的用户数据表的列值。例如，GeoPackages 使用的 在下面 条款 <<clause_tile_matrix_table_data_values>> 中所描述的惯例
+即 左上的瓦片原点。在 table_name 列中的的瓦片金字塔用户数据表 中的所有缩放级别下，gpkg_tile_matrix_set (min_x, max_y) 坐标 (0,0)瓦片的左上角。
 
 [requirement]
-Values of the `gpkg_tile_matrix_set` `table_name` column SHALL reference values in th gpkg_contents table_name column for rows with a data type of "tiles".
-
+Values of the `gpkg_tile_matrix_set` `table_name` column SHALL reference values in th gpkg_contents table_name column for
+ rows with a data type of "tiles".
+`gpkg_tile_matrix_set` 表的 `table_name`的值必须是 gpkg_contents 的行中的 数据类型为"tiles" 时 table_name 列的引用
 [requirement]
 The gpkg_tile_matrix_set table or view SHALL contain one row record for each tile pyramid user data table.
+gpkg_tile_matrix_set  表或视图 必须对每个瓦片金字塔用户数据表 都对应包含一行记录
 
 [requirement]
 Values of the `gpkg_tile_matrix_set` `srs_id` column SHALL reference values in the `gpkg_spatial_ref_sys` `srs_id` column.
+`gpkg_tile_matrix_set`中的`srs_id` 列的值必须是引用的 `gpkg_spatial_ref_sys`的`srs_id`的值。
 
 [[tile_matrix]]
 ==== 瓦片矩阵
