@@ -1,11 +1,11 @@
-== 选项
+== 可选项
 
-The optional capabilities specified in this clause depend on the required capabilities specified in clause <<_base>> above. 在本条款中指定的可选功能取决于上面章节<<_base>> ，指定的需要的功能。
-Each subclause of this clause defines an indivisible module of functionality that can be used in GeoPackages. These modules are referred to as options. 本条款中的每个子条款定义的不可分割的功能模块，可用于geopackages ，这些模块被称为选项。
-GeoPackages可能使用本节中定义的一个或多个选项。GeoPackages可以忽略未使用的选项表。
-As a minimum, a GeoPackage SHALL contain one user data table as defined by the Features or Tiles options in clauses <<features>> and <<tiles>> respectively.  作为最低要求，GeoPackage 应该包含一个由Features 或 Tiles选项定义的用户数据表，该用户数据表在<<features>> 和<<tiles>> 中分别进行了定义。
+本章节中描述的可选要求都依赖于上述<<_base>>章节中定义的必选要求。
+本章节中的每个子条款都是能在GeoPackage中使用的独立功能模块。这些模块是可选的。
+GeoPackage中可以使用一个或多个本章节中定义的可选模块，没有被使用的可选表可以忽略。
+但GeoPackage文件中至少要包含一个要素数据表或瓦片数据表，它们各自要符合<<features>>和<<tiles>>的定义。
 
 [requirement]
 A GeoPackage SHALL contain features per clause <<features>> and/or tiles per clause <<tiles>> and row(s) in the `gpkg_contents` table with lowercase `data_type` column values of “features” and/or “tiles” describing the user data tables.
-geopackage规范应包含 <<features>> 条款中的每个要素，<<tiles>> 条款中的每个瓦片以及`gpkg_contents` 表中data_type列的值为小写的“features” 或 “tiles”的行，这些行描述了用户数据表。 
+GeoPackage应该包含由<<features>>定义的要素和（或）由<<tiles>>定义的瓦片，并且在`gpkg_contents`表中，小写`data_type`的列的值应该包含“features”和（或）“tiles”，表示数据表为要素数据表或瓦片数据表。
 
