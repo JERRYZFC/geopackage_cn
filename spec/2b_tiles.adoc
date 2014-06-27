@@ -215,7 +215,7 @@ GeoPackages 遵循最常用的惯例，如 http://portal.opengeospatial.org/file
 `gpkg_tile_matrix`表中`pixel_ y _size`这一列的值必须大于0
 
 [requirement]
-`gpkg_tile_matrix`表中，当`zoom_level`列升序排列时，`pixel_x_siz`e 和`pixel_y_size`列的值应该为降序排列。
+`gpkg_tile_matrix`表中，当`zoom_level`列升序排列时，`pixel_x_size` 和`pixel_y_size`列的值应该为降序排列。
 
 :sparse_tiles_foot1: footnote:[GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.]
 :sparse_tiles_foot2: footnote:[GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.]
