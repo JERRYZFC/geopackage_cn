@@ -261,4 +261,4 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 几何对象列的空间参考系类型是由表`gpkg_geometry_columns`中的`srs_id`标识的，值为表`gpkg_spatial_ref_sys`的`srs_id`列的其中一个值。
 
 [requirement]
-要素表中的几何对象的空间参考系，必须与表`gpkg_geometry_columns`中`srs_id`值保持一致。
+要素表中几何对象的空间参考系，必须与表`gpkg_geometry_columns`中`srs_id`值保持一致。

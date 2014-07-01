@@ -3,32 +3,22 @@
 
 ==== 瓦片矩阵介绍
 
+有关存储、索引、访问和描述金子塔中瓦片的商业和开源规则多种多样，然而，很不幸，在这个领域并没有形成标准的约定、国家标准或国际标准。
+此外，不同的影像文件格式有不同的表述特性，也各自包含不同自描述元数据。 
 
-有各种各样 关于 在瓦片金字塔存储，索引，访问和描述瓦片 的商业和开源规则。
-不幸的是，在这个领域，无论国家或国际规范的标准 还没有普遍的共识。
-此外，不同的图像文件格式有不同的表示能力，包括不同的自我描述性元数据。 
+瓦片数据/元数据存储模型和约定从两个方面直接支撑GeoPackage文件中瓦片的使用。首先，现有应用中的数据表可能遵循的是其他接口约定，它们描述了如何在这些数据表的最顶层创建数据/元数据模型的SQL视图；其次，它们在数据集和记录的级别包含和暴露了大量元数据信息，从而允许应用程序在不解析所有影像的情况下，利用GeoPackage数据挖掘数据细节。
 
-
-瓦片存储数据/元数据模型和在下面描述的公约，支持在GeoPackage中以两种方式直接使用瓦片。
-首先，它们指定了已有的应用程序如何在现有的表的基础上，可以创建的数据/元数据模型的SQL视图，SQL视图遵循不同的接口约定。
-其次，他们包含和呈现了 关于 数据集和记录 级别 充足的元数据信息 允许使用 GeoPackage 数据的应用不需要解析所有存储的影像，就可以发现它的特性 
-存储GeoPackage 瓦片数据，并且具 有这些信息访问权限 应用程序，必须要存储充分的元数据来支持它的未来的这种用途。
-
-The GeoPackage 瓦片存储数据模型 可以直接 作为 SQLite 数据库的数据表得以实现，这中方法性能最佳;
-或者 在已有的瓦片存储表上建立SQL 视图，这种方法能达到最大的适应性和低耦合 ，从而能被广泛的实施.
-
+GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现，这种方法性能最高；也可以通过在已有SQLite瓦片存储中的数据表顶层，通过SQL视图实现，这种方法具有高适应性和低耦合的特征，更有利于标准的传播。
 
 :tiles_intro_foot1: footnote:[Images of multiple MIME types MAY be stored in given table. For example, in a tiles table, image/png format tiles COULD be used for transparency where there is no data on the tile edges, and image/jpeg format tiles COULD be used for storage efficiency where there is image data for all pixels. Images of multiple bit depths of the same MIME type MAY also be stored in a given table, for example image/png tiles in both 8 and 24 bit depths.]
 
-GeoPackage CAN 存储多种栅格和瓦片金字塔数据集合在同一个容器的不同表和视图中.
+同一个容器中，GeoPackage可以在不通的数据表或视图中存储多个栅格和瓦片金字塔数据集。
 {tiles_intro_foot1} 
-“Tile pyramid”  瓦片金字塔指 不同缩放级别 不同空间范围 相同分辨率 这样一些瓦片和瓦片自身的数据 所构成的金字塔型的结构 。
-“Tile matrix” 在一个指定的缩放级别上，瓦片的行和列都具有相同的空间范围和分辨率 。
-“Tile matrix set” 瓦片金字塔中层级结构.（？？）
+“Tile pyramid（瓦片金字塔）” 指的是在不同缩放级别下，瓦片表示的是不同空间范围、具备不同分辨率，这种金字塔形结构的概念，以及瓦片数据本身。
+“Tile matrix（瓦片矩阵）” 指的是在指定的缩放级别下，瓦片组成的行和列。这些瓦片在同一缩放级别下表示相同的空间范围、具备相同的分辨率 。
+“Tile matrix set（瓦片矩阵集合）”指的是瓦片金字塔层次结构的定义。
 
-The tables or views that implement the GeoPackage tile store data / metadata model are described and discussed individually 
-in the following subsections.
-GeoPackage 瓦片存储数据或元数据的模型的具体实现的表和视图 会在下面的章节中分别阐述。
+实现瓦片数据/元数据存储模型的表或视图，会在接下来的子章节中分别阐述和探讨。
 
 ==== 内容
 
@@ -102,7 +92,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 ====== 表定义
 
 [requirement]
-包含瓦片金字塔数据表的Geopackage文件，必须有一个符合<<tile_matrix_set_data_table_definition>>条款、表<<gpkg_tile_matrix_set_cols>> 和表<<gpkg_tile_matrix_set_sql>>规定的`gpkg_tile_matrix_set`表或视图，
+包含瓦片金字塔数据表的Geopackage文件，必须有一个`gpkg_tile_matrix_set`表或视图，`gpkg_tile_matrix_set`表或视图需要符合<<tile_matrix_set_data_table_definition>>章节、表<<gpkg_tile_matrix_set_cols>> 和表<<gpkg_tile_matrix_set_sql>>的规定。
 
 [[gpkg_tile_matrix_set_cols]]
 .瓦片矩阵集合的表或视图定义
@@ -111,41 +101,30 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 |Column Name |Column Type |Column Description |Null |Default |Key
 |`table_name` |TEXT |瓦片金字塔数据表名 |no | | PK, FK
 |`srs_id` |INTEGER | 空间参考系ID: gpkg_spatial_ref_sys.srs_id |no |  |FK
-|`min_x` |DOUBLE |table_name 中所有瓦片的Bounding box 的最小 easting or longitude |no | |
-|`min_y` |DOUBLE |table_name 中所有瓦片的Bounding box minimum northing or latitude  |no | |
-|`max_x` |DOUBLE |table_name 中所有瓦片的Bounding box maximum easting or longitude  |no | |
-|`max_y` |DOUBLE |table_name 中所有瓦片的Bounding box maximum northing or latitude |no | |
+|`min_x` |DOUBLE |table_name表中所有数据的边界框的最小 x 值|no | |
+|`min_y` |DOUBLE |table_name表中所有数据的边界框的最小 y 值|no | |
+|`max_x` |DOUBLE |table_name表中所有数据的边界框的最大 x 值|no | |
+|`max_y` |DOUBLE |table_name表中所有数据的边界框的最大 y 值|no | |
 |=======================================================================
 
-在 gpkg_tile_matrix_set 表或可更新的视图中为瓦片金字塔用户数据表中的所有瓦片定义了最小的bounding box (min_x, min_y, max_x, max_y)
-和空间参考系统(srs_id)。
+表gpkg_tile_matrix_set（或可更新视图）为瓦片金字塔数据表中的所有瓦片定义了最小的边界框(min_x, min_y, max_x, max_y)，以及空间参考系(srs_id)。
 
 参见 <<gpkg_tile_matrix_set_sql>>.
 
 [[clause_tile_matrix_set_table_data_values]]
 ====== 表数据值
 
-The minimum bounding box defined in the gpkg_tile_matrix_set table or view for a tile pyramid user data table SHALL be exact 
-so that the bounding box coordinates for individual tiles in a tile pyramid MAY be calculated
- based on the column values for the user data table in the gpkg_tile_matrix table or view.  For example,
- because GeoPackages use the upper left tile origin convention defined in clause <<clause_tile_matrix_table_data_values>> below, 
- the gpkg_tile_matrix_set (min_x, max_y) ordinate is the upper-left corner of tile (0,0) for all zoom levels in
- a table_name tile pyramid user data table.
-gpkg_tile_matrix_set表或视图中 为瓦片金字塔用户数据表 定义的最小的bounding box 必须是 确定的 以便对于瓦片金字塔中的单个tiles 的bounding box的坐标
-都可以被计算。计算时基于gpkg_tile_matrix表或视图中的用户数据表的列值。例如，GeoPackages 使用的 在下面 条款 <<clause_tile_matrix_table_data_values>> 中所描述的惯例
-即 左上的瓦片原点。在 table_name 列中的的瓦片金字塔用户数据表 中的所有缩放级别下，gpkg_tile_matrix_set (min_x, max_y) 坐标 (0,0)瓦片的左上角。
+瓦片金字塔数据表对应的表gpkg_tile_matrix_set（或可更新视图）定义的最小边界框必须是精确的。这样以来，根据表 gpkg_tile_matrix table 或视图中的数据表中的瓦片行列号，瓦片金字塔中独立瓦片的边界框坐标可以计算出来。
+例如，因为Geopackage遵循左上角瓦片作为坐标原点的约定（参见<<clause_tile_matrix_table_data_values>>），所以，在表gpkg_tile_matrix_set的table_name列对应的瓦片金字塔数据表中，无论哪个缩放级别，(min_x, max_y)位置一定是的瓦片(0,0)的左上角坐标。
 
 [requirement]
-Values of the `gpkg_tile_matrix_set` `table_name` column SHALL reference values in th gpkg_contents table_name column for
- rows with a data type of "tiles".
-`gpkg_tile_matrix_set` 表的 `table_name`的值必须是 gpkg_contents 的行中的 数据类型为"tiles" 时 table_name 列的引用
-[requirement]
-The gpkg_tile_matrix_set table or view SHALL contain one row record for each tile pyramid user data table.
-gpkg_tile_matrix_set  表或视图 必须对每个瓦片金字塔用户数据表 都对应包含一行记录
+`gpkg_tile_matrix_set` 的 `table_name`列的值必须与表`gpkg_contents`中数据类型为"tiles"的记录的`table_name`列值一一对应。
 
 [requirement]
-Values of the `gpkg_tile_matrix_set` `srs_id` column SHALL reference values in the `gpkg_spatial_ref_sys` `srs_id` column.
-`gpkg_tile_matrix_set`中的`srs_id` 列的值必须是引用的 `gpkg_spatial_ref_sys`的`srs_id`的值。
+针对每个瓦片金字塔数据表，gpkg_tile_matrix_set表或视图都必须包含一条记录。
+
+[requirement]
+`gpkg_tile_matrix_set`的`srs_id` 列的值必须与`gpkg_spatial_ref_sys`的`srs_id`列值一一对应。
 
 [[tile_matrix]]
 ==== 瓦片矩阵
