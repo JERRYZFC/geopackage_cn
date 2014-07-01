@@ -939,9 +939,6 @@ Curve如果不与自身相交（在起点和终点除外），则认为它是简
 <blockquote>
 GeoPackage必须要在所有要素表中以SQL BLOBS 存储几何要素，这些几何要素可以有或没有可选的海拔（Z）和/或测量（M）的值，
 SQL BLOBS使用的是表<a href="#gpb_spec">GeoPackage SQL Geometry Binary Format</a>和条款<a href="#gpb_data_blob_format">BLOB 格式</a>中指定的StandardGeoPackageBinary格式。
-:geopackage_binary_foot1: <span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span>
-:geopackage_binary_foot2: <span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span>
-:geopackage_binary_foot3: <span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span>
 </blockquote>
 </div>
 <div id="gpb_spec" class="listingblock">
@@ -969,15 +966,15 @@ StandardGeoPackageBinary {
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>8-bit unsigned integer, 0 = version 1</td>
+<td>8-bit无符号整数, 0 = version 1</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>see <a href="#flags_layout">bit layout of GeoPackageBinary flags byte</a></td>
+<td>参见 <a href="#flags_layout">bit layout of GeoPackageBinary flags byte</a></td>
 </tr>
 <tr>
 <td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>see flags envelope contents indicator code below  见下面的标志信封内容的指标代码</td>
+<td>参见下面的最小外接矩阵标识码说明</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="5"></i><b>5</b></td>
@@ -985,7 +982,7 @@ StandardGeoPackageBinary {
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>per  ISO 13249-3 <a href="#12">[12]</a> clause 5.1.46 {geopackage_binary_foot1}{geopackage_binary_foot2}{geopackage_binary_foot3}</td>
+<td>参见 ISO 13249-3 <a href="#12">[12]</a> 的 5.1.46 章节 <span class="footnote">[<a id="_footnoteref_6" class="footnote" href="#_footnote_6" title="View footnote.">6</a>]</span><span class="footnote">[<a id="_footnoteref_7" class="footnote" href="#_footnote_7" title="View footnote.">7</a>]</span><span class="footnote">[<a id="_footnoteref_8" class="footnote" href="#_footnote_8" title="View footnote.">8</a>]</span></td>
 </tr>
 </table>
 </div>
@@ -1034,68 +1031,68 @@ StandardGeoPackageBinary {
 <div class="ulist">
 <ul>
 <li>
-<p>R: reserved for future use; set to 0  保留供将来使用;设置为0</p>
+<p>R: 保留位，供将来使用;设置为0</p>
 </li>
 <li>
-<p>X: GeoPackageBinary type</p>
+<p>X: GeoPackageBinary 类型</p>
 <div class="ulist">
 <ul>
 <li>
-<p>0: StandardGeoPackageBinary. See below</p>
+<p>0: StandardGeoPackageBinary. 参见下面章节</p>
 </li>
 <li>
-<p>1: ExtendedGeoPackageBinary. See <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a>.</p>
+<p>1: ExtendedGeoPackageBinary. 参见 <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Y: empty geometry flag</p>
+<p>Y: 几何对象是否为空的标识</p>
 <div class="ulist">
 <ul>
 <li>
-<p>0: non-empty geometry</p>
+<p>0: 非空几何对象</p>
 </li>
 <li>
-<p>1: empty geometry</p>
+<p>1: 空的几何对象</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>E: envelope contents indicator code (3-bit unsigned integer)</p>
+<p>E: 最小外接矩形的标识码 (3-bit无符号整数)</p>
 <div class="ulist">
 <ul>
 <li>
-<p>0: no envelope (space saving slower indexing option), 0 bytes</p>
+<p>0: 没有外接矩形 (space saving slower indexing option), 0 bytes</p>
 </li>
 <li>
-<p>1: envelope is [minx, maxx, miny, maxy], 32 bytes</p>
+<p>1: 外接矩形用[minx, maxx, miny, maxy]表示, 32 bytes</p>
 </li>
 <li>
-<p>2: envelope is [minx, maxx, miny, maxy, minz, maxz], 48 bytes</p>
+<p>2: 外接矩形用[minx, maxx, miny, maxy, minz, maxz]表示, 48 bytes</p>
 </li>
 <li>
-<p>3: envelope is [minx, maxx, miny, maxy, minm, maxm], 48 bytes</p>
+<p>3: 外接矩形用[minx, maxx, miny, maxy, minm, maxm]表示, 48 bytes</p>
 </li>
 <li>
-<p>4: envelope is [minx, maxx, miny, maxy, minz, maxz, minm, maxm], 64 bytes</p>
+<p>4: 外接矩形用[minx, maxx, miny, maxy, minz, maxz, minm, maxm]表示, 64 bytes</p>
 </li>
 <li>
-<p>5-7: invalid</p>
+<p>5-7: 非法</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>B: byte order for header values (1-bit Boolean)</p>
+<p>B: header值的字节顺序(1-bit Boolean)</p>
 <div class="ulist">
 <ul>
 <li>
-<p>0: Big Endian (most significant byte first)</p>
+<p>0: 高字节序 (高位字节排放在前面)</p>
 </li>
 <li>
-<p>1: Little Endian (least significant byte first)</p>
+<p>1: 低字节序 (低位字节排放在前面)</p>
 </li>
 </ul>
 </div>
@@ -1103,7 +1100,7 @@ StandardGeoPackageBinary {
 </ul>
 </div>
 <div class="paragraph">
-<p>ISO 13249-3 <a href="#12">[12]</a>中定义的WKB(well-known binary)并没有为空的点集提供标准编码（例如，WKT(Well-known text)中的<em>Point Empty</em>）。在GeoPackage中，这些点会被表示为IEEE-754标准的沉寂非数值 (NAN)，GeoPackage应使用高字节序0x7ff8000000000000或低字节序0x000000000000f87f来为NaN值进行二进制编码。</p>
+<p>ISO 13249-3 <a href="#12">[12]</a>中定义的WKB（well-known binary）并没有为空的点集提供标准编码（例如，WKT(Well-known text)中的<em>Point Empty</em>）。在GeoPackage中，这些点会被表示为IEEE-754标准的沉寂非数值 (NAN)，GeoPackage应使用高字节序0x7ff8000000000000或低字节序0x000000000000f87f来为NaN值进行二进制编码。</p>
 </div>
 <div class="paragraph">
 <p>当GeoPackage中的WKBGeometry的二进制值为空时，要么最小外接矩形的内容标识符为0，代表没有最小外接矩形，要么最小外接矩形的值为NaN，表示空点。</p>
@@ -1262,7 +1259,7 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 <div class="sect5">
 <h6 id="__32">2.1.6.1.1. 表定义</h6>
 <div class="paragraph">
-<p>在GeoPackage文件中，上面的&lt;sfsql_intro&gt;&gt;条款描述的 是SQL schema中描述矢量要素的第三个部分。
+<p>在GeoPackage文件中，上面的<a href="#sfsql_intro">简单要素的SQL访问介绍</a>章节描述的是SQL schema中描述矢量要素的第三个部分。
 要素属性包括几何要素，在表中以列存储。要素在表中以行存储。参见 <span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></p>
 </div>
 <div id="requirement_feature_integer_pk" class="quoteblock">
@@ -1274,8 +1271,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>要素表的 整型主键约束，允许 通过 <code>gpkg_metadata_reference</code> 表的
- rowid <a href="#B5">[B5]</a> 值  将要素表中的要素 关联到 <code>gpkg_metadata</code>表 行 级别 元数据 记录，在下面的 <a href="#_metadata_reference_table">Metadata Reference Table</a> 表中进行了描述。</p>
+<p>通过表<code>gpkg_metadata_reference</code>（参见<a href="#_metadata_reference_table">Metadata Reference Table</a>）中的rowid <a href="#B5">[B5]</a> 值，要素表的integer主键可以将要素与表<code>gpkg_metadata</code>中的元数据记录关联起来。</p>
 </div>
 <div id="_requirement-30" class="quoteblock">
 <div class="title">Requirement 30</div>
@@ -1284,8 +1280,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>按non-GeoPackage 的要素数据模型 <a href="#B23">[B23]</a>，每个要素表可以有多个几何要素列，这种表可以转换为 GeoPackage 的表。每个几何类型对应一个要素表，
-要素表的行 需要有符合 整型主键 值，这样他们可以被关联到具有相同列的视图，列的定义在 non-GeoPackage 具有多个几何要素列的矢量数据模型有所描述。</p>
+<p>非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值可以构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。</p>
 </div>
 <table id="example_feature_table_cols" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 7. EXAMPLE : Sample Feature Table or View Definition</caption>
@@ -1311,7 +1306,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Autoincrement primary key 自动增量主键</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">自动增量主键</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
@@ -1327,7 +1322,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>text_attribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Text attribute of feature 要素文本属性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要素的文本属性</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1335,7 +1330,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>real_attribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">REAL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Real attribute of feature 要素实属性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要素的Real属性</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1343,7 +1338,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>boolean_attribute</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Boolean attribute of feature 要素布尔属性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要素的布尔属性</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1351,7 +1346,7 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>raster_or_photo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BLOB</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Photograph of the area  区域图片</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">区域图片</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1360,13 +1355,13 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 </table>
 
 <div class="paragraph">
-<p>See <a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a>.</p>
+<p>参见 <a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a>.</p>
 </div>
 </div>
 <div class="sect5">
 <h6 id="__33">2.1.6.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>按照上面 <a href="#_geometry_columns">Geometry Columns</a> 条款中规定的  <code>gpkg_geometry_columns</code> 表 <code>geometry_column</code> 值是小写的，矢量要素表中
+<p>按照上面 <a href="#_geometry_columns">Geometry Columns</a> 条款的规定，的  <code>gpkg_geometry_columns</code> 表 <code>geometry_column</code> 值是小写的，矢量要素表中
 存储在 几何要素 列中的几何要素要符合这个规定。</p>
 </div>
 <div class="paragraph">
@@ -15892,7 +15887,7 @@ For undated references, the latest edition of the normative document referred to
 <a href="#_footnoteref_5">5</a>. The following statement selects an ISO 8601timestamp value using the SQLite strftime function: SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 </div>
 <div class="footnote" id="_footnote_6">
-<a href="#_footnoteref_6">6</a>. OGC WKB simple feature geometry types specified in &lt;&lt;13&gt;&gt; are a subset of the ISO WKB geometry types specified in &lt;&lt;16&gt;&gt;
+<a href="#_footnoteref_6">6</a>. OGC WKB simple feature geometry types specified in <<13>> are a subset of the ISO WKB geometry types specified in <<16>>
 </div>
 <div class="footnote" id="_footnote_7">
 <a href="#_footnoteref_7">7</a>. WKB geometry types are are restricted to 0, 1 and 2-dimensional geometric objects that exist in 2, 3 or 4-dimensional coordinate space; they are not geographic or geodesic geometry types.
