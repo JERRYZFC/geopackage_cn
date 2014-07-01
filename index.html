@@ -1100,7 +1100,7 @@ StandardGeoPackageBinary {
 </ul>
 </div>
 <div class="paragraph">
-<p>ISO 13249-3 <a href="#12">[12]</a>中定义的WKB（well-known binary）并没有为空的点集提供标准编码（例如，WKT(Well-known text)中的<em>Point Empty</em>）。在GeoPackage中，这些点会被表示为IEEE-754标准的沉寂非数值 (NAN)，GeoPackage应使用高字节序0x7ff8000000000000或低字节序0x000000000000f87f来为NaN值进行二进制编码。</p>
+<p>ISO 13249-3 <a href="#12">[12]</a>中定义的WKB（well-known binary）并没有为空的点集提供标准编码（例如，WKT(Well-known text)中的空点）。在GeoPackage中，这些点应该被表示为IEEE-754标准的沉寂NaN（quite NaN）值，GeoPackage应使用高字节序0x7ff8000000000000或低字节序0x000000000000f87f来为NaN值进行二进制编码。</p>
 </div>
 <div class="paragraph">
 <p>当GeoPackage中的WKBGeometry的二进制值为空时，要么最小外接矩形的内容标识符为0，代表没有最小外接矩形，要么最小外接矩形的值为NaN，表示空点。</p>
@@ -1209,44 +1209,43 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 <div id="_requirement-22" class="quoteblock">
 <div class="title">Requirement 22</div>
 <blockquote>
-在GeoPackage中，针对每个矢量要素表（<a href="#feature_user_tables">矢量要素用户数据表</a>节），<code>gpkg_geometry_columns</code>表（或可更新视图）都应该包含一行记录来标识该矢量要素表的哪一列是几何对象。
+在GeoPackage中，针对每个矢量要素表（<a href="#feature_user_tables">矢量要素用户数据表</a>节），<code>gpkg_geometry_columns</code>表（或可更新视图）都应该包含一行记录来标识该矢量要素表的哪一列存储的是几何对象。
 </blockquote>
 </div>
 <div id="_requirement-23" class="quoteblock">
 <div class="title">Requirement 23</div>
 <blockquote>
-<code>gpkg_geometry_columns</code> 中<code>table_name</code> 列的值必须 reference  <code>gpkg_contents</code> 中<code>table_name</code> 列的值 ，<code>gpkg_contents</code> 中<code>table_name</code> 列所在的行中，
-要带有值为 <em>features</em>的<code>data_type</code>列。
+表<code>gpkg_geometry_columns</code> 中<code>table_name</code> 列的值必须与表<code>gpkg_contents</code> 中<code>table_name</code>列值为<em>features</em>的记录的<code>table_name</code>值一一对应。
 </blockquote>
 </div>
 <div id="_requirement-24" class="quoteblock">
 <div class="title">Requirement 24</div>
 <blockquote>
-目前<code>gpkg_geometry_columns</code> 中<code>column_name</code> 列的值 必须是 某个表或视图中的某一列的列名， 这个表或视图的名字记录在 <code>table_name</code> 这一列中。
+表<code>gpkg_geometry_columns</code>中某条记录的<code>column_name</code>列值，必须是该条记录中<code>table_name</code>列所对应的表或视图中的一个列名。
 </blockquote>
 </div>
 <div id="_requirement-25" class="quoteblock">
 <div class="title">Requirement 25</div>
 <blockquote>
-<code>gpkg_geometry_columns</code> 中列<code>geometry_type_name</code> 的值必须是附录 <a href="#geometry_types">Geometry Types (Normative)</a> 中大写的几何类型名字之一。
+表<code>gpkg_geometry_columns</code>中<code>geometry_type_name</code>列的值必须是附录 <a href="#geometry_types">Geometry Types (Normative)</a> 中大写的几何类型名字之一。
 </blockquote>
 </div>
 <div id="_requirement-26" class="quoteblock">
 <div class="title">Requirement 26</div>
 <blockquote>
-在<code>gpkg_geometry_columns</code>表中 <code>srs_id</code> 值应为 <code>gpkg_spatial_ref_sys</code> 表中 <code>srs_id</code>  某一列的值。
+表<code>gpkg_geometry_columns</code>中<code>srs_id</code>列的值必须能在表<code>gpkg_spatial_ref_sys</code>的<code>srs_id</code>列中找到。
 </blockquote>
 </div>
 <div id="_requirement-27" class="quoteblock">
 <div class="title">Requirement 27</div>
 <blockquote>
- <code>gpkg_geometry_columns</code> 表中的Z值必须是0, 1或2。
+表<code>gpkg_geometry_columns</code>中的z值必须是0, 1或2。
 </blockquote>
 </div>
 <div id="_requirement-28" class="quoteblock">
 <div class="title">Requirement 28</div>
 <blockquote>
-<code>gpkg_geometry_columns</code>表行的m值必须是0, 1或2。
+表<code>gpkg_geometry_columns</code>中的m值必须是0, 1或2。
 </blockquote>
 </div>
 </div>
@@ -1260,13 +1259,14 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 <h6 id="__32">2.1.6.1.1. 表定义</h6>
 <div class="paragraph">
 <p>在GeoPackage文件中，上面的<a href="#sfsql_intro">简单要素的SQL访问介绍</a>章节描述的是SQL schema中描述矢量要素的第三个部分。
-要素属性包括几何要素，在表中以列存储。要素在表中以行存储。参见 <span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></p>
+包括几何对象在内的要素属性，在要素表中对应的是列。
+要素记录在要素表中对应的是行。<span class="footnote">[<a id="_footnoteref_9" class="footnote" href="#_footnote_9" title="View footnote.">9</a>]</span></p>
 </div>
 <div id="requirement_feature_integer_pk" class="quoteblock">
 <div class="title">Requirement 29</div>
 <blockquote>
-geopackage可以有包含有矢量要素的表或可更新的视图。
-在GeoPackage中，每个要素表或视图都必须有一个INTEGER类型的列和 <em>PRIMARY KEY AUTOINCREMENT</em> 的列约束，
+GeoPackage可以有包含有矢量要素的表或可更新的视图。
+在GeoPackage中，每个这样的要素表或视图都必须有一个INTEGER类型的列，该列的约束必须是<em>PRIMARY KEY AUTOINCREMENT</em>，
 参见 <a href="#example_feature_table_cols">EXAMPLE : Sample Feature Table or View Definition</a>和<a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a> 。
 </blockquote>
 </div>
@@ -1361,37 +1361,33 @@ geopackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect5">
 <h6 id="__33">2.1.6.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>按照上面 <a href="#_geometry_columns">Geometry Columns</a> 条款的规定，的  <code>gpkg_geometry_columns</code> 表 <code>geometry_column</code> 值是小写的，矢量要素表中
-存储在 几何要素 列中的几何要素要符合这个规定。</p>
+<p>几何要素存储在几何对象列中，几何对象列由表<code>gpkg_geometry_columns</code>中的<code>geometry_column</code>列值指定，列值为<code>geometry_column</code>列值的小写形式。表<code>gpkg_geometry_columns</code>的定义参见<a href="#_geometry_columns">Geometry Columns</a>。</p>
 </div>
 <div class="paragraph">
-<p>要素几何对象列的几何要素类型，要符合 表<code>gpkg_geometry_columns</code>中列名为<code>geometry_type_name</code> 要求，必须是 <a href="#geometry_types">Geometry Types (Normative)</a>中的一个 。</p>
+<p>由表<code>gpkg_geometry_columns</code>的<code>geometry_type_name</code>标识的几何要素类型必须是 <a href="#geometry_types">Geometry Types (Normative)</a>中的其中一个 。</p>
 </div>
 <div id="_requirement-31" class="quoteblock">
 <div class="title">Requirement 31</div>
 <blockquote>
-几何要素列应该包含几何要素类型或由<code>gpkg_geometry_columns</code>表的<code>geometry_type_name</code>列的大写值指定的可分配类型 <span class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</span>。
+要素表中的几何对象类型由表<code>gpkg_geometry_columns</code>的<code>geometry_type_name</code>列确定，为该列值的大写形式，要素表的几何对象列应该存储该类型的几何对象<span class="footnote">[<a id="_footnoteref_10" class="footnote" href="#_footnote_10" title="View footnote.">10</a>]</span>。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>子几何类型可以被<a href="#geometry_types">Geometry Types (Normative)</a> 中定义的类型所限定，部分子几何类型在 <a href="#core_geometry_model_figure">核心几何模型</a> 中有说明。
-例如：如果表<code>gpkg_geometry_columns</code>中列 <code>geometry_type_name</code> 的值是一种如POINT没有子类型几何类型，这种几何要素表的列可只含有这种类型的几何要素。
-如果表<code>gpkg_geometry_columns</code> 中<code>type_name</code>的值是一种如GEOMCOLLECTION有子类型的几何类型，这种几何要素表的列可以只包含这种类型
-或是它的任何直接或间接子类型的几何要素。
-如果几何要素的<code>type_name</code>值为GEOMETRY （几何类型继承关系的根），这种要素表的几何列可以包含任何类型的几何要素。</p>
+<p><a href="#geometry_types">Geometry Types (Normative)</a>中的几何对象都是可继承的，在<a href="#core_geometry_model_figure">核心几何模型</a>中展示了部分继承关系。
+例如：如果表<code>gpkg_geometry_columns</code>中列<code>geometry_type_name</code>表示的几何类型没有子类型，如POINT，那么对应的要素表中的几何对象可能只有该类型一种。
+如果表<code>gpkg_geometry_columns</code>中列<code>geometry_type_name</code>表示的几何类型有子类型，如GEOMCOLLECTION，那么对应的要素表中的几何对象，可能只有该类型一种，也可能是该类型的直接或间接子类型等多种。
+如果<code>geometry_type_name</code>是GEOMETRY （几何类型继承关系的根），那么对应的要素表中的几何对象，可能是任意几何类型。</p>
 </div>
 <div class="paragraph">
-<p>几何要素存在或不存在可选的高程（Z）和/或测量（M）值不会改变它的类型或类型的相关限制。</p>
+<p>几何要素包不包含可选的高程（Z）和/或测量（M）值，不会改变它的类型或类型的继承关系。</p>
 </div>
 <div class="paragraph">
-<p>几何要素的空间参考系统类型是由<code>gpkg_geometry_columns</code> 表中的<code>srs_id</code>列的值限定的，
-<code>srs_id</code>的值是来自表<code>gpkg_spatial_ref_sys</code> 的<code>srs_id</code>列值中的一个代码。</p>
+<p>几何对象列的空间参考系类型是由表<code>gpkg_geometry_columns</code>中的<code>srs_id</code>标识的，值为表<code>gpkg_spatial_ref_sys</code>的<code>srs_id</code>列的其中一个值。</p>
 </div>
 <div id="_requirement-32" class="quoteblock">
 <div class="title">Requirement 32</div>
 <blockquote>
-Feature table geometry columns SHALL contain geometries with the <code>srs_id</code> specified for the column by the <code>gpkg_geometry_columns</code> table <code>srs_id</code> column value.
-要素表的几何要素列应该包含 有 <code>srs_id</code> 的几何要素，  <code>srs_id</code> 列值必须是表<code>gpkg_geometry_columns</code> 的 <code>srs_id</code> 列值。
+要素表中几何对象的空间参考系，必须与表<code>gpkg_geometry_columns</code>中<code>srs_id</code>值保持一致。
 </blockquote>
 </div>
 </div>
@@ -1403,31 +1399,24 @@ Feature table geometry columns SHALL contain geometries with the <code>srs_id</c
 <div class="sect3">
 <h4 id="__34">2.2.1. 瓦片矩阵介绍</h4>
 <div class="paragraph">
-<p>有各种各样 关于 在瓦片金字塔存储，索引，访问和描述瓦片 的商业和开源规则。
-不幸的是，在这个领域，无论国家或国际规范的标准 还没有普遍的共识。
-此外，不同的图像文件格式有不同的表示能力，包括不同的自我描述性元数据。</p>
+<p>有关存储、索引、访问和描述金子塔中瓦片的商业和开源规则多种多样，然而，很不幸，在这个领域并没有形成标准的约定、国家标准或国际标准。
+此外，不同的影像文件格式有不同的表述特性，也各自包含不同自描述元数据。</p>
 </div>
 <div class="paragraph">
-<p>瓦片存储数据/元数据模型和在下面描述的公约，支持在GeoPackage中以两种方式直接使用瓦片。
-首先，它们指定了已有的应用程序如何在现有的表的基础上，可以创建的数据/元数据模型的SQL视图，SQL视图遵循不同的接口约定。
-其次，他们包含和呈现了 关于 数据集和记录 级别 充足的元数据信息 允许使用 GeoPackage 数据的应用不需要解析所有存储的影像，就可以发现它的特性
-存储GeoPackage 瓦片数据，并且具 有这些信息访问权限 应用程序，必须要存储充分的元数据来支持它的未来的这种用途。</p>
+<p>瓦片数据/元数据存储模型和约定从两个方面直接支撑GeoPackage文件中瓦片的使用。首先，现有应用中的数据表可能遵循的是其他接口约定，它们描述了如何在这些数据表的最顶层创建数据/元数据模型的SQL视图；其次，它们在数据集和记录的级别包含和暴露了大量元数据信息，从而允许应用程序在不解析所有影像的情况下，利用GeoPackage数据挖掘数据细节。</p>
 </div>
 <div class="paragraph">
-<p>The GeoPackage 瓦片存储数据模型 可以直接 作为 SQLite 数据库的数据表得以实现，这中方法性能最佳;
-或者 在已有的瓦片存储表上建立SQL 视图，这种方法能达到最大的适应性和低耦合 ，从而能被广泛的实施.</p>
+<p>GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现，这种方法性能最高；也可以通过在已有SQLite瓦片存储中的数据表顶层，通过SQL视图实现，这种方法具有高适应性和低耦合的特征，更有利于标准的传播。</p>
 </div>
 <div class="paragraph">
-<p>GeoPackage CAN 存储多种栅格和瓦片金字塔数据集合在同一个容器的不同表和视图中.
+<p>同一个容器中，GeoPackage可以在不通的数据表或视图中存储多个栅格和瓦片金字塔数据集。
 <span class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</span>
-“Tile pyramid”  瓦片金字塔指 不同缩放级别 不同空间范围 相同分辨率 这样一些瓦片和瓦片自身的数据 所构成的金字塔型的结构 。
-“Tile matrix” 在一个指定的缩放级别上，瓦片的行和列都具有相同的空间范围和分辨率 。
-“Tile matrix set” 瓦片金字塔中层级结构.（？？）</p>
+“Tile pyramid（瓦片金字塔）” 指的是在不同缩放级别下，瓦片表示的是不同空间范围、具备不同分辨率，这种金字塔形结构的概念，以及瓦片数据本身。
+“Tile matrix（瓦片矩阵）” 指的是在指定的缩放级别下，瓦片组成的行和列。这些瓦片在同一缩放级别下表示相同的空间范围、具备相同的分辨率 。
+“Tile matrix set（瓦片矩阵集合）”指的是瓦片金字塔层次结构的定义。</p>
 </div>
 <div class="paragraph">
-<p>The tables or views that implement the GeoPackage tile store data / metadata model are described and discussed individually
-in the following subsections.
-GeoPackage 瓦片存储数据或元数据的模型的具体实现的表和视图 会在下面的章节中分别阐述。</p>
+<p>实现瓦片数据/元数据存储模型的表或视图，会在接下来的子章节中分别阐述和探讨。</p>
 </div>
 </div>
 <div class="sect3">
@@ -1522,7 +1511,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <div id="_requirement-37" class="quoteblock">
 <div class="title">Requirement 37</div>
 <blockquote>
-包含瓦片金字塔数据表的Geopackage文件，必须有一个符合<a href="#tile_matrix_set_data_table_definition">表定义</a>条款、表<a href="#gpkg_tile_matrix_set_cols">瓦片矩阵集合的表或视图定义</a> 和表<a href="#gpkg_tile_matrix_set_sql">gpkg_tile_matrix_set Table Creation SQL</a>规定的<code>gpkg_tile_matrix_set</code>表或视图，
+包含瓦片金字塔数据表的Geopackage文件，必须有一个<code>gpkg_tile_matrix_set</code>表或视图，<code>gpkg_tile_matrix_set</code>表或视图需要符合<a href="#tile_matrix_set_data_table_definition">表定义</a>章节、表<a href="#gpkg_tile_matrix_set_cols">瓦片矩阵集合的表或视图定义</a> 和表<a href="#gpkg_tile_matrix_set_sql">gpkg_tile_matrix_set Table Creation SQL</a>的规定。
 </blockquote>
 </div>
 <table id="gpkg_tile_matrix_set_cols" class="tableblock frame-all grid-all" style="width:100%; ">
@@ -1565,7 +1554,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min_x</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">table_name 中所有瓦片的Bounding box 的最小 easting or longitude</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table_name表中所有数据的边界框的最小 x 值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1573,7 +1562,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min_y</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">table_name 中所有瓦片的Bounding box minimum northing or latitude</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table_name表中所有数据的边界框的最小 y 值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1581,7 +1570,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max_x</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">table_name 中所有瓦片的Bounding box maximum easting or longitude</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table_name表中所有数据的边界框的最大 x 值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1589,7 +1578,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max_y</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOUBLE</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">table_name 中所有瓦片的Bounding box maximum northing or latitude</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table_name表中所有数据的边界框的最大 y 值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -1598,8 +1587,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 </table>
 
 <div class="paragraph">
-<p>在 gpkg_tile_matrix_set 表或可更新的视图中为瓦片金字塔用户数据表中的所有瓦片定义了最小的bounding box (min_x, min_y, max_x, max_y)
-和空间参考系统(srs_id)。</p>
+<p>表gpkg_tile_matrix_set（或可更新视图）为瓦片金字塔数据表中的所有瓦片定义了最小的边界框(min_x, min_y, max_x, max_y)，以及空间参考系(srs_id)。</p>
 </div>
 <div class="paragraph">
 <p>参见 <a href="#gpkg_tile_matrix_set_sql">gpkg_tile_matrix_set Table Creation SQL</a>.</p>
@@ -1608,36 +1596,25 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <div class="sect5">
 <h6 id="clause_tile_matrix_set_table_data_values">2.2.6.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>The minimum bounding box defined in the gpkg_tile_matrix_set table or view for a tile pyramid user data table SHALL be exact
-so that the bounding box coordinates for individual tiles in a tile pyramid MAY be calculated
- based on the column values for the user data table in the gpkg_tile_matrix table or view.  For example,
- because GeoPackages use the upper left tile origin convention defined in clause <a href="#clause_tile_matrix_table_data_values">表数据的取值</a> below,
- the gpkg_tile_matrix_set (min_x, max_y) ordinate is the upper-left corner of tile (0,0) for all zoom levels in
- a table_name tile pyramid user data table.
-gpkg_tile_matrix_set表或视图中 为瓦片金字塔用户数据表 定义的最小的bounding box 必须是 确定的 以便对于瓦片金字塔中的单个tiles 的bounding box的坐标
-都可以被计算。计算时基于gpkg_tile_matrix表或视图中的用户数据表的列值。例如，GeoPackages 使用的 在下面 条款 <a href="#clause_tile_matrix_table_data_values">表数据的取值</a> 中所描述的惯例
-即 左上的瓦片原点。在 table_name 列中的的瓦片金字塔用户数据表 中的所有缩放级别下，gpkg_tile_matrix_set (min_x, max_y) 坐标 (0,0)瓦片的左上角。</p>
+<p>瓦片金字塔数据表对应的表gpkg_tile_matrix_set（或可更新视图）定义的最小边界框必须是精确的。这样以来，根据表 gpkg_tile_matrix table 或视图中的数据表中的瓦片行列号，瓦片金字塔中独立瓦片的边界框坐标可以计算出来。
+例如，因为Geopackage遵循左上角瓦片作为坐标原点的约定（参见<a href="#clause_tile_matrix_table_data_values">表数据的取值</a>），所以，在表gpkg_tile_matrix_set的table_name列对应的瓦片金字塔数据表中，无论哪个缩放级别，(min_x, max_y)位置一定是的瓦片(0,0)的左上角坐标。</p>
 </div>
 <div id="_requirement-38" class="quoteblock">
 <div class="title">Requirement 38</div>
 <blockquote>
-Values of the <code>gpkg_tile_matrix_set</code> <code>table_name</code> column SHALL reference values in th gpkg_contents table_name column for
- rows with a data type of "tiles".
-<code>gpkg_tile_matrix_set</code> 表的 <code>table_name</code>的值必须是 gpkg_contents 的行中的 数据类型为"tiles" 时 table_name 列的引用
+<code>gpkg_tile_matrix_set</code> 的 <code>table_name</code>列的值必须与表<code>gpkg_contents</code>中数据类型为"tiles"的记录的<code>table_name</code>列值一一对应。
 </blockquote>
 </div>
 <div id="_requirement-39" class="quoteblock">
 <div class="title">Requirement 39</div>
 <blockquote>
-The gpkg_tile_matrix_set table or view SHALL contain one row record for each tile pyramid user data table.
-gpkg_tile_matrix_set  表或视图 必须对每个瓦片金字塔用户数据表 都对应包含一行记录
+针对每个瓦片金字塔数据表，gpkg_tile_matrix_set表或视图都必须包含一条记录。
 </blockquote>
 </div>
 <div id="_requirement-40" class="quoteblock">
 <div class="title">Requirement 40</div>
 <blockquote>
-Values of the <code>gpkg_tile_matrix_set</code> <code>srs_id</code> column SHALL reference values in the <code>gpkg_spatial_ref_sys</code> <code>srs_id</code> column.
-<code>gpkg_tile_matrix_set</code>中的<code>srs_id</code> 列的值必须是引用的 <code>gpkg_spatial_ref_sys</code>的<code>srs_id</code>的值。
+<code>gpkg_tile_matrix_set</code>的<code>srs_id</code> 列的值必须与<code>gpkg_spatial_ref_sys</code>的<code>srs_id</code>列值一一对应。
 </blockquote>
 </div>
 </div>
