@@ -32,34 +32,20 @@ GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现�
 [[zoom_levels]]
 ==== Zoom Levels
 
-GeoPackage中, 缩放级别是从0到n的整数，用来表示瓦片矩阵集中的不同的瓦片矩阵图层，瓦片矩阵集中包含了具有较小的空间范围和更清晰的空间分辨率的瓦片。
-Adjacent zoom levels immediately preceed or follow each other and differ by a value of 1.
-相邻的缩放级别递增或递减，值相差1.
-Pixel sizes are real numbers in the terrain units of the spatial reference system of a tile image
- specifying the dimensions of the real world area represented by one pixel.
- ？？？像素大小是一个真实数字 以瓦片图像所在的空间参考系统下的 地形的单位表示，该单位定义了 一个像素所代表的在现实世界中真实区域的大小。
-Pixel size MAY vary by a constant factor or by different factors or intervals 
-between some or all adjacent zoom levels in a tile matrix set.
-在瓦片矩阵集中在某些或所有相邻的缩放级别之间，像素大小可以是以一个常量变化，或者以不同的因子和间隔 变化。
-In the commonly used "zoom times two" convention, pixel sizes vary by a factor of 2 between all adjacent zoom levels,
- as shown in the example in <<tiles_factor2_example_appendix>>.
- 在使用最普遍的"zoom times two"（缩放两倍）惯例中，不同缩放级别的像素大小以两倍因子变化 如 <<tiles_factor2_example_appendix>> 例子中所展示的那样。
- 
-Other "zoom other intervals" conventions use different factors or irregular intervals with pixel sizes 
-chosen for intuitive cartographic representation of raster data,
- or to coincide with the original pixel size of commonly used global image products.
-See WMTS <<16>> Annex E for additional examples of both conventions.
-其它 "zoom other intervals" 惯例 为了栅格数据的直观的图像显示 或 为了 与 全球通用的图像产品的原始坐标大小保持一致 ，在像素大小 使用不同的因子和不规则的间隔。
+在GeoPackage中,瓦片矩阵集中有不同级别的瓦片矩阵图层， 缩放级别是指与瓦片矩阵图层相对应的从0到n的有序整形数字，用于标识不同的瓦片矩阵图层。随着缩放级别的递增，每个瓦片所代表的实际空间范围会变小，空间分辨率却会越高，图像也会更加清晰。
+相邻缩放级别间递增或递减，值相差1。像素大小是一个真实数字，单位为瓦片图像空间参考系的地形单位，这个真实数字规定了一个像素所代表的现实世界区域大小。
+在一个瓦片矩阵集中，影响某些或所有相邻的缩放级别之间像素大小的因素包括：固定倍率、不同倍率或倍率间隔数。
+在使用最普遍的“两倍缩放（zoom times two）”惯例中，所有相邻缩放级别的像素大小相差2倍，如下面<<tiles_factor2_example_appendix>> 中所展示的那样。
+“多倍缩放（ zoom other intervals ）”惯例中，使用不同的倍率或不规则间隔得到的像素大小，是为了栅格数据直观的图像显示或为了与全球通用的图像产品的原始坐标大小保持一致 。
+参见 WMTS <<16>> Annex E，这是两种惯例的另外示例 。
 
 ===== 数据
-
 ====== 两倍缩放
 
 :zoom_times_two_foot1: footnote:[See clause 3.2.1.1.1 for use of other zoom levels as a registered extensions.]
 [requirement]
-In a GeoPackage that contains a tile pyramid user data table that contains tile data, by default {zoom_times_two_foot1}, 
-zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjacent zoo levels in the tile matrix metadata table.
-在GeoPackage中，瓦片金字塔用户数据表包含瓦片数据，默认{zoom_times_two_foot1}，表中相邻缩放级别的像素大小必须要按照 瓦片矩阵元数据表中的 2倍因子变化。
+在一个有瓦片金字塔的GeoPackage中，默认情况下{zoom_times_two_foot1}，瓦片矩阵表中相邻缩放级别的像素大小相差2倍。
+
 [[tile_enc_png]]
 ==== Tile Encoding PNG
 
