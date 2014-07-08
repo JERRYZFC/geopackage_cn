@@ -1,84 +1,63 @@
 ![OGC Logo](http://portal.opengeospatial.org/files/?artifact_id=11976&format=gif "OGC Logo")
 
-GeoPackage Specification
+GeoPackage 规范
 ==========
+本规范描述了一个开放的、基于标准的、独立于平台的、轻便的、自描述的、传输地理空间信息的压缩格式。
+它是基于SQLite的约定集合，目的是在通用平台上[base](spec/1_base.md)存储具有互操作性的[Features](spec/2_features.md) 和/或 [Tiles](spec/3_tiles.md) 数据。
+核心文件还额外指定了可选的[Metadata](spec/5_metadata.md) 和[Schema](spec/4_schema.md)信息来构建更丰富的应用。
+[Extension Mechanism](spec/7_extensions-mechanism.md)包括一些可选的[extensions](spec/8_extensions.md)，主要是为实现者提供一种方式，这种方式可以使他们的GeoPackages增加额外的功能。
 
-This specification describes an open, standards-based, platform-independent, portable, self-describing, 
-compact format for transferring geospatial information. It is a set of conventions for SQLite to
-store interoperable [Features](spec/2_features.md) and/or [Tiles](spec/3_tiles.md) on a common [base](spec/1_base.md).
-The core document additionally specifies optional [Metadata](spec/5_metadata.md) and [Schema](spec/4_schema.md)
-information to build richer applications. An [Extension Mechanism](spec/7_extensions-mechanism.md) is 
-described to provide implementors a way to include additional functionality in their GeoPackages, with a 
-number of optional [extensions](spec/8_extensions.md) included.
+该规范的HTML版本可在地址http://opengis.github.io/geopackage/中得到。
 
-HTML version of the spec is available at http://opengis.github.io/geopackage/
-
-About
+关于
 -----
 
-This GitHub repository was originally extracted from the Microsoft Word version of the Candidate 
-GeoPackage Standard [version 0.8](https://portal.opengeospatial.org/files/?artifact_id=54838) 
-released for [public comment](http://www.opengeospatial.org/standards/requests/105) on August 6, 2013. 
-With this repository the OGC invites collaboration and comments directed at the development 
-and enhancement of this candidate standard. 
+这个GitHub资料库最初摘录自Microsoft Word版本，它的候选GeoPackage标准版本0.8（[version 0.8](https://portal.opengeospatial.org/files/?artifact_id=54838) ）于2013年8月6日发布，是为了公开征求建议（[public comment](http://www.opengeospatial.org/standards/requests/105) ）。
+有了这个资料库，OGC可以邀请用户直接参与协作和评论，这使得这个候选标准得以发展和提高。
 
-The repo tracks the latest version of the specification as it evolves. Pull requests for fixes are
-appreciated, and new functionality will be considered after 1.0 is finalized (Q1 2014). The spec
-is done in [asciidoc](http://www.methods.co.nz/asciidoc/) a format supported by github, similar to markdown
-but with some features that make it better for specifications, like automatic section numbering.
+随着规范的发展，repo不断跟踪最新版本的规范。我们欢迎为修该规范而发的Pull请求，在1.0(2014第一季度)版本定稿后，新的功能也将予以考虑。
+该规范被转换成了一种github支持的[asciidoc](http://www.methods.co.nz/asciidoc/) 纯文本格式，github中该规范以章节为单位拆分成几个纯文本文件，这样拆分在某些方面使文档显示更加规范，如自动章节编号。
 
 **Editor: Paul Daisey**
 
-Reading the document
+阅读文档
 --------------------
-The main specification can be read at http://opengis.github.io/geopackage/.
+主要规范可以在地址 http://opengis.github.io/geopackage/中阅读。
+规范的asciidoc源文件在spec/文件目录下。
 
-The asciidoc source for the specification is in the [spec/](spec/) folder.
 
-Contributing
+贡献
 ------------
-The contributor understands that any contributions, if accepted by the OGC Membership, shall 
-be incorporated into the formal OGC GeoPackage standards document and that all copyright and 
-intellectual property shall be vested to the OGC.
+贡献者应该了解；任何贡献，一旦被OGC成员接受，就会纳入正式的OGC GeoPackage 标准文件中，所有的版权和知识产权都属于OGC。
 
-The GeoPackage Standards Working Group (SWG) is the group at OGC responsible for the stewardship
-of the specification, but is working to do as much GeoPackage work in public as possible.
+该GeoPackage标准工作组（GeoPackage Standards Working Group ，SWG）是OGC中负责本规范管理工作的组，而该组正在努力做尽可能多的公开的GeoPackage工作。
 
-The Geopackage SWG currently has the following email lists:
+Geopackage SWG目前有以下的邮件列表：
    - geopackage@lists.opengeospatial.org -- [sign up here](https://lists.opengeospatial.org/mailman/listinfo/geopackage)
-      - Public List
-      - Open archives
-      - No Intellectual Property items should be discussed here.
+      - 公开列表
+      - 公开归档
+      - 没有知识产权的项目应该在这里讨论
    - geopackage.swg@lists.opengeospatial.org -- [sign up here](https://lists.opengeospatial.org/mailman/listinfo/geopackage.swg)
-      - Private List
-      - Access controlled archives
-      - Requires OGC membership and Observer Agreement to protect IPR (intellectual property rights)
+      - 私有列表
+      - 访问控制的归档
+      - 需要OGC成员和观察员协议来保护知识产权(intellectual property rights, IPR)
 
-Editing and commenting
+编辑和评论
 ----------------------
-The GeoPackage SWG is accepting public comments and suggested revisions to the specification 
-via GitHub. This is the first time OGC has supported this mechanism for public comment and review. 
-To suggest changes to the specification please fork the repository and submit a pull request with
-changes to the document. Please make one pull request per logical requested change, and be sure to
-include a comment in the PR with any justification or reasoning on why the change is needed.
+该GeoPackage SWG通过GitHub接受公众的意见和建议去修改规范。这是OGC第一次使用该机制向公众征求意见和审查。
+在对该规范提交修改性建议时，请先fork本仓库，然后提交修改本文档的pull请求。
+请针对每一个逻辑修改，都做一次pull请求，以及确保在PR上有一条评论，评论要包含你支持这种改变的原因或理由。
 
-For more general comments (that don't include actual text changes to the spec) just create a github
-issue with the relevant information. With one issue per general change.
+如需更详细的指南，或者如果你是github新手，请查看 [Process page](process.md)了解更多编辑时的附加信息。
 
-For more detailed guidance, or if you are new to github, see the [Process page](process.md) for additional 
-information on editing.
-
-Sample Implementations
+示例实现
 ----------------------
 
-[Luciad](http://www.luciad.com/) has open sourced their implementation as [libgpkg](https://bitbucket.org/luciad/libgpkg). It is
-quite complete, with support for features, tiles, spatial indexes, and more.
+[Luciad](http://www.luciad.com/)已经把它们的实现[libgpkg](https://bitbucket.org/luciad/libgpkg)开源。[libgpkg](https://bitbucket.org/luciad/libgpkg)完整地支持要素，瓦片，空间索引等。
 
-[GDAL](http://www.gdal.org/) has geopackage support in a [github repository](https://github.com/pramsey/gdal/tree/gpkg) under development.
+GDAL(http://www.gdal.org/)支持geopackage的实现位于[github repository](https://github.com/pramsey/gdal/tree/gpkg)，正在开发中。
 
-Sample GeoPackage Data
+GeoPackage 示例数据
 ----------------------
-
-[Sigma Bravo](http://www.sigmabravo.com.au/services/it.aspx) created a sample geopackage of [Haiti OSM tiles and points](https://portal.opengeospatial.org/files/?artifact_id=52605).
-
+[Sigma Bravo](http://www.sigmabravo.com.au/services/it.aspx) 创建了[Haiti OSM tiles and points](https://portal.opengeospatial.org/files/?artifact_id=52605)geopackage 示例数据。
 
