@@ -150,9 +150,9 @@ Document language: 	English<br></p>
 <li><a href="#_schema">2.3. Schema</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#_schema_introduction">2.3.1. Schema Introduction</a></li>
-<li><a href="#_data_columns">2.3.2. Data Columns</a></li>
-<li><a href="#_data_column_constraints">2.3.3. Data Column Constraints</a></li>
+<li><a href="#_schema_2">2.3.1. Schema 介绍</a></li>
+<li><a href="#__47">2.3.2. 数据列</a></li>
+<li><a href="#__50">2.3.3. 数据列约束</a></li>
 </ul>
 </li>
 <li><a href="#_metadata">2.4. Metadata</a></li>
@@ -209,7 +209,7 @@ Document language: 	English<br></p>
 <ul class="sectlevel3">
 <li><a href="#_features_2">A.2.1. Features</a></li>
 <li><a href="#_tiles_2">A.2.2. Tiles</a></li>
-<li><a href="#_schema_2">A.2.3. Schema</a></li>
+<li><a href="#_schema_3">A.2.3. Schema</a></li>
 <li><a href="#_metadata_2">A.2.4. Metadata</a></li>
 <li><a href="#_extension_mechanism_2">A.2.5. Extension Mechanism</a></li>
 </ul>
@@ -1437,25 +1437,12 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="zoom_levels">2.2.3. Zoom Levels</h4>
 <div class="paragraph">
-<p>GeoPackage中, 缩放级别是从0到n的整数，用来表示瓦片矩阵集中的不同的瓦片矩阵图层，瓦片矩阵集中包含了具有较小的空间范围和更清晰的空间分辨率的瓦片。
-Adjacent zoom levels immediately preceed or follow each other and differ by a value of 1.
-相邻的缩放级别递增或递减，值相差1.
-Pixel sizes are real numbers in the terrain units of the spatial reference system of a tile image
- specifying the dimensions of the real world area represented by one pixel.
- ？？？像素大小是一个真实数字 以瓦片图像所在的空间参考系统下的 地形的单位表示，该单位定义了 一个像素所代表的在现实世界中真实区域的大小。
-Pixel size MAY vary by a constant factor or by different factors or intervals
-between some or all adjacent zoom levels in a tile matrix set.
-在瓦片矩阵集中在某些或所有相邻的缩放级别之间，像素大小可以是以一个常量变化，或者以不同的因子和间隔 变化。
-In the commonly used "zoom times two" convention, pixel sizes vary by a factor of 2 between all adjacent zoom levels,
- as shown in the example in <a href="#tiles_factor2_example_appendix">Tiles Zoom Times Two Example (Informative)</a>.
- 在使用最普遍的"zoom times two"（缩放两倍）惯例中，不同缩放级别的像素大小以两倍因子变化 如 <a href="#tiles_factor2_example_appendix">Tiles Zoom Times Two Example (Informative)</a> 例子中所展示的那样。</p>
-</div>
-<div class="paragraph">
-<p>Other "zoom other intervals" conventions use different factors or irregular intervals with pixel sizes
-chosen for intuitive cartographic representation of raster data,
- or to coincide with the original pixel size of commonly used global image products.
-See WMTS <a href="#16">[16]</a> Annex E for additional examples of both conventions.
-其它 "zoom other intervals" 惯例 为了栅格数据的直观的图像显示 或 为了 与 全球通用的图像产品的原始坐标大小保持一致 ，在像素大小 使用不同的因子和不规则的间隔。</p>
+<p>在GeoPackage中,瓦片矩阵集中有不同级别的瓦片矩阵图层， 缩放级别是指与瓦片矩阵图层相对应的从0到n的有序整形数字，用于标识不同的瓦片矩阵图层。随着缩放级别的递增，每个瓦片所代表的实际空间范围会变小，空间分辨率却会越高，图像也会更加清晰。
+相邻缩放级别间递增或递减，值相差1。像素大小是一个真实数字，单位为瓦片图像空间参考系的地形单位，这个真实数字规定了一个像素所代表的现实世界区域大小。
+在一个瓦片矩阵集中，影响某些或所有相邻的缩放级别之间像素大小的因素包括：固定倍率、不同倍率或倍率间隔数。
+在使用最普遍的“两倍缩放（zoom times two）”惯例中，所有相邻缩放级别的像素大小相差2倍，如下面<a href="#tiles_factor2_example_appendix">Tiles Zoom Times Two Example (Informative)</a> 中所展示的那样。
+“多倍缩放（ zoom other intervals ）”惯例中，使用不同的倍率或不规则间隔得到的像素大小，是为了栅格数据直观的图像显示或为了与全球通用的图像产品的原始坐标大小保持一致 。
+参见 WMTS <a href="#16">[16]</a> Annex E，这是两种惯例的另外示例 。</p>
 </div>
 <div class="sect4">
 <h5 id="__38">2.2.3.1. 数据</h5>
@@ -1464,9 +1451,7 @@ See WMTS <a href="#16">[16]</a> Annex E for additional examples of both conventi
 <div id="_requirement-34" class="quoteblock">
 <div class="title">Requirement 34</div>
 <blockquote>
-In a GeoPackage that contains a tile pyramid user data table that contains tile data, by default <span class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</span>,
-zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjacent zoo levels in the tile matrix metadata table.
-在GeoPackage中，瓦片金字塔用户数据表包含瓦片数据，默认<span class="footnote">[<a id="_footnoteref_13" class="footnote" href="#_footnote_13" title="View footnote.">13</a>]</span>，表中相邻缩放级别的像素大小必须要按照 瓦片矩阵元数据表中的 2倍因子变化。
+在一个有瓦片金字塔的GeoPackage中，默认情况下<span class="footnote">[<a id="_footnoteref_12" class="footnote" href="#_footnote_12" title="View footnote.">12</a>]</span>，瓦片矩阵表中相邻缩放级别的像素大小相差2倍。
 </blockquote>
 </div>
 </div>
@@ -1481,7 +1466,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <div id="_requirement-35" class="quoteblock">
 <div class="title">Requirement 35</div>
 <blockquote>
-在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 <a href="http://www.ietf.org/rfc/rfc2046.txt">MIME type</a> <a href="http://www.jpeg.org/public/jfif.pdf">image/jpeg</a> <a href="#17">[17]</a><a href="#18">[18]</a><a href="#19">[19]</a>类型，那么默认就是 <a href="http://www.iana.org/assignments/media-types/index.html">MIME type</a> <a href="http://libpng.org/pub/png/">image/png</a> <a href="#20">[20]</a><a href="#21">[21]</a>类型。<span class="footnote">[<a id="_footnoteref_14" class="footnote" href="#_footnote_14" title="View footnote.">14</a>]</span>
+在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 <a href="http://www.ietf.org/rfc/rfc2046.txt">MIME type</a> <a href="http://www.jpeg.org/public/jfif.pdf">image/jpeg</a> <a href="#17">[17]</a><a href="#18">[18]</a><a href="#19">[19]</a>类型，那么默认就是 <a href="http://www.iana.org/assignments/media-types/index.html">MIME type</a> <a href="http://libpng.org/pub/png/">image/png</a> <a href="#20">[20]</a><a href="#21">[21]</a>类型。<span class="footnote">[<a id="_footnoteref_13" class="footnote" href="#_footnote_13" title="View footnote.">13</a>]</span>
 </blockquote>
 </div>
 </div>
@@ -1496,7 +1481,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <div id="_requirement-36" class="quoteblock">
 <div class="title">Requirement 36</div>
 <blockquote>
-在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 <a href="http://www.iana.org/assignments/media-types/index.html">MIME type</a> <a href="http://libpng.org/pub/png/">image/png</a> <a href="#20">[20]</a><a href="#21">[21]</a>类型，那么默认就是 <a href="http://www.ietf.org/rfc/rfc2046.txt">MIME type</a> <a href="http://www.jpeg.org/public/jfif.pdf">image/jpeg</a> <a href="#17">[17]</a><a href="#18">[18]</a><a href="#19">[19]</a>类型。<span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span>
+在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 <a href="http://www.iana.org/assignments/media-types/index.html">MIME type</a> <a href="http://libpng.org/pub/png/">image/png</a> <a href="#20">[20]</a><a href="#21">[21]</a>类型，那么默认就是 <a href="http://www.ietf.org/rfc/rfc2046.txt">MIME type</a> <a href="http://www.jpeg.org/public/jfif.pdf">image/jpeg</a> <a href="#17">[17]</a><a href="#18">[18]</a><a href="#19">[19]</a>类型。<span class="footnote">[<a id="_footnoteref_14" class="footnote" href="#_footnote_14" title="View footnote.">14</a>]</span>
 </blockquote>
 </div>
 </div>
@@ -1735,7 +1720,7 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 <p>在瓦片金字塔数据表中，缩放级别中没有瓦片时，<code>gpkg_tile_matrix</code>表或视图中也可以有对应的记录行。</p>
 </div>
 <div class="paragraph">
-<p>GeoPackages 遵循最常用的惯例，如 <a href="http://portal.opengeospatial.org/files/?artifact_id=35326">WMTS</a> <a href="#16">[16]</a>所指定，瓦片的原点在左上，缩放到“whole world”级别 下对应的比例尺是最小比例尺，对应的缩放级别为 0 级 <span class="footnote">[<a id="_footnoteref_16" class="footnote" href="#_footnote_16" title="View footnote.">16</a>]</span>。
+<p>GeoPackages 遵循最常用的惯例，如 <a href="http://portal.opengeospatial.org/files/?artifact_id=35326">WMTS</a> <a href="#16">[16]</a>所指定，瓦片的原点在左上，缩放到“whole world”级别 下对应的比例尺是最小比例尺，对应的缩放级别为 0 级 <span class="footnote">[<a id="_footnoteref_15" class="footnote" href="#_footnote_15" title="View footnote.">15</a>]</span>。
 瓦片坐标（0,0）通常指在任何缩放级别下 tile matrix的左上角，该左上角的瓦片可以不是实际存在的。</p>
 </div>
 <div id="_requirement-44" class="quoteblock">
@@ -1787,9 +1772,9 @@ zoom level pixel sizes for that table SHALL vary by a factor of 2 between adjace
 </blockquote>
 </div>
 <div class="paragraph">
-<p>0级别或者其它缩放级别可能有瓦片，也可能没有瓦片。 <span class="footnote">[<a id="_footnoteref_17" class="footnote" href="#_footnote_17" title="View footnote.">17</a>]</span>
+<p>0级别或者其它缩放级别可能有瓦片，也可能没有瓦片。 <span class="footnote">[<a id="_footnoteref_16" class="footnote" href="#_footnote_16" title="View footnote.">16</a>]</span>
 这意味着<code>tile matrix set</code> 可以是稀疏的，例如，在一个确定的缩放级别 下，并不是所有位置都包含瓦片。
-<span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span>这并不影响<code>gpkg_contents</code>表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响<code>gpkg_tile_matrix_set</code>表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span></p>
+<span class="footnote">[<a id="_footnoteref_17" class="footnote" href="#_footnote_17" title="View footnote.">17</a>]</span>这并不影响<code>gpkg_contents</code>表中该缩放级别对应记录的空间范围（由min_x、min_y、max_x、max_y列的值确定），也不影响<code>gpkg_tile_matrix_set</code>表中该缩放级别对应记录的精确空间范围（由min_x、min_y、max_x、max_y列的值确定），更不会影响该缩放级别的瓦片矩阵宽和高。 <span class="footnote">[<a id="_footnoteref_18" class="footnote" href="#_footnote_18" title="View footnote.">18</a>]</span></p>
 </div>
 </div>
 </div>
@@ -1877,7 +1862,7 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 <div class="sect5">
 <h6 id="__46">2.2.8.1.2. 表数据取值</h6>
 <div class="paragraph">
-<p>每个瓦片金字塔用户数据表或视图 <span class="footnote">[<a id="_footnoteref_20" class="footnote" href="#_footnote_20" title="View footnote.">20</a>]</span>都可以包含多个瓦片矩阵，这些瓦片矩阵对应第0级或更多缩放级别，每个缩放级别对应不同的空间分辨率（地图比例尺）。</p>
+<p>每个瓦片金字塔用户数据表或视图 <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span>都可以包含多个瓦片矩阵，这些瓦片矩阵对应第0级或更多缩放级别，每个缩放级别对应不同的空间分辨率（地图比例尺）。</p>
 </div>
 <div id="_requirement-53" class="quoteblock">
 <div class="title">Requirement 53</div>
@@ -1898,7 +1883,7 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 </blockquote>
 </div>
 <div class="paragraph">
-<p>同一缩放级别的所有瓦片都具有相同的<code>pixel_x_size</code>和<code>pixel_y_size</code>值，缩放级别对应瓦片表，以及瓦片表的<code>pixel_x_size</code>和<code>pixel_y_size</code>值是在gpkg_tile_matrix表中指定的。<span class="footnote">[<a id="_footnoteref_21" class="footnote" href="#_footnote_21" title="View footnote.">21</a>]</span></p>
+<p>同一缩放级别的所有瓦片都具有相同的<code>pixel_x_size</code>和<code>pixel_y_size</code>值，缩放级别对应瓦片表，以及瓦片表的<code>pixel_x_size</code>和<code>pixel_y_size</code>值是在gpkg_tile_matrix表中指定的。<span class="footnote">[<a id="_footnoteref_20" class="footnote" href="#_footnote_20" title="View footnote.">20</a>]</span></p>
 </div>
 </div>
 </div>
@@ -1907,23 +1892,21 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 <div class="sect2">
 <h3 id="_schema">2.3. Schema</h3>
 <div class="sect3">
-<h4 id="_schema_introduction">2.3.1. Schema Introduction</h4>
+<h4 id="_schema_2">2.3.1. Schema 介绍</h4>
 <div class="paragraph">
-<p>The schema option provides a means to describe the columns of tables in a GeoPackage with more detail than can be captured by the SQL table definition directly.
-The information provided by this option can be used by applications to, for instance, present data contained in a GeoPackage in a more user-friendly fashion or implement data validation logic.</p>
+<p>schema选项提供了一种描述GeoPackage表列的方法，它可以比SQL表定义得到更多的细节。通过schema选项可以更加友好的呈现现有GeoPackage数据，也可以实现数据有效性验证。</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_columns">2.3.2. Data Columns</h4>
+<h4 id="__47">2.3.2. 数据列</h4>
 <div class="sect4">
-<h5 id="_data">2.3.2.1. Data</h5>
+<h5 id="__48">2.3.2.1. 数据</h5>
 <div class="sect5">
-<h6 id="schema_data_columns_table_definition">2.3.2.1.1. Table Definition</h6>
+<h6 id="schema_data_columns_table_definition">2.3.2.1.1. 表定义</h6>
 <div id="_requirement-56" class="quoteblock">
 <div class="title">Requirement 56</div>
 <blockquote>
-A GeoPackage MAY contain a table or updateable view named <code>gpkg_data_columns</code>.
-If present it SHALL be defined per clause 2.3.2.1.1 <a href="#schema_data_columns_table_definition">Table Definition</a>, <a href="#gpkg_data_columns_cols">Data Columns Table or View Definition</a> and <a href="#gpkg_data_columns_sql">gpkg_data_columns Table Definition SQL</a>.
+GeoPackage 中可以包含一个名为<code>gpkg_data_columns</code>的表或可更新视图。表或视图的定义需要符合<a href="#schema_data_columns_table_definition">表定义</a>章节、表<a href="#gpkg_data_columns_cols">Data Columns Table or View Definition</a> 和表<a href="#gpkg_data_columns_sql">gpkg_data_columns Table Definition SQL</a>的规定。
 </blockquote>
 </div>
 <table id="gpkg_data_columns_cols" class="tableblock frame-all grid-all" style="width:100%; ">
@@ -1948,49 +1931,49 @@ If present it SHALL be defined per clause 2.3.2.1.1 <a href="#schema_data_column
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>table_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the tiles or feature table</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">视图或要素表名</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>column_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the table column</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">列名</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable identifier (e.g. short name) for the column_name content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column_name列目录可读标识符(e.g. 短名称)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable formal title for the column_name content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">column_name列目录可读正式标题</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A human-readable description for the table_name content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">table_name列内容可读描述</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mime_type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://www.iana.org/assignments/media-types/index.html">MIME</a> <a href="#21">[21]</a> type of column_name if BLOB type, or NULL for other types</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果为BLOB类型，则column_name为http://www.iana.org/assignments/media-types/index.html[MIME] <a href="#21">[21]</a> 类型，如果为NULL，则为其它类型</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>constraint_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Case sensitive column value constraint name specified by reference to  gpkg_data_column_constraints.constraint name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要区分大小写的约束名，与<code>gpkg_data_column_constraints</code>表中的约束名一一对应</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -1998,53 +1981,50 @@ If present it SHALL be defined per clause 2.3.2.1.1 <a href="#schema_data_column
 </table>
 
 <div class="paragraph">
-<p>GeoPackage applications MAY <span class="footnote">[<a id="_footnoteref_22" class="footnote" href="#_footnote_22" title="View footnote.">22</a>]</span> use the <code>gpkg_data_columns</code> table to store minimal application schema identifying, descriptive and <a href="http://www.iana.org/assignments/media-types/index.html">MIME</a> <a href="#21">[21]</a> type <span class="footnote">[<a id="_footnoteref_23" class="footnote" href="#_footnote_23" title="View footnote.">23</a>]</span> information about columns in user vector feature and tile matrix data tables that supplements the data available from the SQLite <code>sqlite_master</code> table and pragma <code>table_info(table_name)</code> SQL function.
-The <code>gpkg_data_columns</code> data CAN be used to provide more specific column data types and value ranges and application specific structural and semantic information to enable more informative user menu displays and more effective user decisions on the suitability of GeoPackage contents for specific purposes.</p>
+<p>GeoPackage应用程序可以<span class="footnote">[<a id="_footnoteref_21" class="footnote" href="#_footnote_21" title="View footnote.">21</a>]</span>使用表<code>gpkg_data_columns</code>存储精简的应用程序schema标识、描述、和http://www.iana.org/assignments/media-types/index.html[MIME] <a href="#21">[21]</a> 类型<span class="footnote">[<a id="_footnoteref_22" class="footnote" href="#_footnote_22" title="View footnote.">22</a>]</span>信息，这些信息与矢量要素数据表和瓦片矩阵数据表的列相关，有了这些信息，通过SQLite的sqlite_master表、以及table_info(table_name) SQL指令，就可以获取附加数据。
+<code>gpkg_data_columns</code>数据可以提供更具体的列数据类型、取值范围、特定应用结构和语义信息，这些内容使用户界面展示的信息更丰富，使用户更有效地判断GeoPackage内容是否适合特定用途。</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#gpkg_data_columns_sql">gpkg_data_columns Table Definition SQL</a>.</p>
+<p>参见 <a href="#gpkg_data_columns_sql">gpkg_data_columns Table Definition SQL</a>.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values">2.3.2.1.2. Table Data Values</h6>
+<h6 id="__49">2.3.2.1.2. 表数据值</h6>
 <div id="_requirement-57" class="quoteblock">
 <div class="title">Requirement 57</div>
 <blockquote>
-Values of the <code>gpkg_data_columns</code> table <code>table_name</code> column value SHALL reference values in the <code>gpkg_contents</code> <code>table_name</code> column.
+<code>gpkg_data_columns</code>表<code>table_name</code>列的值应该与<code>gpkg_contents</code> 表<code>table_name</code> 列的值一一对应。
 </blockquote>
 </div>
 <div id="_requirement-58" class="quoteblock">
 <div class="title">Requirement 58</div>
 <blockquote>
-The <code>column_name</code> column value in a <code>gpkg_data_columns</code> table row SHALL contain the name of a column in the SQLite table or view identified by the <code>table_name</code> column value.
+<code>gpkg_data_columns</code>表记录中的<code>table_name</code>列值标识了一个SQLite表或视图，同一记录中的<code>column_name</code>列值应该为该SQLite表或视图中的一个列名。
 </blockquote>
 </div>
 <div id="_requirement-59" class="quoteblock">
 <div class="title">Requirement 59</div>
 <blockquote>
-The constraint_name column value in a gpkg_data_columns table MAY be NULL.
-If it is not NULL, it SHALL contain a case sensitive constraint_name column value from the gpkg_data_column_constraints table.
+<code>gpkg_data_columns</code>表<code>constraint_name</code>列值可能为 NULL，如果不为NULL，则该列值应该取自表gpkg_data_column_constraints的constraint_name列，且区分大小写。
 </blockquote>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_data_column_constraints">2.3.3. Data Column Constraints</h4>
+<h4 id="__50">2.3.3. 数据列约束</h4>
 <div class="sect4">
-<h5 id="_data_2">2.3.3.1. Data</h5>
+<h5 id="__51">2.3.3.1. 数据</h5>
 <div class="sect5">
-<h6 id="data_column_constraints_table_definition">2.3.3.1.1. Table Definition</h6>
+<h6 id="data_column_constraints_table_definition">2.3.3.1.1. 表定义</h6>
 <div id="_requirement-60" class="quoteblock">
 <div class="title">Requirement 60</div>
 <blockquote>
-A GeoPackage MAY contain a table or updateable view named gpkg_data_column_constraints.
-If present it SHALL be defined per clause 2.3.3.1.1 <a href="#data_column_constraints_table_definition">Table Definition</a>, <a href="#gpkg_data_column_constraints_cols">Data Column Constraints Table or View Definition</a> and <a href="#gpkg_data_column_constraints_sql">gpkg_data_columns Table Definition SQL</a>.
+GeoPackage中可能包含名为 “gpkg_data_column_constraints” 的表或可更新视图。如果有，它应该符合章节2.3.3.1.1 <a href="#data_column_constraints_table_definition">表定义</a>, <a href="#gpkg_data_column_constraints_cols">Data Column Constraints Table or View Definition</a> 和 <a href="#gpkg_data_column_constraints_sql">gpkg_data_columns Table Definition SQL</a>的规定。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>The <code>gpkg_data_column_constraints</code> table contains data to specify restrictions on basic data type column values.
-The constraint_name column is referenced by the <code>constraint_name</code> column in the <code>gpkg_data_columns</code> table defined in <a href="#gpkg_data_columns_cols">Data Columns Table or View Definition</a>.</p>
+<p><code>gpkg_data_column_constraints</code>表中的数据可以为值为基本数据类型的列指定约束限制。<code>constraint_name</code>列与章节<a href="#gpkg_data_columns_cols">Data Columns Table or View Definition</a>中定义的<code>gpkg_data_columns</code> 表的<code>constraint_name</code>列一一对应。</p>
 </div>
 <table id="gpkg_data_column_constraints_cols" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 12. Data Column Constraints Table or View Definition</caption>
@@ -2068,56 +2048,56 @@ The constraint_name column is referenced by the <code>constraint_name</code> col
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>constraint_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Case sensitive name of constraint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">区分大小写的约束名</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unique</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>constraint_type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lowercase type name of constraint: <em>range</em> | <em>enum</em> | <em>glob</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">约束类型，取值的小写形式为<em>range</em> 、 <em>enum</em> 或<em>glob</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unique</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>value</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specified case sensitive value for <em>enum</em> or <em>glob</em> or NULL for <em>range</em> constraint_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型为<em>enum</em>或<em>glob</em>的值，区分大小写，当<code>constraint_type</code>为<em>range</em>时，取值为NULL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Unique</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>min</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NUMERIC</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minimum value for ‘range’ or NULL for ‘enum’ or ‘glob’ constraint_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">‘range’（值域）的下限值，当<code>constraint_type</code>为‘enum’ 或‘glob’ 时，值为NULL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minIsInclusive</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0 (false) if min value is exclusive, or 1 (true) if min value is inclusive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果min值不在‘range’（值域）范围内，<code>minIsInclusive</code>的值则为0（false）,反之则为1（true）</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>max</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NUMERIC</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum value for ‘range’ or NULL for ‘enum’ or ‘glob’ constraint_type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">‘range’（值域）的上限值，当<code>constraint_type</code>为‘enum’ 或‘glob’ 时，值为NULL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIsInclusive</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0 (false) if max value is exclusive, or 1 (true) if max value is inclusive</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果max值不在‘range’（值域）范围内，<code>maxIsInclusive</code>的值则为0（false）,反之则为1（true）</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">For ranges and globs, describes the constraint; for enums, describes the enum value.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对于ranges或globs,描述约束; 对于enums（枚举）, 则描述enum值</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
@@ -2125,21 +2105,24 @@ The constraint_name column is referenced by the <code>constraint_name</code> col
 </table>
 
 <div class="paragraph">
-<p><em>The min and max columns are defined as NUMERIC to be able to contain range values for any numeric data column defined with a data type from Table 1. These are the only exceptions to the data type rule stated in Req 5.</em></p>
+<p><em>min和max列被定义为NUMERIC类型，是为了能够表示数值数据列（数据类型由表1定义）的值域。这是 Req 5中阐明的数据类型规则的唯一一次例外。</em></p>
 </div>
 <div class="paragraph">
-<p>See <a href="#gpkg_data_column_constraints_sql">gpkg_data_columns Table Definition SQL</a>.</p>
+<p>参见<a href="#gpkg_data_column_constraints_sql">gpkg_data_columns Table Definition SQL</a>.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_2">2.3.3.1.2. Table Data Values</h6>
+<h6 id="__52">2.3.3.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>The lowercase gpkg_data_column_constraints constraint_type column value specifies the type of constraint: "range", "enum", or "glob" (text pattern match).
-The case sensitive value column contains an enumerated legal value for constraint_type "enum", a pattern match string for constraint_type "glob", or NULL for constraint_type "range". The set of value column values in rows of constraint_type "enum" with the same constraint_name contains all possible enumerated values for the constraint name. The min and max column values specify the minim and maximum valid values for constraint_type "range", or are NULL for constraint_type "enum" or "glob". The minIsInclusive and maxIsInclusive column values contain 1 if the min and max values are inclusive, 0 if they are exclusive, or are NULL for constraint_type "enum" or "glob".
-These restrictions MAY be enforced by SQL triggers or by code in applications that update GeoPackage data values.</p>
+<p>gpkg_data_column_constraints表中constraint_type列的值指定了约束的类型，值的小写形式为："range", "enum", 或"glob" (文本模式匹配)。
+value列的值区分大小写，当constraint_type列值为"enum"时，value列的值为合法的枚举值；当constraint_type列值为"glob"时，value列的值为模式匹配字符串；当constraint_type列值为"range"时，value列的值为NULL。
+在constraint_name值相同，且constraint_type值为"enum"的所有记录中，value列值的集合包含了constraint_name约束的所有可能的枚举值。
+constraint_type列值为"range"的记录中，min和max列的值分别指定了值域的有效最大值和最小值，constraint_type 列值为"enum"或"glob"的记录中，min和max列的值为NULL。
+如果值域包含min和max值，则minIsInclusive 和 maxIsInclusive列值为1，反之minIsInclusive和 maxIsInclusive列值为0。如果constraint_type的值为 "enum"或 "glob"，则minIsInclusive和 maxIsInclusive列值为NULL。
+在应用程序更新GeoPackage数据值时，这些限制可能会被SQL触发器或代码强制执行。</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 13. Sample Data Column Constraints</caption>
+<caption class="title">Table 13. 列约束示范数据</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -2230,49 +2213,43 @@ These restrictions MAY be enforced by SQL triggers or by code in applications th
 <div id="_requirement-61" class="quoteblock">
 <div class="title">Requirement 61</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains data, the lowercase <code>constraint_type</code> column values SHALL be one of "range", "enum", or "glob".
+<code>gpkg_data_column_constraints</code> 表可能为空。如果它包含数据，则小写的<code>constraint_type</code>列值只能为"range"、"enum"或"glob"之一。
 </blockquote>
 </div>
 <div id="_requirement-62" class="quoteblock">
 <div class="title">Requirement 62</div>
 <blockquote>
-gpkg_data_column_constraint constraint_name values for rows with constraint_type values of <em>range</em> and <em>glob</em> SHALL be unique.
+在gpkg_data_column_constraints表中，constraint_type列值为"range"或"glob"的记录，constraint_name值必须是唯一的。
 </blockquote>
 </div>
 <div id="_requirement-63" class="quoteblock">
 <div class="title">Requirement 63</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains rows with constraint_type column values of "range", the <code>value</code> column values for those rows SHALL be NULL.
+<code>gpkg_data_column_constraints</code>表可能为空。如果它包括constraint_type列值为"range"的记录，那这些记录的<code>value</code>列的值应该NULL。
 </blockquote>
 </div>
 <div id="_requirement-64" class="quoteblock">
 <div class="title">Requirement 64</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains rows with <code>constraint_type</code> column values of "range", the <code>min</code> column values for those rows SHALL be NOT NULL and less than the <code>max</code> column value which shall be NOT NULL.
+<code>gpkg_data_column_constraints</code>表可能是空的。如果它包括<code>constraint_type</code>列值为"range"的记录，那么这些行的<code>min</code>列和<code>max</code>列的值应该不为 NULL，且<code>min</code>列值小于<code>max</code>列值。
 </blockquote>
 </div>
 <div id="_requirement-65" class="quoteblock">
 <div class="title">Requirement 65</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains rows with <code>constraint_type</code> column values of "range", the <code>minIsInclusive</code> and <code>maxIsInclusive</code> column values for those rows SHALL be 0 or 1.
+<code>gpkg_data_column_constraints</code>表可能为空。如果它包括<code>constraint_type</code>列值为"range"的记录，那么这些行的<code>minIsInclusive</code>列和<code>maxIsInclusive</code>列的值应该为0或者1。
 </blockquote>
 </div>
 <div id="_requirement-66" class="quoteblock">
 <div class="title">Requirement 66</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains rows with <code>constraint_type</code> column values of "enum" or "glob", the <code>min</code>, <code>max</code>, <code>minIsInclusive</code> and <code>maxIsInclusive</code> column values for those rows SHALL be NULL.
+<code>gpkg_data_column_constraints</code>表可能为空。如果它包括<code>constraint_type</code>列值为"enum"或"glob"的记录，那么这些记录的<code>min</code>，<code>max</code>，<code>minIsInclusive</code>和<code>maxIsInclusive</code>列的值应该为NULL。
 </blockquote>
 </div>
 <div id="_requirement-67" class="quoteblock">
 <div class="title">Requirement 67</div>
 <blockquote>
-The <code>gpkg_data_column_constraints</code> table MAY be empty.
-If it contains rows with <code>constraint_type</code> column values of "enum" or "glob", the <code>value</code> column SHALL NOT be NULL.
+<code>gpkg_data_column_constraints</code>表可能为空。如果它包括<code>constraint_type</code>列值为"enum"或"glob"的记录，那这些记录的<code>value</code>列的值应该不是 NULL。
 </blockquote>
 </div>
 </div>
@@ -2289,13 +2266,13 @@ These tables are intended to provide the support necessary to implement the hier
 </div>
 <div class="paragraph">
 <p>The <code>gpkg_metadata</code> table that contains metadata is described in clause <a href="#_metadata_table">Metadata Table</a>, and the <code>gpkg_metadata_reference</code> table that relates <code>gpkg_metadata</code> to GeoPackage data is described in clause <a href="#_metadata_reference_table">Metadata Reference Table</a>.
-There is no GeoPackage requirement that such metadata be provided or that defined metadata be structured in a hierarchical fashion <span class="footnote">[<a id="_footnoteref_24" class="footnote" href="#_footnote_24" title="View footnote.">24</a>]</span> with more than one level, only that if it is, these tables SHALL be used. Such metadata <span class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnote_25" title="View footnote.">25</a>]</span> and data that relates it to GeoPackage contents SHALL NOT be stored in other tables.</p>
+There is no GeoPackage requirement that such metadata be provided or that defined metadata be structured in a hierarchical fashion <span class="footnote">[<a id="_footnoteref_23" class="footnote" href="#_footnote_23" title="View footnote.">23</a>]</span> with more than one level, only that if it is, these tables SHALL be used. Such metadata <span class="footnote">[<a id="_footnoteref_24" class="footnote" href="#_footnote_24" title="View footnote.">24</a>]</span> and data that relates it to GeoPackage contents SHALL NOT be stored in other tables.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_metadata_table">2.4.2. Metadata Table</h4>
 <div class="sect4">
-<h5 id="_data_3">2.4.2.1. Data</h5>
+<h5 id="_data">2.4.2.1. Data</h5>
 <div class="sect5">
 <h6 id="metadata_table_table_definition">2.4.2.1.1. Table Definition</h6>
 <div id="_requirement-68" class="quoteblock">
@@ -2348,7 +2325,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>md_standard_uri</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">URI <a href="#23">[23]</a> reference to the metadata structure definition authority <span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URI <a href="#23">[23]</a> reference to the metadata structure definition authority <span class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnote_25" title="View footnote.">25</a>]</span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2381,11 +2358,11 @@ The structure (schema) information could be in whatever encoding is used by the 
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_3">2.4.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values">2.4.2.1.2. Table Data Values</h6>
 <div class="paragraph">
 <p>The <code>md_scope</code> column in the <code>gpkg_metadata</code> table is the name of the applicable scope for the contents of the metadata column for a given row.
 The list of valid scope names and their definitions is provided in <a href="#metadata_scopes">Metadata Scopes</a> below.
-The initial contents of this table were obtained from the ISO 19115 <a href="#40">[40]</a>, Annex B B.5.25 MD_ScopeCode code list, which was extended <span class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnote_27" title="View footnote.">27</a>]</span> for use in the GeoPackage specification by addition of entries with “NA” as the scope code column in <a href="#gpkg_metadata_cols">Metadata Table Definition</a>.</p>
+The initial contents of this table were obtained from the ISO 19115 <a href="#40">[40]</a>, Annex B B.5.25 MD_ScopeCode code list, which was extended <span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span> for use in the GeoPackage specification by addition of entries with “NA” as the scope code column in <a href="#gpkg_metadata_cols">Metadata Table Definition</a>.</p>
 </div>
 <table id="metadata_scopes" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 15. Metadata Scopes</caption>
@@ -2420,7 +2397,7 @@ The initial contents of this table were obtained from the ISO 19115 <a href="#40
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">series</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">006</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the (dataset) series <span class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnote_28" title="View footnote.">28</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the (dataset) series <span class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnote_27" title="View footnote.">27</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dataset</p></td>
@@ -2460,17 +2437,17 @@ The initial contents of this table were obtained from the ISO 19115 <a href="#40
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">catalog</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a feature catalog <span class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnote_29" title="View footnote.">29</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a feature catalog <span class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnote_28" title="View footnote.">28</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">schema</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to an application schema <span class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnote_30" title="View footnote.">30</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to an application schema <span class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnote_29" title="View footnote.">29</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">taxonomy</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a taxonomy or knowledge system <span class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnote_31" title="View footnote.">31</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a taxonomy or knowledge system <span class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnote_30" title="View footnote.">30</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">software</p></td>
@@ -2512,7 +2489,7 @@ Each <code>md_scope</code> column value in a <code>gpkg_metadata</code> table or
 <div class="sect3">
 <h4 id="_metadata_reference_table">2.4.3. Metadata Reference Table</h4>
 <div class="sect4">
-<h5 id="_data_4">2.4.3.1. Data</h5>
+<h5 id="_data_2">2.4.3.1. Data</h5>
 <div class="sect5">
 <h6 id="metadata_reference_table_table_definition">2.4.3.1.1. Table Definition</h6>
 <div id="_requirement-70" class="quoteblock">
@@ -2571,7 +2548,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>row_id_value</code> <span class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnote_32" title="View footnote.">32</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>row_id_value</code> <span class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnote_31" title="View footnote.">31</a>]</span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NULL for <code>reference_scope</code> of ‘geopackage’, ‘table’ or ‘column’, or the rowed of a row record in the <code>table_name</code> table for <code>reference_scope</code> of ‘row’ or ‘row/col’</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
@@ -2606,14 +2583,14 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 </table>
 
 <div class="paragraph">
-<p>Every row in <code>gpkg_metadata_reference</code> that has null value as <code>md_parent_id</code> forms the root of a metadata hierarchy.<span class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnote_33" title="View footnote.">33</a>]</span></p>
+<p>Every row in <code>gpkg_metadata_reference</code> that has null value as <code>md_parent_id</code> forms the root of a metadata hierarchy.<span class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnote_32" title="View footnote.">32</a>]</span></p>
 </div>
 <div class="paragraph">
 <p>See <a href="#table_definition_sql">Table Definition SQL (Normative)</a> clause <a href="#gpkg_metadata_reference_sql">gpkg_metadata_reference Table Definition SQL</a>.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_4">2.4.3.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_2">2.4.3.1.2. Table Data Values</h6>
 <div id="_requirement-71" class="quoteblock">
 <div class="title">Requirement 71</div>
 <blockquote>
@@ -2644,7 +2621,7 @@ Every other <code>gpkg_metadata_reference</code> table row SHALL have a <code>ro
 <div id="_requirement-75" class="quoteblock">
 <div class="title">Requirement 75</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row timestamp column value SHALL be in ISO 8601 <a href="#29">[29]</a> format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.<span class="footnote">[<a id="_footnoteref_34" class="footnote" href="#_footnote_34" title="View footnote.">34</a>]</span>
+Every <code>gpkg_metadata_reference</code> table row timestamp column value SHALL be in ISO 8601 <a href="#29">[29]</a> format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.<span class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnote_33" title="View footnote.">33</a>]</span>
 </blockquote>
 </div>
 <div id="_requirement-76" class="quoteblock">
@@ -2673,13 +2650,13 @@ Every <code>gpkg_metadata_reference</code> table row <code>md_parent_id</code> c
 <div class="paragraph">
 <p>GeoPackage extensions are identified by a name of the form &lt;author&gt;_&lt;extension name&gt; where &lt;author&gt; indicates the person or organization that developed and maintains the extension.
 The author value “gpkg” is reserved for GeoPackage extensions that are developed and maintained by OGC and used in Geopackages.
-Implementers use their own author names to register other extensions<span class="footnote">[<a id="_footnoteref_35" class="footnote" href="#_footnote_35" title="View footnote.">35</a>]</span> used in Extended GeoPackages.</p>
+Implementers use their own author names to register other extensions<span class="footnote">[<a id="_footnoteref_34" class="footnote" href="#_footnote_34" title="View footnote.">34</a>]</span> used in Extended GeoPackages.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_extensions">2.5.2. Extensions</h4>
 <div class="sect4">
-<h5 id="_data_5">2.5.2.1. Data</h5>
+<h5 id="_data_3">2.5.2.1. Data</h5>
 <div class="sect5">
 <h6 id="extensions_table_definition">2.5.2.1.1. Table Definition</h6>
 <div id="_requirement-78" class="quoteblock">
@@ -2755,7 +2732,7 @@ An application that access a GeoPackage can query the <code>gpkg_extensions</cod
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_5">2.5.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values_3">2.5.2.1.2. Table Data Values</h6>
 <div id="_requirement-79" class="quoteblock">
 <div class="title">Requirement 79</div>
 <blockquote>
@@ -2837,7 +2814,7 @@ Definitions of those extensions in the form specified by the template in <a href
 <div class="sect3">
 <h4 id="gpkg_geometry_types_extension">3.1.1. GeoPackage Geometry Types Extension</h4>
 <div class="sect4">
-<h5 id="_data_6">3.1.1.1. Data</h5>
+<h5 id="_data_4">3.1.1.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clause <a href="#sql_geometry_types">SQL几何类型</a> partially described in <a href="#extension_geometry_types">GeoPackage Geometry Types Extension Template (Normative)</a> defines additional geometry types.</p>
 </div>
@@ -2874,7 +2851,7 @@ A GeoPackage that contains a gpkg_geometry_columns table or updateable view with
 <div class="sect3">
 <h4 id="gpkg_user_geometry_types_extension">3.1.2. User-Defined Geometry Types Extension</h4>
 <div class="sect4">
-<h5 id="_data_7">3.1.2.1. Data</h5>
+<h5 id="_data_5">3.1.2.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clauses <a href="#gpb_format">几何编码</a>, <a href="#sql_geometry_types">SQL几何类型</a> and <a href="#gpkg_geometry_types_extension">GeoPackage Geometry Types Extension</a> partially described in <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a> enables encoding of additional user-defined geometry types in ExtendedGeoPackageBinary format in an Extended GeoPackage.</p>
 </div>
@@ -2919,14 +2896,14 @@ The <code>geometry_type_name</code> value in a <code>gpkg_geometry_columns</code
 <div class="sect3">
 <h4 id="_rtree_spatial_indexes">3.1.3. RTree Spatial Indexes</h4>
 <div class="sect4">
-<h5 id="_data_8">3.1.3.1. Data</h5>
+<h5 id="_data_6">3.1.3.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_rtree">RTree Spatial Index Extension (Normative)</a> adds a new capability for spatially indexing columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
 <div class="sect5">
 <h6 id="_spatial_indexes_implementation">3.1.3.1.1. Spatial Indexes Implementation</h6>
 <div class="paragraph">
-<p>Spatial indexes provide a significant performance advantage for searches with basic envelope spatial criteria that return subsets of the rows in a feature table with a non-trivial number (thousands or more) of rows.<span class="footnote">[<a id="_footnoteref_36" class="footnote" href="#_footnote_36" title="View footnote.">36</a>]</span></p>
+<p>Spatial indexes provide a significant performance advantage for searches with basic envelope spatial criteria that return subsets of the rows in a feature table with a non-trivial number (thousands or more) of rows.<span class="footnote">[<a id="_footnoteref_35" class="footnote" href="#_footnote_35" title="View footnote.">35</a>]</span></p>
 </div>
 <div id="_requirement-92" class="quoteblock">
 <div class="title">Requirement 92</div>
@@ -2958,7 +2935,7 @@ A GeoPackage that implements spatial indexes SHALL have a gpkg_extensions table 
 <div class="sect3">
 <h4 id="_geometry_type_triggers">3.1.4. Geometry Type Triggers</h4>
 <div class="sect4">
-<h5 id="_data_9">3.1.4.1. Data</h5>
+<h5 id="_data_7">3.1.4.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_geometry_type_triggers">Geometry Type Triggers Extension (Normative)</a> adds a new geometry type triggers capability for columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
@@ -2994,7 +2971,7 @@ A GeoPackage that implements geometry type triggers on geometry columns SHALL co
 <div class="sect3">
 <h4 id="_srs_id_triggers">3.1.5. SRS_ID Triggers</h4>
 <div class="sect4">
-<h5 id="_data_10">3.1.5.1. Data</h5>
+<h5 id="_data_8">3.1.5.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_geometry_srsid_triggers">Geometry SRS ID Triggers Extension (Normative)</a> adds a new srs_id triggers capability for columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
@@ -3036,7 +3013,7 @@ A GeoPackage that implements srs_id triggers on feature table geometry columns S
 <div class="sect3">
 <h4 id="_zoom_levels">3.2.1. Zoom Levels</h4>
 <div class="sect4">
-<h5 id="_data_11">3.2.1.1. Data</h5>
+<h5 id="_data_9">3.2.1.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clause <a href="#zoom_levels">Zoom Levels</a> described in <a href="#extension_zoom_other_intervals">Zoom Other Intervals Extension (Normative)</a> allows zoom level intervals other than a factor of two.</p>
 </div>
@@ -3069,7 +3046,7 @@ A GeoPackage that implements other zoom intervals SHALL have a gpkg_extensions t
 <div class="sect3">
 <h4 id="tile_enc_webp">3.2.2. Tile Encoding WEBP</h4>
 <div class="sect4">
-<h5 id="_data_12">3.2.2.1. Data</h5>
+<h5 id="_data_10">3.2.2.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clauses <a href="#tile_enc_png">Tile Encoding PNG</a> and <a href="#tile_enc_jpeg">Tile Encoding JPEG</a> described in <a href="#extension_tiles_webp">Tiles Encoding WebP Extension (Normative)</a> allows encoding of tile images in WebP format.</p>
 </div>
@@ -3121,7 +3098,7 @@ The GeoPackage specification does not place any constraints on application, plat
 <div class="sect4">
 <h5 id="_sqlite_container">A.1.1.1. SQLite Container</h5>
 <div class="sect5">
-<h6 id="_data_13">A.1.1.1.1. Data</h6>
+<h6 id="_data_11">A.1.1.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>File Format</strong></p>
 </div>
@@ -3607,7 +3584,7 @@ The GeoPackage specification does not place any constraints on application, plat
 <div class="sect4">
 <h5 id="_spatial_reference_systems">A.1.1.2. Spatial Reference Systems</h5>
 <div class="sect5">
-<h6 id="_data_14">A.1.1.2.1. Data</h6>
+<h6 id="_data_12">A.1.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -3781,7 +3758,7 @@ AUTHORITY["EPSG","4326"] (rounding the UNIT conversion factors to 16 decimal pla
 <div class="sect4">
 <h5 id="_contents">A.1.1.3. Contents</h5>
 <div class="sect5">
-<h6 id="_data_15">A.1.1.3.1. Data</h6>
+<h6 id="_data_13">A.1.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -4071,7 +4048,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_contents_2">A.2.1.2. Contents</h5>
 <div class="sect5">
-<h6 id="_data_16">A.2.1.2.1. Data</h6>
+<h6 id="_data_14">A.2.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Contents Table Feature Row</strong></p>
 </div>
@@ -4123,7 +4100,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_geometry_encoding">A.2.1.3. Geometry Encoding</h5>
 <div class="sect5">
-<h6 id="_data_17">A.2.1.3.1. Data</h6>
+<h6 id="_data_15">A.2.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>BLOB Format</strong></p>
 </div>
@@ -4213,7 +4190,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_sql_geometry_types">A.2.1.4. SQL Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_18">A.2.1.4.1. Data</h6>
+<h6 id="_data_16">A.2.1.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>Core Types</strong></p>
 </div>
@@ -4370,7 +4347,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_geometry_columns">A.2.1.5. Geometry Columns</h5>
 <div class="sect5">
-<h6 id="_data_19">A.2.1.5.1. Data</h6>
+<h6 id="_data_17">A.2.1.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -4809,7 +4786,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_vector_features_user_data_tables">A.2.1.6. Vector Features User Data Tables</h5>
 <div class="sect5">
-<h6 id="_data_20">A.2.1.6.1. Data</h6>
+<h6 id="_data_18">A.2.1.6.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5092,7 +5069,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_contents_3">A.2.2.1. Contents</h5>
 <div class="sect5">
-<h6 id="_data_21">A.2.2.1.1. Data</h6>
+<h6 id="_data_19">A.2.2.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Contents Table – Tiles Row</strong></p>
 </div>
@@ -5169,7 +5146,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_zoom_levels_2">A.2.2.2. Zoom Levels</h5>
 <div class="sect5">
-<h6 id="_data_22">A.2.2.2.1. Data</h6>
+<h6 id="_data_20">A.2.2.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Zoom Times Two</strong></p>
 </div>
@@ -5251,7 +5228,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_encoding_png">A.2.2.3. Tile Encoding PNG</h5>
 <div class="sect5">
-<h6 id="_data_23">A.2.2.3.1. Data</h6>
+<h6 id="_data_21">A.2.2.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>MIME Type PNG</strong></p>
 </div>
@@ -5334,7 +5311,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_encoding_jpeg">A.2.2.4. Tile Encoding JPEG</h5>
 <div class="sect5">
-<h6 id="_data_24">A.2.2.4.1. Data</h6>
+<h6 id="_data_22">A.2.2.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>MIME Type JPEG</strong></p>
 </div>
@@ -5417,7 +5394,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_matrix_set">A.2.2.5. Tile Matrix Set</h5>
 <div class="sect5">
-<h6 id="_data_25">A.2.2.5.1. Data</h6>
+<h6 id="_data_23">A.2.2.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5644,7 +5621,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_matrix">A.2.2.6. Tile Matrix</h5>
 <div class="sect5">
-<h6 id="_data_26">A.2.2.6.1. Data</h6>
+<h6 id="_data_24">A.2.2.6.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6279,7 +6256,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_tile_pyramid_user_data">A.2.2.7. Tile Pyramid User Data</h5>
 <div class="sect5">
-<h6 id="_data_27">A.2.2.7.1. Data</h6>
+<h6 id="_data_25">A.2.2.7.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6575,11 +6552,11 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect3">
-<h4 id="_schema_2">A.2.3. Schema</h4>
+<h4 id="_schema_3">A.2.3. Schema</h4>
 <div class="sect4">
-<h5 id="_data_columns_2">A.2.3.1. Data Columns</h5>
+<h5 id="_data_columns">A.2.3.1. Data Columns</h5>
 <div class="sect5">
-<h6 id="_data_28">A.2.3.1.1. Data</h6>
+<h6 id="_data_26">A.2.3.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6830,9 +6807,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect4">
-<h5 id="_data_column_constraints_2">A.2.3.2. Data Column Constraints</h5>
+<h5 id="_data_column_constraints">A.2.3.2. Data Column Constraints</h5>
 <div class="sect5">
-<h6 id="_data_29">A.2.3.2.1. Data</h6>
+<h6 id="_data_27">A.2.3.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7333,7 +7310,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_metadata_table_2">A.2.4.1. Metadata Table</h5>
 <div class="sect5">
-<h6 id="_data_30">A.2.4.1.1. Data</h6>
+<h6 id="_data_28">A.2.4.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7456,7 +7433,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_metadata_reference_table_2">A.2.4.2. Metadata Reference Table</h5>
 <div class="sect5">
-<h6 id="_data_31">A.2.4.2.1. Data</h6>
+<h6 id="_data_29">A.2.4.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7959,7 +7936,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_extensions_2">A.2.5.1. Extensions</h5>
 <div class="sect5">
-<h6 id="_data_32">A.2.5.1.1. Data</h6>
+<h6 id="_data_30">A.2.5.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -8458,7 +8435,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_geometry_types">A.3.1.1. Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_33">A.3.1.1.1. Data</h6>
+<h6 id="_data_31">A.3.1.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>GeoPackage Extension Types</strong></p>
 </div>
@@ -8742,7 +8719,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_user_defined_geometry_types">A.3.1.2. User-Defined Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_34">A.3.1.2.1. Data</h6>
+<h6 id="_data_32">A.3.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Extensions Encoding</strong></p>
 </div>
@@ -9031,7 +9008,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_spatial_indexes">A.3.1.3. Spatial Indexes</h5>
 <div class="sect5">
-<h6 id="_data_35">A.3.1.3.1. Data</h6>
+<h6 id="_data_33">A.3.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>Spatial Indexes Implementation</strong></p>
 </div>
@@ -9317,7 +9294,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_geometry_type_triggers_2">A.3.1.4. Geometry Type Triggers</h5>
 <div class="sect5">
-<h6 id="_data_36">A.3.1.4.1. Data</h6>
+<h6 id="_data_34">A.3.1.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>Geometry Type Triggers Implementation</strong></p>
 </div>
@@ -9584,7 +9561,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_srs_id_triggers_2">A.3.1.5. SRS_ID Triggers</h5>
 <div class="sect5">
-<h6 id="_data_37">A.3.1.5.1. Data</h6>
+<h6 id="_data_35">A.3.1.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>SRS_ID Triggers – Implementation</strong></p>
 </div>
@@ -9845,7 +9822,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_zoom_levels_3">A.3.2.1. Zoom Levels</h5>
 <div class="sect5">
-<h6 id="_data_38">A.3.2.1.1. Data</h6>
+<h6 id="_data_36">A.3.2.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Zoom Other Intervals—Extensions Name</strong></p>
 </div>
@@ -9979,7 +9956,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_tile_encoding_webp">A.3.2.2. Tile Encoding WEBP</h5>
 <div class="sect5">
-<h6 id="_data_39">A.3.2.2.1. Data</h6>
+<h6 id="_data_37">A.3.2.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>WEBP – Extensions Name</strong></p>
 </div>
@@ -15885,76 +15862,73 @@ For undated references, the latest edition of the normative document referred to
 <a href="#_footnoteref_12">12</a>. See clause 3.2.1.1.1 for use of other zoom levels as a registered extensions.
 </div>
 <div class="footnote" id="_footnote_13">
-<a href="#_footnoteref_13">13</a>. See clause 3.2.1.1.1 for use of other zoom levels as a registered extensions.
+<a href="#_footnoteref_13">13</a>. See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.
 </div>
 <div class="footnote" id="_footnote_14">
 <a href="#_footnoteref_14">14</a>. See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.
 </div>
 <div class="footnote" id="_footnote_15">
-<a href="#_footnoteref_15">15</a>. See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.
+<a href="#_footnoteref_15">15</a>. GeoPackage applications MAY query the gpkg_tile_matrix table or the tile pyramid user data table to determine the minimum and maximum zoom levels for a given tile pyramid table.
 </div>
 <div class="footnote" id="_footnote_16">
-<a href="#_footnoteref_16">16</a>. GeoPackage applications MAY query the gpkg_tile_matrix table or the tile pyramid user data table to determine the minimum and maximum zoom levels for a given tile pyramid table.
+<a href="#_footnoteref_16">16</a>. GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.
 </div>
 <div class="footnote" id="_footnote_17">
-<a href="#_footnoteref_17">17</a>. GeoPackage applications MAY query a tile pyramid user data table to determine which tiles are available at each zoom level.
+<a href="#_footnoteref_17">17</a>. GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.
 </div>
 <div class="footnote" id="_footnote_18">
-<a href="#_footnoteref_18">18</a>. GeoPackage applications that insert, update, or delete tile pyramid user data table tiles row records are responsible for maintaining the corresponding descriptive contents of the gpkg_tile_matrix_metadata table.
+<a href="#_footnoteref_18">18</a>. The `gpkg_tile_matrix_set` table contains coordinates that define a bounding box as the exact stated spatial extent for all tiles in a tile (matrix set) table. If the geographic extent of the image data contained in tiles at a particular zoom level is within but not equal to this bounding box, then the non-image area of matrix edge tiles must be padded with no-data values, preferably transparent ones.
 </div>
 <div class="footnote" id="_footnote_19">
-<a href="#_footnoteref_19">19</a>. The `gpkg_tile_matrix_set` table contains coordinates that define a bounding box as the exact stated spatial extent for all tiles in a tile (matrix set) table. If the geographic extent of the image data contained in tiles at a particular zoom level is within but not equal to this bounding box, then the non-image area of matrix edge tiles must be padded with no-data values, preferably transparent ones.
+<a href="#_footnoteref_19">19</a>. A GeoPackage is not required to contain any tile pyramid user data tables. Tile pyramid user data tables in a GeoPackage MAY be empty.
 </div>
 <div class="footnote" id="_footnote_20">
-<a href="#_footnoteref_20">20</a>. A GeoPackage is not required to contain any tile pyramid user data tables. Tile pyramid user data tables in a GeoPackage MAY be empty.
+<a href="#_footnoteref_20">20</a>. The zoom_level / tile_column / tile_row unique key is automatically indexed, and allows tiles to be selected and accessed by "z, x, y", a common convention used by some implementations.  This table / view definition MAY also allow tiles to be selected based on a spatially indexed bounding box in a separate metadata table.
 </div>
 <div class="footnote" id="_footnote_21">
-<a href="#_footnoteref_21">21</a>. The zoom_level / tile_column / tile_row unique key is automatically indexed, and allows tiles to be selected and accessed by "z, x, y", a common convention used by some implementations.  This table / view definition MAY also allow tiles to be selected based on a spatially indexed bounding box in a separate metadata table.
+<a href="#_footnoteref_21">21</a>. A GeoPackage is not required to contain a gpkg_data_columns table. The gpkg_data_columns table in a GeoPackage MAY be empty.
 </div>
 <div class="footnote" id="_footnote_22">
-<a href="#_footnoteref_22">22</a>. A GeoPackage is not required to contain a gpkg_data_columns table. The gpkg_data_columns table in a GeoPackage MAY be empty.
+<a href="#_footnoteref_22">22</a>. GeoPackages MAY contain MIME types other than the raster image types specified in clauses 2.2.4, 2.2.5, and 3.2.2 as feature attributes, but they are not required to do so.
 </div>
 <div class="footnote" id="_footnote_23">
-<a href="#_footnoteref_23">23</a>. GeoPackages MAY contain MIME types other than the raster image types specified in clauses 2.2.4, 2.2.5, and 3.2.2 as feature attributes, but they are not required to do so.
+<a href="#_footnoteref_23">23</a>. Informative examples of hierarchical metadata are provided in &lt;&lt;metadata_example_appendix&gt;&gt;
 </div>
 <div class="footnote" id="_footnote_24">
-<a href="#_footnoteref_24">24</a>. Informative examples of hierarchical metadata are provided in &lt;&lt;metadata_example_appendix&gt;&gt;
+<a href="#_footnoteref_24">24</a>. An informative example of raster image metadata is provided in &lt;&lt;tiles_example_appendix&gt;&gt;
 </div>
 <div class="footnote" id="_footnote_25">
-<a href="#_footnoteref_25">25</a>. An informative example of raster image metadata is provided in &lt;&lt;tiles_example_appendix&gt;&gt;
+<a href="#_footnoteref_25">25</a>. For example, for ISO 19139 metadata the URI value should be the metadata schema namespace <a href="http://www.isotc211.org/2005/gmd">http://www.isotc211.org/2005/gmd</a>
 </div>
 <div class="footnote" id="_footnote_26">
-<a href="#_footnoteref_26">26</a>. For example, for ISO 19139 metadata the URI value should be the metadata schema namespace <a href="http://www.isotc211.org/2005/gmd">http://www.isotc211.org/2005/gmd</a>
+<a href="#_footnoteref_26">26</a>. The scope codes in &lt;&lt;metadata_scopes&gt;&gt; include a very wide set of descriptive information types as “metadata” to describe data.
 </div>
 <div class="footnote" id="_footnote_27">
-<a href="#_footnoteref_27">27</a>. The scope codes in &lt;&lt;metadata_scopes&gt;&gt; include a very wide set of descriptive information types as “metadata” to describe data.
+<a href="#_footnoteref_27">27</a>. ISO 19139 format metadata (B32) is recommended for general-purpose description of geospatial data at the series and dataset metadata scopes.
 </div>
 <div class="footnote" id="_footnote_28">
-<a href="#_footnoteref_28">28</a>. ISO 19139 format metadata (B32) is recommended for general-purpose description of geospatial data at the series and dataset metadata scopes.
+<a href="#_footnoteref_28">28</a>. The “catalog” md_scope MAY be used for Feature Catalog (B40) information stored as XML metadata that is linked to features stored in a GeoPackage.
 </div>
 <div class="footnote" id="_footnote_29">
-<a href="#_footnoteref_29">29</a>. The “catalog” md_scope MAY be used for Feature Catalog (B40) information stored as XML metadata that is linked to features stored in a GeoPackage.
+<a href="#_footnoteref_29">29</a>. The “schema” md_scope MAY be used for Application Schema (B37)(B38)(B39)(B44) information stored as XML metadata that is linked to features stored in a GeoPackage.
 </div>
 <div class="footnote" id="_footnote_30">
-<a href="#_footnoteref_30">30</a>. The “schema” md_scope MAY be used for Application Schema (B37)(B38)(B39)(B44) information stored as XML metadata that is linked to features stored in a GeoPackage.
+<a href="#_footnoteref_30">30</a>. The “taxonomy” md_scope MAY be used for taxonomy or knowledge system (B41)(B42) “linked data” information stored as XML metadata that is linked to features stored in a GeoPackage.
 </div>
 <div class="footnote" id="_footnote_31">
-<a href="#_footnoteref_31">31</a>. The “taxonomy” md_scope MAY be used for taxonomy or knowledge system (B41)(B42) “linked data” information stored as XML metadata that is linked to features stored in a GeoPackage.
+<a href="#_footnoteref_31">31</a>. In SQLite, the rowid value is always equal to the value of a single-column primary key on an integer column [B30\] and is not changed by a database reorganization performed by the VACUUM SQL command.
 </div>
 <div class="footnote" id="_footnote_32">
-<a href="#_footnoteref_32">32</a>. In SQLite, the rowid value is always equal to the value of a single-column primary key on an integer column [B30\] and is not changed by a database reorganization performed by the VACUUM SQL command.
+<a href="#_footnoteref_32">32</a>. Such a metadata hierarchy MAY have only one level of defined metadata
 </div>
 <div class="footnote" id="_footnote_33">
-<a href="#_footnoteref_33">33</a>. Such a metadata hierarchy MAY have only one level of defined metadata
+<a href="#_footnoteref_33">33</a>. The following statement selects an ISO 8601timestamp value using the SQLite strftime function: SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 </div>
 <div class="footnote" id="_footnote_34">
-<a href="#_footnoteref_34">34</a>. The following statement selects an ISO 8601timestamp value using the SQLite strftime function: SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
+<a href="#_footnoteref_34">34</a>. See Requirement 82.
 </div>
 <div class="footnote" id="_footnote_35">
-<a href="#_footnoteref_35">35</a>. See Requirement 82.
-</div>
-<div class="footnote" id="_footnote_36">
-<a href="#_footnoteref_36">36</a>. If an application process will make many updates, it is often faster to drop the indexes, do the updates, and then recreate the indexes.
+<a href="#_footnoteref_35">35</a>. If an application process will make many updates, it is often faster to drop the indexes, do the updates, and then recreate the indexes.
 </div>
 </div>
 <div id="footer">
