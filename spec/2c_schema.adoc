@@ -1,95 +1,94 @@
 === Schema
 
-==== Schema Introduction
+==== Schema 介绍
 
-The schema option provides a means to describe the columns of tables in a GeoPackage with more detail than can be captured by the SQL table definition directly.
-The information provided by this option can be used by applications to, for instance, present data contained in a GeoPackage in a more user-friendly fashion or implement data validation logic.
+schema选项提供了一种描述GeoPackage表列的方法，它可以比SQL表定义得到更多的细节。通过schema选项可以更加友好的呈现现有GeoPackage数据，也可以实现数据有效性验证。
 
-==== Data Columns
+==== 数据列
 
-===== Data
+===== 数据
 
 [[schema_data_columns_table_definition]]
-====== Table Definition
+====== 表定义
 
 [requirement]
-A GeoPackage MAY contain a table or updateable view named `gpkg_data_columns`.
-If present it SHALL be defined per clause 2.3.2.1.1 <<schema_data_columns_table_definition>>, <<gpkg_data_columns_cols>> and <<gpkg_data_columns_sql>>.
+GeoPackage 中可以包含一个名为`gpkg_data_columns`的表或可更新视图。表或视图的定义需要符合<<schema_data_columns_table_definition>>章节、表<<gpkg_data_columns_cols>> 和表<<gpkg_data_columns_sql>>的规定。
 
 [[gpkg_data_columns_cols]]
 .Data Columns Table or View Definition
 [cols=",,,,",options="header",]
 |=======================================================================
 |Column Name |Column Type |Column Description |Null |Key
-|`table_name` |TEXT |Name of the tiles or feature table |no |PK
-|`column_name` |TEXT |Name of the table column |no |PK
-|`name` |TEXT |A human-readable identifier (e.g. short name) for the column_name content |yes |
-|`title` |TEXT |A human-readable formal title for the column_name content |yes |
-|`description` |TEXT |A human-readable description for the table_name content |yes |
-|`mime_type` |TEXT |http://www.iana.org/assignments/media-types/index.html[MIME] <<21>> type of column_name if BLOB type, or NULL for other types |yes |
-|`constraint_name` |TEXT |Case sensitive column value constraint name specified by reference to  gpkg_data_column_constraints.constraint name |yes |
+|`table_name` |TEXT |视图或要素表名 |no |PK
+|`column_name` |TEXT |列名|no |PK
+|`name` |TEXT |column_name列目录可读标识符(e.g. 短名称)|yes |
+|`title` |TEXT |column_name列目录可读正式标题|yes |
+|`description` |TEXT |table_name列内容可读描述|yes |
+|`mime_type` |TEXT |如果为BLOB类型，则column_name为http://www.iana.org/assignments/media-types/index.html[MIME] <<21>> 类型，如果为NULL，则为其它类型|yes |
+|`constraint_name` |TEXT |要区分大小写的约束名，与`gpkg_data_column_constraints`表中的约束名一一对应|yes |
 |=======================================================================
 
 :data_cols_foot1: footnote:[A GeoPackage is not required to contain a gpkg_data_columns table. The gpkg_data_columns table in a GeoPackage MAY be empty.]
 :data_cols_foot2: footnote:[GeoPackages MAY contain MIME types other than the raster image types specified in clauses 2.2.4, 2.2.5, and 3.2.2 as feature attributes, but they are not required to do so.]
 
-GeoPackage applications MAY {data_cols_foot1} use the `gpkg_data_columns` table to store minimal application schema identifying, descriptive and http://www.iana.org/assignments/media-types/index.html[MIME] <<21>> type {data_cols_foot2} information about columns in user vector feature and tile matrix data tables that supplements the data available from the SQLite `sqlite_master` table and pragma `table_info(table_name)` SQL function.
-The `gpkg_data_columns` data CAN be used to provide more specific column data types and value ranges and application specific structural and semantic information to enable more informative user menu displays and more effective user decisions on the suitability of GeoPackage contents for specific purposes.
+GeoPackage应用程序可以{data_cols_foot1}使用表`gpkg_data_columns`存储精简的应用程序schema标识、描述、和http://www.iana.org/assignments/media-types/index.html[MIME] <<21>> 类型{data_cols_foot2}信息，这些信息与矢量要素数据表和瓦片矩阵数据表的列相关，有了这些信息，通过SQLite的sqlite_master表、以及table_info(table_name) SQL指令，就可以获取附加数据。
+`gpkg_data_columns`数据可以提供更具体的列数据类型、取值范围、特定应用结构和语义信息，这些内容使用户界面展示的信息更丰富，使用户更有效地判断GeoPackage内容是否适合特定用途。
 
-See <<gpkg_data_columns_sql>>.
+参见 <<gpkg_data_columns_sql>>.
 
-====== Table Data Values
-
-[requirement]
-Values of the `gpkg_data_columns` table `table_name` column value SHALL reference values in the `gpkg_contents` `table_name` column.
+====== 表数据值
 
 [requirement]
-The `column_name` column value in a `gpkg_data_columns` table row SHALL contain the name of a column in the SQLite table or view identified by the `table_name` column value.
+
+`gpkg_data_columns`表`table_name`列的值应该与`gpkg_contents` 表`table_name` 列的值一一对应。
 
 [requirement]
-The constraint_name column value in a gpkg_data_columns table MAY be NULL.
-If it is not NULL, it SHALL contain a case sensitive constraint_name column value from the gpkg_data_column_constraints table.
+`gpkg_data_columns`表记录中的`table_name`列值标识了一个SQLite表或视图，同一记录中的`column_name`列值应该为该SQLite表或视图中的一个列名。
 
-==== Data Column Constraints
+[requirement]
+`gpkg_data_columns`表`constraint_name`列值可能为 NULL，如果不为NULL，则该列值应该取自表gpkg_data_column_constraints的constraint_name列，且区分大小写。
 
-===== Data
+==== 数据列约束
+===== 数据
 
 [[data_column_constraints_table_definition]]
-====== Table Definition
+====== 表定义
 
 [requirement]
-A GeoPackage MAY contain a table or updateable view named gpkg_data_column_constraints.
-If present it SHALL be defined per clause 2.3.3.1.1 <<data_column_constraints_table_definition>>, <<gpkg_data_column_constraints_cols>> and <<gpkg_data_column_constraints_sql>>.
+GeoPackage中可能包含名为 “gpkg_data_column_constraints” 的表或可更新视图。如果有，它应该符合章节2.3.3.1.1 <<data_column_constraints_table_definition>>, <<gpkg_data_column_constraints_cols>> 和 <<gpkg_data_column_constraints_sql>>的规定。
 
-The `gpkg_data_column_constraints` table contains data to specify restrictions on basic data type column values.
-The constraint_name column is referenced by the `constraint_name` column in the `gpkg_data_columns` table defined in <<gpkg_data_columns_cols>>.
 
+`gpkg_data_column_constraints`表中的数据可以为值为基本数据类型的列指定约束限制。`constraint_name`列与章节<<gpkg_data_columns_cols>>中定义的`gpkg_data_columns` 表的`constraint_name`列一一对应。
 
 [[gpkg_data_column_constraints_cols]]
 .Data Column Constraints Table or View Definition
 [cols=",,,,",options="header",]
 |=======================================================================
 |Column Name |Column Type |Column Description |Null |Key
-|`constraint_name` |TEXT |Case sensitive name of constraint |no |Unique
-|`constraint_type` |TEXT |Lowercase type name of constraint: 'range' \| 'enum' \| 'glob' |no |Unique
-|`value` |TEXT |Specified case sensitive value for 'enum' or 'glob' or NULL for 'range' constraint_type |yes |Unique
-|`min` |NUMERIC |Minimum value for ‘range’ or NULL for ‘enum’ or ‘glob’ constraint_type |yes |
-|`minIsInclusive` |BOOLEAN |0 (false) if min value is exclusive, or 1 (true) if min value is inclusive |yes |
-|`max` |NUMERIC |Maximum value for ‘range’ or NULL for ‘enum’ or ‘glob’ constraint_type |yes |
-|`maxIsInclusive` |BOOLEAN | 0 (false) if max value is exclusive, or 1 (true) if max value is inclusive |yes |
-|`description` |TEXT |For ranges and globs, describes the constraint; for enums, describes the enum value.| yes| 
+|`constraint_name` |TEXT |区分大小写的约束名|no |Unique
+|`constraint_type` |TEXT |约束类型，取值的小写形式为'range' 、 'enum' 或'glob'|no |Unique
+|`value` |TEXT |类型为'enum'或'glob'的值，区分大小写，当`constraint_type`为'range'时，取值为NULL|yes |Unique
+|`min` |NUMERIC |‘range’（值域）的下限值，当`constraint_type`为‘enum’ 或‘glob’ 时，值为NULL |yes |
+|`minIsInclusive` |BOOLEAN |如果min值不在‘range’（值域）范围内，`minIsInclusive`的值则为0（false）,反之则为1（true）|yes |
+|`max` |NUMERIC |‘range’（值域）的上限值，当`constraint_type`为‘enum’ 或‘glob’ 时，值为NULL |yes |
+|`maxIsInclusive` |BOOLEAN | 如果max值不在‘range’（值域）范围内，`maxIsInclusive`的值则为0（false）,反之则为1（true）|yes |
+|`description` |TEXT |对于ranges或globs,描述约束; 对于enums（枚举）, 则描述enum值| yes| 
 |=======================================================================
-_The min and max columns are defined as NUMERIC to be able to contain range values for any numeric data column defined with a data type from Table 1. These are the only exceptions to the data type rule stated in Req 5._
+_min和max列被定义为NUMERIC类型，是为了能够表示数值数据列（数据类型由表1定义）的值域。这是 Req 5中阐明的数据类型规则的唯一一次例外。_
 
-See <<gpkg_data_column_constraints_sql>>.
 
-====== Table Data Values
+参见<<gpkg_data_column_constraints_sql>>.
 
-The lowercase gpkg_data_column_constraints constraint_type column value specifies the type of constraint: "range", "enum", or "glob" (text pattern match).
-The case sensitive value column contains an enumerated legal value for constraint_type "enum", a pattern match string for constraint_type "glob", or NULL for constraint_type "range". The set of value column values in rows of constraint_type "enum" with the same constraint_name contains all possible enumerated values for the constraint name. The min and max column values specify the minim and maximum valid values for constraint_type "range", or are NULL for constraint_type "enum" or "glob". The minIsInclusive and maxIsInclusive column values contain 1 if the min and max values are inclusive, 0 if they are exclusive, or are NULL for constraint_type "enum" or "glob".
-These restrictions MAY be enforced by SQL triggers or by code in applications that update GeoPackage data values.
+====== 表数据值
 
-.Sample Data Column Constraints
+gpkg_data_column_constraints表中constraint_type列的值指定了约束的类型，值的小写形式为："range", "enum", 或"glob" (文本模式匹配)。
+value列的值区分大小写，当constraint_type列值为"enum"时，value列的值为合法的枚举值；当constraint_type列值为"glob"时，value列的值为模式匹配字符串；当constraint_type列值为"range"时，value列的值为NULL。
+在constraint_name值相同，且constraint_type值为"enum"的所有记录中，value列值的集合包含了constraint_name约束的所有可能的枚举值。
+constraint_type列值为"range"的记录中，min和max列的值分别指定了值域的有效最大值和最小值，constraint_type 列值为"enum"或"glob"的记录中，min和max列的值为NULL。
+如果值域包含min和max值，则minIsInclusive 和 maxIsInclusive列值为1，反之minIsInclusive和 maxIsInclusive列值为0。如果constraint_type的值为 "enum"或 "glob"，则minIsInclusive和 maxIsInclusive列值为NULL。
+在应用程序更新GeoPackage数据值时，这些限制可能会被SQL触发器或代码强制执行。
+
+.列约束示范数据
 [cols=",,,,,,,",options="header",]
 |=======================================================================
 |constraint_name| constraint_type| value| min| minIsInclusive| max| maxIsInclusive
@@ -103,28 +102,22 @@ These restrictions MAY be enforced by SQL triggers or by code in applications th
 |=======================================================================
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains data, the lowercase `constraint_type` column values SHALL be one of "range", "enum", or "glob".
+`gpkg_data_column_constraints` 表可能为空。如果它包含数据，则小写的`constraint_type`列值只能为"range"、"enum"或"glob"之一。
 
 [requirement]
-gpkg_data_column_constraint constraint_name values for rows with constraint_type values of 'range' and 'glob' SHALL be unique.
+在gpkg_data_column_constraints表中，constraint_type列值为"range"或"glob"的记录，constraint_name值必须是唯一的。
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains rows with constraint_type column values of "range", the `value` column values for those rows SHALL be NULL.
+`gpkg_data_column_constraints`表可能为空。如果它包括constraint_type列值为"range"的记录，那这些记录的`value`列的值应该NULL。
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains rows with `constraint_type` column values of "range", the `min` column values for those rows SHALL be NOT NULL and less than the `max` column value which shall be NOT NULL.
+`gpkg_data_column_constraints`表可能是空的。如果它包括`constraint_type`列值为"range"的记录，那么这些行的`min`列和`max`列的值应该不为 NULL，且`min`列值小于`max`列值。
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains rows with `constraint_type` column values of "range", the `minIsInclusive` and `maxIsInclusive` column values for those rows SHALL be 0 or 1.
+`gpkg_data_column_constraints`表可能为空。如果它包括`constraint_type`列值为"range"的记录，那么这些行的`minIsInclusive`列和`maxIsInclusive`列的值应该为0或者1。
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains rows with `constraint_type` column values of "enum" or "glob", the `min`, `max`, `minIsInclusive` and `maxIsInclusive` column values for those rows SHALL be NULL.
+`gpkg_data_column_constraints`表可能为空。如果它包括`constraint_type`列值为"enum"或"glob"的记录，那么这些记录的`min`，`max`，`minIsInclusive`和`maxIsInclusive`列的值应该为NULL。
 
 [requirement]
-The `gpkg_data_column_constraints` table MAY be empty.
-If it contains rows with `constraint_type` column values of "enum" or "glob", the `value` column SHALL NOT be NULL.
+`gpkg_data_column_constraints`表可能为空。如果它包括`constraint_type`列值为"enum"或"glob"的记录，那这些记录的`value`列的值应该不是 NULL。
