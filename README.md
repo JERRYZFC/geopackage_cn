@@ -7,7 +7,21 @@ GeoPackage 规范
 核心文件还额外指定了可选的[Metadata](spec/5_metadata.md) 和[Schema](spec/4_schema.md)信息来构建更丰富的应用。
 [Extension Mechanism](spec/7_extensions-mechanism.md)包括一些可选的[extensions](spec/8_extensions.md)，主要是为实现者提供一种方式，这种方式可以使他们的GeoPackages增加额外的功能。
 
-该规范的HTML版本可在地址http://opengis.github.io/geopackage/中得到。
+该规范的HTML版本可在地址 http://opengis.github.io/geopackage/ 中得到。
+
+中文翻译说明
+Chinese Translation Introduction
+-----
+本GitHub资料库的目的是对OGC GeoPackage资料库（https://github.com/opengis/geopackage）做完整的中文翻译，便于中文传播。
+除README.md的本小结（中文翻译说明）外，都基于GeoPackage规范原文忠实翻译，未对GeoPackage原文的意思做任何增、删、变动。
+GeoPackage规范的版权和知识产权都属于OGC。
+
+This GitHub repository is build to translate the Original OGC GeoPackage repository(https://github.com/opengis/geopackage) to Chinese, so that the GeoPackage Specification can be more widespread.
+The translation will not do any changes to the original geopackage repository on implication except this ‘Chinese Translation Introduction’ chapter.
+
+该规范的中文HTML版本可在地址 http://supermap.github.io/geopackage_cn/ 中得到。
+
+HTML version of the Chinese spec is available at http://supermap.github.io/geopackage_cn/
 
 关于
 -----
