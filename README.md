@@ -9,8 +9,7 @@ GeoPackage 规范
 
 该规范的HTML版本可在地址 http://opengis.github.io/geopackage/ 中得到。
 
-中文翻译说明
-Chinese Translation Introduction
+中文翻译说明 Chinese Translation Introduction
 -----
 本GitHub资料库的目的是对OGC GeoPackage资料库（https://github.com/opengis/geopackage）做完整的中文翻译，便于中文传播。
 除README.md的本小结（中文翻译说明）外，都基于GeoPackage规范原文忠实翻译，未对GeoPackage原文的意思做任何增、删、变动。
