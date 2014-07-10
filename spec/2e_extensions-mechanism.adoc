@@ -1,80 +1,79 @@
-=== Extension Mechanism
+=== 扩展机制
 
-==== Introduction
+==== 介绍
 
 :extension_mechanism_foot1: footnote:[See Requirement 82.]
 
-A GeoPackage extension is a set of one or more requirements clauses that are documented by filling out the GeoPackage Extension Template in <<extension_template>>. A GeoPackage Extension either profiles / extends existing requirements clauses in the geopackage specification or adds new requirements clauses. Existing requirement clause extension examples include additional geometry types, additional SQL geometry functions, and additional tile image formats. New requirement clause extension examples include spatial indexes, triggers, additional tables, other BLOB column encodings, and other SQL functions.
+GeoPackage扩展是一个或多个必要条款集合，这些条款需要按照<<extension_template>>中的GeoPackage扩展模板格式形成文档。
+GeoPackage扩展可以配置/扩展GeoPackage规范中现有的必要条款，或者新增必要条款。现有必要条款的扩展示例包括：附加几何对象类型、附加几何对象SQL方法、以及附加栅格瓦片格式；新增必要条款的扩展示例包括：空间索引、触发器、附加表、BLOB列的其他编码格式、以及其他SQL方法。
 
-GeoPackage extensions are identified by a name of the form <author>_<extension name> where <author> indicates the person or organization that developed and maintains the extension.
-The author value “gpkg” is reserved for GeoPackage extensions that are developed and maintained by OGC and used in Geopackages.
-Implementers use their own author names to register other extensions{extension_mechanism_foot1} used in Extended GeoPackages.
+GeoPackage扩展通过<author>_<extension name>形式的名称标识，其中<author> 表明了开发和维护该扩展的人或组织。
+“gpkg”是<author>值的预留字符串，用于标识OGC开发和维护的GeoPackage扩展，这些扩展在GeoPackage中被使用。
+在扩展的GeoPackage中使用额外扩展{extension_mechanism_foot1}时，实施者会使用自己的作者名来注册。
 
 
-==== Extensions
+==== 扩展
 
-===== Data
+===== 数据
 
 [[extensions_table_definition]]
-====== Table Definition
+====== 表定义
 
 [requirement]
-A GeoPackage MAY contain a table or updateable view named gpkg_extensions.
-If present this table SHALL be defined per clause 2.5.2.1.1 <<extensions_table_definition>>, <<gpkg_extensions_cols>> and <<gpkg_extensions_sql>>.
+GeoPackage可能包含一个名为gpkg_extensions的表或可更新视图，如果该表存在，那么它必须符合条款 2.5.2.1.1 <<extensions_table_definition>>, <<gpkg_extensions_cols>>和<<gpkg_extensions_sql>>的定义。
 
-The `gpkg_extensions` table or updateable view in a GeoPackage is used to indicate that a particular extension applies to a GeoPackage, a table in a GeoPackage or a column of a table in a GeoPackage.
-An application that access a GeoPackage can query the `gpkg_extensions` table instead of the contents of all the user data tables to determine if it has the required capabilitiesto read or write to tables with extensions, and to “fail fast” and return an error message if it does not.
+GeoPackage扩展的应用范围可以是整个GeoPackage文件、Geopackage中的一个表或GeoPackage表中的一个列，这些扩展通过`gpkg_extensions`表或可更新视图来标识。
+访问GeoPackage的应用程序可以直接查询`gpkg_extensions`表来获知它是有读/写扩展表的能力，而不需要通过查询所有数据表的内容来确定。如果应用程序没有读/写扩展表的能力，查询`gpkg_extensions`表时会“快速失败”，且返回一条错误信息。
 
 [[gpkg_extensions_cols]]
-.GeoPackage Extensions Table or View Definition (Table or View Name: gpkg_extensions)
+.GeoPackage扩展表/视图的定义 (表/视图名: gpkg_extensions)
 [cols=",,,,",options="header",]
 |=======================================================================
 |Column Name |Col Type |Column Description |Null |Key
-|`table_name` |TEXT |Name of the table that requires the extension. When NULL, the extension is required for the entire GeoPackage. SHALL NOT be NULL when the column_name is not NULL. |yes |Unique
-|`column_name` |TEXT |Name of the column that requires the extension. When NULL, the extension is required for the entire table. |yes |Unique
-|`extension_name` |TEXT |The case sensitive name of the extension that is required, in the form <author>_<extension_name>. |no |Unique
-|`definition` |TEXT |Definition of the extension in the form specfied by the template in <<extension_template>> or reference thereto. |no |
-|`scope` |TEXT |Indicates scope of extension effects on readers / writers: 'read-write' or 'write-only' in lowercase. |no |
+|`table_name` |TEXT |需要扩展的表的名称. 为NULL时，表示该条扩展适用于整个GeoPackage。当column_name不为NULL时，本字段也不应为NULL。|yes |Unique
+|`column_name` |TEXT |需要扩展的列的名称。为NULL时，表示该条扩展适用于整个表。 |yes |Unique
+|`extension_name` |TEXT |该条扩展的名称，格式为<author>_<extension_name>，区分大小写。|no |Unique
+|`definition` |TEXT |扩展的定义，格式由<<extension_template>>或其它参考中的模板指定。|no |
+|`scope` |TEXT |标识本条扩展在读/写时的作用域：'read-write' 或 'write-only'，为小写形式。|no |
 |=======================================================================
 
-See <<gpkg_extensions_sql>>.
+参见 <<gpkg_extensions_sql>>.
 
 ====== Table Data Values
 
 [requirement]
-Every extension of a GeoPackage SHALL be registered in a corresponding row in the gpkg_extensions table.
-The absence of a gpkg_extensions table or the absence of rows in gpkg_extnsions table SHALL both indicate the absence of extensions to a GeoPackage.
+GeoPackage的每一条扩展都应该注册在gpkg_extensions表中，有一条对应的记录。
+当gpkg_extensions表或gpkg_extnsions表中的记录缺失时，表明GeoPackage文件没有扩展。
 
 [requirement]
-Values of the `gpkg_extensions` `table_name` column SHALL reference values in the `gpkg_contents` `table_name` column or be NULL.
-They SHALL NOT be NULL for rows where the `column_name` value is not NULL.
+`gpkg_extensions` `table_name` 列的取值应该与`gpkg_contents` `table_name`的列值一一对应，或为NULL。
+当记录中的`column_name`列值不为NULL时，`table_name`的值也不应为NULL。
 
 [requirement]
-The `column_name` column value in a `gpkg_extensions` row SHALL be the name of a column in the table specified by the `table_name` column value for that row, or be NULL.
+在表`gpkg_extensions`的记录中，`column_name`的列值必须对应`table_name`列指定的表中的一个列，或者`column_name`的列值可以为NULL。
 
 [requirement]
-Each `extension_name` column value in a `gpkg_extensions` row SHALL be a unique case sensitive value of the form <author>_<extension_name> where <author> indicates the person or organization that developed and
-maintains the extension. The valid character set for <author> SHALL be [a-zA-Z0-9].
-The valid character set for <extension_name> SHALL be [a-zA-Z0-9_].
-An `extension_name` for the “gpkg” author name SHALL be one of those defined in this encoding standard or in an OGC Best Practices Document that extends it.
+在表`gpkg_extensions`的记录中，`extension_name`列的值必须是唯一的，且区分大小写，格式为<author>_<extension_name>，其中的<author>标识了开发和维护该条扩展人或组织。<author>应该由[a-zA-Z0-9]集合内的字符组成。<extension_name>应该由[a-zA-Z0-9]集合内的字符组成。
+author为“gpkg”时，`extension_name`应该为本编码标准中定义的扩展之一，或是基于它的OGC最佳实践文档（OGC Best Practices Document）中定义的扩展之一。
 
-Complete examples of how to fill out the GeoPackage Extension Template in <<extension_template>> are provided by Annex L through Annex P.
-The definition column value in a `gpkg_extensions` row for those extensions SHALL contain the Annex name as a reference.
+关于如何按照<<extension_template>>填写GeoPackage扩展文档，附录L到附录P给出了完整的示例。
+在表`gpkg_extensions`的记录中，标识这些扩展的definition列的值必须包含附录的名称（译者注：英文名称，例如‘GeoPackage 1.0 Specification Annex L’）
 
-Partial examples of how to fill out the GeoPackage Extension Template in <<extension_template>> are provided by the templates in <<extension_geometry_types>> and <<extension_geometry_encoding>>.
-Extension definitions created using those template and other extension definitions MAY be provided in the definition column, preferably as ASCII text, or as a reference such as a URI <<23>> or email address whereby the definition may be obtained.
+关于如何按照<<extension_template>>填写GeoPackage扩展文档，<<extension_geometry_types>>和<<extension_geometry_encoding>>展示的模板给出了局部示例。
+使用这些模板创建的扩展定义以及其他扩展定义都必须体现在definition列中，推荐使用ASCII文本来表示，也可以使用包含定义的引用，例如URI<<23>>或Email地址。
 
 [requirement]
-The definition column value in a `gpkg_extensions` row SHALL contain or reference the text that results from documenting an extension by filling out the GeoPackage Extension Template in <<extension_template>>.
+GeoPackage扩展需要按照<<extension_template>>中的GeoPackage扩展模板格式形成文档，在表`gpkg_extensions`的记录中，definition列的值必须包含或指向这个文档。
 
-Some extensions do not impose any additional requirements on software that accesses a GeoPackage in a read-only fashion.
-An example of this is an extension that defines an SQL trigger that uses a non-standard SQL function defined in a GeoPackage SQLite Extension.
-Triggers are only invoked when data is written to the GeoPackage, so usage of this type of extension can be safely ignored for read-only access.
-This is indicated by a gpkg_extensions.scope column value of “write_only”.
+当软件通过只读方式访问GeoPackage时，一些扩展并不施加附加的必要条件。
+例如，在GeoPackage SQLite 扩展中可以定义一个非标准（non-standard）的SQL方法，
+一个扩展定义了一个使用该SQL方法的SQL触发器。
+只有GeoPackage被写入数据时，该触发器才会被触发，所以在只读访问时，忽略这种类型的扩展是安全的。
+gpkg_extensions.scope列的值“write_only”可以标识这种情况。
 
 [requirement]
-The scope column value in a `gpkg_extensions` row SHALL be lowercase "read-write" for an extension that affects both readers and writers, or "write-only" for an extension that affects only writers.
+在表`gpkg_extensions`的记录中，当扩展同时影响读和写操作时，scope列的值应为小写的"read-write"，当扩展只影响读操作时，scope列的值应为小写的"write-only"。
 
-The author value “gpkg” is reserved for GeoPackage extensions that are developed and maintained by OGC.
-Requirements for extension names for the “gpkg” author name are defined in the clauses listed in 14 below.
-GeoPackage implementers use their own author names to register other extensions.
+作者名“gpkg”是预留字符串，用于标识OGC开发和维护的GeoPackage扩展。
+作者名为“gpkg”的扩展的必要条款参见下面章节的定义。
+GeoPackage实施者会使用自己的作者名来注册其他扩展。
