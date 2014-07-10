@@ -11,15 +11,17 @@ GeoPackage 规范
 
 中文翻译说明 Chinese Translation Introduction
 -----
-本GitHub资料库的目的是对OGC GeoPackage资料库（https://github.com/opengis/geopackage）做完整的中文翻译，便于中文传播。
+本GitHub资料库的目的是对OGC GeoPackage资料库(https://github.com/opengis/geopackage) 做完整的中文翻译，便于中文传播。
 除README.md的本小结（中文翻译说明）外，都基于GeoPackage规范原文忠实翻译，未对GeoPackage原文的意思做任何增、删、变动。
 GeoPackage规范的版权和知识产权都属于OGC。
 
 This GitHub repository is build to translate the Original OGC GeoPackage repository(https://github.com/opengis/geopackage) to Chinese, so that the GeoPackage Specification can be more widespread.
 The translation will not do any changes to the original geopackage repository on implication except this ‘Chinese Translation Introduction’ chapter.
 
+该规范的英文HTML版本（原版）可在地址 http://opengis.github.io/geopackage/ 中得到。
 该规范的中文HTML版本可在地址 http://supermap.github.io/geopackage_cn/ 中得到。
 
+HTML version of the spec is available at http://opengis.github.io/geopackage/
 HTML version of the Chinese spec is available at http://supermap.github.io/geopackage_cn/
 
 关于

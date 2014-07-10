@@ -12,17 +12,17 @@
 [id="ogcname"]
 Open Geospatial Consortium +
 [id="ogcheading"]
-Publication Date: 2014-02-12 +
-Approval Date:   2014-01-19 +
-Submission Date: 2013-10-13 +
-External identifier of this OGC® document: http://www.opengis.net/doc/IS/geopackage/1.0 +
-Reference number of this OGC® project document: OGC 12-128r10 +
-Version: 1.0 +
-Category: OGC® Encoding Standard +
-Editor:   Paul Daisey
+发布日期: 2014-02-12 +
+通过日期:   2014-01-19 +
+提交日期: 2013-10-13 +
+本 OGC® 文档的外部标识: http://www.opengis.net/doc/IS/geopackage/1.0 +
+本 OGC® 文档的编号: OGC 12-128r10 +
+版本: 1.0 +
+类别: OGC® Encoding Standard +
+编者:   Paul Daisey
 
 [title]
-= OGC® GeoPackage Encoding Standard =
+= OGC® GeoPackage 标准 =
 
 Copyright © 2014 Open Geospatial Consortium. +
 To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ +
@@ -39,7 +39,16 @@ Document stage:   	Approved +
 Document language: 	English +
 
 
+== 中文翻译说明 ==
 
+本文档是对OGC GeoPackage资料库 (https://github.com/opengis/geopackage) 完整的中文翻译，便于中文传播。
+除本小结（中文翻译说明）外，都基于GeoPackage规范原文忠实翻译，未对GeoPackage原文的意思做任何增、删、变动。
+
+该规范的英文HTML版本(原版)可在地址 http://opengis.github.io/geopackage/ 中得到。
+
+GeoPackage规范的版权和知识产权都属于OGC。
+
+本GeoPackage规范中文版本的翻译者为：SuperMap公司。
 
 == 许可说明 ==
 
