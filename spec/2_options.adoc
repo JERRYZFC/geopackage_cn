@@ -6,6 +6,4 @@ GeoPackage中可以使用一个或多个本章节中定义的可选模块，没�
 但GeoPackage文件中至少要包含一个要素数据表或瓦片数据表，它们各自要符合<<features>>和<<tiles>>的定义。
 
 [requirement]
-A GeoPackage SHALL contain features per clause <<features>> and/or tiles per clause <<tiles>> and row(s) in the `gpkg_contents` table with lowercase `data_type` column values of “features” and/or “tiles” describing the user data tables.
-GeoPackage应该包含由<<features>>定义的要素和（或）由<<tiles>>定义的瓦片，并且在`gpkg_contents`表中，小写`data_type`的列的值应该包含“features”和（或）“tiles”，表示数据表为要素数据表或瓦片数据表。
-
+在GeoPackage中，应该包含由<<features>>定义的要素和（或）由<<tiles>>定义的瓦片，并且在`gpkg_contents`表中应该包含描述用户数据表的记录，这些记录的`data_type`列的值应为小写的“features”或“tiles”。

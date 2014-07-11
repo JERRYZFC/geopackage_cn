@@ -178,7 +178,7 @@ Geopackage中的空间数据是可访问和（或）更新的，表`gpkg_content
 
 表`gpkg_contents`的目的是提供GeoPackage文件中所有地理空间数据的列表。
 `data_type`列指定了地理空间数据的类型。
-Bounding box(`min_x`, `min_y`, `max_x`, `max_y`)提供了翔实的边界框（而不是必要的最小边界）。
+Bounding box(`min_x`, `min_y`, `max_x`, `max_y`)提供了详实的边界框（而不是必要的最小边界）。
 当`srs_id`列的值表示的是地理坐标系（CRS）时，边界框的min/max x/y值的单位是度；当`srs_id`列的值表示的时投影坐标系（CRS）时，边界框的min/max x/y值的单位由该坐标系决定。
 
 参见 <<gpkg_contents_sql>>.
