@@ -174,19 +174,19 @@ Document language: 	English<br></p>
 <li><a href="#__51">2.3.3. 数据列约束</a></li>
 </ul>
 </li>
-<li><a href="#_metadata">2.4. Metadata</a></li>
+<li><a href="#__54">2.4. 元数据</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#_introduction">2.4.1. Introduction</a></li>
-<li><a href="#_metadata_table">2.4.2. Metadata Table</a></li>
-<li><a href="#_metadata_reference_table">2.4.3. Metadata Reference Table</a></li>
+<li><a href="#__55">2.4.1. 介绍</a></li>
+<li><a href="#__56">2.4.2. 元数据表</a></li>
+<li><a href="#__59">2.4.3. 元数据参考表</a></li>
 </ul>
 </li>
-<li><a href="#__54">2.5. 扩展机制</a></li>
+<li><a href="#__62">2.5. 扩展机制</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__55">2.5.1. 介绍</a></li>
-<li><a href="#__56">2.5.2. 扩展</a></li>
+<li><a href="#__63">2.5.1. 介绍</a></li>
+<li><a href="#__64">2.5.2. 扩展</a></li>
 </ul>
 </li>
 </ul>
@@ -229,7 +229,7 @@ Document language: 	English<br></p>
 <li><a href="#_features_2">A.2.1. Features</a></li>
 <li><a href="#_tiles_2">A.2.2. Tiles</a></li>
 <li><a href="#_schema_3">A.2.3. Schema</a></li>
-<li><a href="#_metadata_2">A.2.4. Metadata</a></li>
+<li><a href="#_metadata">A.2.4. Metadata</a></li>
 <li><a href="#_extension_mechanism">A.2.5. Extension Mechanism</a></li>
 </ul>
 </li>
@@ -281,7 +281,7 @@ Document language: 	English<br></p>
 <li>
 <ul class="sectlevel2">
 <li><a href="#_gpkg_tile_matrix_2">D.1. gpkg_tile_matrix</a></li>
-<li><a href="#_metadata_3">D.2. metadata</a></li>
+<li><a href="#_metadata_2">D.2. metadata</a></li>
 <li><a href="#_metadata_reference">D.3. metadata_reference</a></li>
 <li><a href="#_sample_feature_table">D.4. sample_feature_table</a></li>
 <li><a href="#_sample_tile_pyramid">D.5. sample_tile_pyramid</a></li>
@@ -791,7 +791,7 @@ GeoPackage应该包含一个<code>gpkg_contents</code>表，<code>gpkg_contents<
 <div class="paragraph">
 <p>表<code>gpkg_contents</code>的目的是提供GeoPackage文件中所有地理空间数据的列表。
 <code>data_type</code>列指定了地理空间数据的类型。
-Bounding box(<code>min_x</code>, <code>min_y</code>, <code>max_x</code>, <code>max_y</code>)提供了翔实的边界框（而不是必要的最小边界）。
+Bounding box(<code>min_x</code>, <code>min_y</code>, <code>max_x</code>, <code>max_y</code>)提供了详实的边界框（而不是必要的最小边界）。
 当<code>srs_id</code>列的值表示的是地理坐标系（CRS）时，边界框的min/max x/y值的单位是度；当<code>srs_id</code>列的值表示的时投影坐标系（CRS）时，边界框的min/max x/y值的单位由该坐标系决定。</p>
 </div>
 <div class="paragraph">
@@ -836,8 +836,7 @@ GeoPackage中可以使用一个或多个本章节中定义的可选模块，没�
 <div id="_requirement-17" class="quoteblock">
 <div class="title">Requirement 17</div>
 <blockquote>
-A GeoPackage SHALL contain features per clause <a href="#features">[features]</a> and/or tiles per clause <a href="#tiles">瓦片</a> and row(s) in the <code>gpkg_contents</code> table with lowercase <code>data_type</code> column values of “features” and/or “tiles” describing the user data tables.
-GeoPackage应该包含由<a href="#features">[features]</a>定义的要素和（或）由<a href="#tiles">瓦片</a>定义的瓦片，并且在<code>gpkg_contents</code>表中，小写<code>data_type</code>的列的值应该包含“features”和（或）“tiles”，表示数据表为要素数据表或瓦片数据表。
+在GeoPackage中，应该包含由<a href="#features">[features]</a>定义的要素和（或）由<a href="#tiles">瓦片</a>定义的瓦片，并且在<code>gpkg_contents</code>表中应该包含描述用户数据表的记录，这些记录的<code>data_type</code>列的值应为小写的“features”或“tiles”。
 </blockquote>
 </div>
 <div class="sect2">
@@ -2276,33 +2275,31 @@ constraint_type列值为"range"的记录中，min和max列的值分别指定了�
 </div>
 </div>
 <div class="sect2">
-<h3 id="_metadata">2.4. Metadata</h3>
+<h3 id="__54">2.4. 元数据</h3>
 <div class="sect3">
-<h4 id="_introduction">2.4.1. Introduction</h4>
+<h4 id="__55">2.4.1. 介绍</h4>
 <div class="paragraph">
-<p>Two tables in a GeoPackage provide a means of storing metadata in MIME <a href="#21">[21]</a> encodings that are defined in accordance with any authoritative metadata specifications, and relating it to the features, rasters, and tiles data in a GeoPackage.
-These tables are intended to provide the support necessary to implement the hierarchical metadata model defined in ISO 19115 <a href="#28">[28]</a>, Annex B B.5.25 MD_ScopeCode, <a href="#metadata_example_appendix">Hierarchical Metadata Example (Informative)</a> and <a href="#raster_or_tile_metadata_example_appendix">Raster or Tile Metadata Example (Informative)</a>, so that as GeoPackage data is captured and updated, the most local and specific detailed metadata changes associated with the new or modified data MAY be captured separately, and referenced to existing global and general metadata.</p>
+<p>GeoPackage中使用两个表来存储元数据的MIME类型，以及这些MIME类型和GeoPackage中的要素、栅格和瓦片数据的关系。这两个表可以为实现ISO 19115 <a href="#28">[28]</a>中定义的分层元数据模型提供必要支持，参见Annex B B.5.25 MD_ScopeCode, <a href="#metadata_example_appendix">Hierarchical Metadata Example (Informative)</a> ， <a href="#raster_or_tile_metadata_example_appendix">Raster or Tile Metadata Example (Informative)</a>。所以当新增或者更新GeoPackage中的数据时，可以单独修改与之相关的本地特定元数据，或者关联到已有的全局通用元数据。
+gpkg_metadata表包含了元数据，在<a href="#_metadata_table">Metadata Table</a>中将会进行详细的介绍。然后gpkg_metadata_reference表把gpkg_metadata表和GeoPackage中的数据关联起来，在<a href="#_metadata_reference_table">Metadata Reference Table</a>中会进行详细的介绍。</p>
 </div>
 <div class="paragraph">
-<p>The <code>gpkg_metadata</code> table that contains metadata is described in clause <a href="#_metadata_table">Metadata Table</a>, and the <code>gpkg_metadata_reference</code> table that relates <code>gpkg_metadata</code> to GeoPackage data is described in clause <a href="#_metadata_reference_table">Metadata Reference Table</a>.
-There is no GeoPackage requirement that such metadata be provided or that defined metadata be structured in a hierarchical fashion <span class="footnote">[<a id="_footnoteref_23" class="footnote" href="#_footnote_23" title="View footnote.">23</a>]</span> with more than one level, only that if it is, these tables SHALL be used. Such metadata <span class="footnote">[<a id="_footnoteref_24" class="footnote" href="#_footnote_24" title="View footnote.">24</a>]</span> and data that relates it to GeoPackage contents SHALL NOT be stored in other tables.</p>
+<p>GeoPackage中并不要求必须提供这样的元数据或者必须以一级以上的分层结构的形式定义元数据<span class="footnote">[<a id="_footnoteref_23" class="footnote" href="#_footnote_23" title="View footnote.">23</a>]</span>。但是当提供了元数据时，应该使用这些表。元数据<span class="footnote">[<a id="_footnoteref_24" class="footnote" href="#_footnote_24" title="View footnote.">24</a>]</span>以及把元数据关联到GeoPackage中内容的数据不应该保存在其它表里。</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metadata_table">2.4.2. Metadata Table</h4>
+<h4 id="__56">2.4.2. 元数据表</h4>
 <div class="sect4">
-<h5 id="_data">2.4.2.1. Data</h5>
+<h5 id="__57">2.4.2.1. 数据</h5>
 <div class="sect5">
-<h6 id="metadata_table_table_definition">2.4.2.1.1. Table Definition</h6>
+<h6 id="metadata_table_table_definition">2.4.2.1.1. 表定义</h6>
 <div id="_requirement-68" class="quoteblock">
 <div class="title">Requirement 68</div>
 <blockquote>
-A GeoPackage MAY contain a table named gpkg_metadata. If present it SHALL be defined per clause 2.4.2.1.1 <a href="#metadata_table_table_definition">Table Definition</a>, <a href="#gpkg_metadata_cols">Metadata Table Definition</a> and <a href="#gpkg_metadata_sql">gpkg_metadata Table Definition SQL</a>.
+一个GeoPackage中可以包含一个名为gpkg_metadata的表。如果该表存在，则必须符合2.4.2.1.1 <a href="#metadata_table_table_definition">表定义</a>, <a href="#gpkg_metadata_cols">Metadata Table Definition</a> 和 <a href="#gpkg_metadata_sql">gpkg_metadata Table Definition SQL</a>中的要求。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>The first component of GeoPackage metadata is the <code>gpkg_metadata</code> table that MAY contain metadata in MIME <a href="#21">[21]</a> encodings structured in accordance with any authoritative metadata specification, such as ISO 19115 <a href="#28">[28]</a>, ISO 19115-2 <a href="#B6">[B6]</a>, ISO 19139 <a href="#B7">[B7]</a>, Dublin Core <a href="#B8">[B8]</a>, CSDGM <a href="#B10">[B10]</a>, DDMS <a href="#B12">[B12]</a>, NMF/NMIS <a href="#B13">[B13]</a>, etc.
-The GeoPackage interpretation of what constitutes “metadata” is a broad one that includes UML models <a href="#B14">[B14]</a> encoded in XMI <a href="#B15">[B15]</a>, GML Application Schemas <a href="#30">[30]</a>, ISO 19110 feature catalogues <a href="#B18">[B18]</a>, OWL <a href="#B20">[B20]</a> and SKOS <a href="#B21">[B21]</a> taxonomies, etc.</p>
+<p>GeoPackage元数据的第一部分是gpkg_metadata表。该表存储官方定义的元数据标准的MIME<a href="#21">[21]</a>类型。比如ISO 19115 <a href="#28">[28]</a>, ISO 19115-2 <a href="#B6">[B6]</a>, ISO 19139 <a href="#B7">[B7]</a>, Dublin Core <a href="#B8">[B8]</a>, CSDGM <a href="#B10">[B10]</a>, DDMS <a href="#B12">[B12]</a>, NMF/NMIS <a href="#B13">[B13]</a>等等。在GeoPackage中，元数据是一个广义的定义，包括使用XML<a href="#B15">[B15]</a>编码的UML模型<a href="#B14">[B14]</a>，GML规范<a href="#30">[30]</a>，ISO 19110<a href="#B18">[B18]</a>, OWL <a href="#B20">[B20]</a>，SKOS <a href="#B21">[B21]</a>等等。</p>
 </div>
 <table id="gpkg_metadata_cols" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 14. Metadata Table Definition</caption>
@@ -2328,7 +2325,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata primary key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">元数据主键</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">PK</p></td>
@@ -2336,7 +2333,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>md_scope</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Case sensitive name of the data scope to which this metadata applies; see <a href="#metadata_scopes">Metadata Scopes</a> below</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">大小写敏感的作用域名称；参见<a href="#metadata_scopes">元数据(Metadata)的作用域</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">‘dataset’</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2344,7 +2341,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>md_standard_uri</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">URI <a href="#23">[23]</a> reference to the metadata structure definition authority <span class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnote_25" title="View footnote.">25</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">定义元数据的机构的URI <a href="#23">[23]</a> <span class="footnote">[<a id="_footnoteref_25" class="footnote" href="#_footnote_25" title="View footnote.">25</a>]</span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2352,7 +2349,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>mime_type</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MIME <a href="#21">[21]</a> encoding of metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">元数据的MIME <a href="#21">[21]</a>类型</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">text/xml <a href="#24">[24]</a></p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2360,7 +2357,7 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>metadata</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">元数据</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">’’</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2369,22 +2366,21 @@ The GeoPackage interpretation of what constitutes “metadata” is a broad one 
 </table>
 
 <div class="paragraph">
-<p>The md_standard_uri data value provides an identifier for the metadata structure (schema) specified by its definition authority.
-The structure (schema) information could be in whatever encoding is used by the definition authority, e.g. UML <a href="#B14">[B14]</a>, or IDEF1x <a href="#B16">[B16]</a>, or XML/Schema <a href="#25">[25]</a><a href="#26">[26]</a><a href="#27">[27]</a>, or RDF/S <a href="#B19">[B19]</a>.</p>
+<p>对于一个元数据来说，md_standard_uri字段的值是其唯一标识，该标志由定义该元数据的官方机构指定。
+元数据的结构信息可以使用任意的形式表示（UML <a href="#B14">[B14]</a>, IDEF1x <a href="#B16">[B16]</a>, XML/Schema <a href="#25">[25]</a><a href="#26">[26]</a><a href="#27">[27]</a>, RDF/S <a href="#B19">[B19]</a>等等），这取决于定义元数据的机构。</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#gpkg_metadata_sql">gpkg_metadata Table Definition SQL</a>.</p>
+<p>参见 <a href="#gpkg_metadata_sql">gpkg_metadata Table Definition SQL</a>.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values">2.4.2.1.2. Table Data Values</h6>
+<h6 id="__58">2.4.2.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>The <code>md_scope</code> column in the <code>gpkg_metadata</code> table is the name of the applicable scope for the contents of the metadata column for a given row.
-The list of valid scope names and their definitions is provided in <a href="#metadata_scopes">Metadata Scopes</a> below.
-The initial contents of this table were obtained from the ISO 19115 <a href="#40">[40]</a>, Annex B B.5.25 MD_ScopeCode code list, which was extended <span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span> for use in the GeoPackage specification by addition of entries with “NA” as the scope code column in <a href="#gpkg_metadata_cols">Metadata Table Definition</a>.</p>
+<p>表gpkg_metadata中的md_scope列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<a href="#metadata_scopes">元数据(Metadata)的作用域</a>。
+表的初始内容来自ISO 19115 <a href="#40">[40]</a>, 附录 B B.5.25 MD_ScopeCode编号列表。为了能在GeoPackage中使用，该列表经过了扩充<span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span>。增加了一个以"NA"为编号的作用域<a href="#gpkg_metadata_cols">Metadata Table Definition</a>。</p>
 </div>
 <table id="metadata_scopes" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 15. Metadata Scopes</caption>
+<caption class="title">Table 15. 元数据(Metadata)的作用域</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -2392,106 +2388,106 @@ The initial contents of this table were obtained from the ISO 19115 <a href="#40
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name (md_scope)</th>
+<th class="tableblock halign-left valign-top">名称 (md_scope)</th>
 <th class="tableblock halign-left valign-top">Scope Code</th>
-<th class="tableblock halign-left valign-top">Definition</th>
+<th class="tableblock halign-left valign-top">含义</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">undefined</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata information scope is undefined</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">元信息的作用范围未定义</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fieldSession</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">012</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the field session</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于字段 session 的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectionSession</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">004</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the collection session</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于集合 session 的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">series</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">006</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the (dataset) series <span class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnote_27" title="View footnote.">27</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于(数据集)序列的信息 <span class="footnote">[<a id="_footnoteref_27" class="footnote" href="#_footnote_27" title="View footnote.">27</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dataset</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">005</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the (geographic feature) dataset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于（几何要素）数据集的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">featureType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">010</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a feature type (class)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于要素类型(class)的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">feature</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">009</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a feature (instance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于要素（实例）的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attributeType</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">002</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the attribute class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于属性 class 的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">attribute</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">001</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the characteristic of a feature (instance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于要素（实例）特性的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tile</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">016</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a tile, a spatial subset of geographic data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于瓦片、地理数据空间子集的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">model</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">015</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a copy or imitation of an existing or hypothetical object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于对已有对象或假设对象进行复制或模拟的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">catalog</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a feature catalog <span class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnote_28" title="View footnote.">28</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">要素目录的元数据 <span class="footnote">[<a id="_footnoteref_28" class="footnote" href="#_footnote_28" title="View footnote.">28</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">schema</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to an application schema <span class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnote_29" title="View footnote.">29</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">应用程序 schema 的元数据 <span class="footnote">[<a id="_footnoteref_29" class="footnote" href="#_footnote_29" title="View footnote.">29</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">taxonomy</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Metadata applies to a taxonomy or knowledge system <span class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnote_30" title="View footnote.">30</a>]</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">分类系统或知识系统的元数据 <span class="footnote">[<a id="_footnoteref_30" class="footnote" href="#_footnote_30" title="View footnote.">30</a>]</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">software</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">013</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a computer program or routine</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于计算机软件或程序的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">service</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">014</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a capability which a service provider entity makes available to a service user entity through a set of interfaces that define a behaviour, such as a use case</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">服务提供者实体通过一组定义行为的接口，例如用户案例，来供服务用户使用，service 表示作用于这种能力的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">collectionHardware</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">003</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to the collection hardware class</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于硬件class集合的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">nonGeographicDataset</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">007</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to non-geographic data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于非地理数据的信息</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dimensionGroup</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">008</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information applies to a dimension group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">适用于维度群组的信息</p></td>
 </tr>
 </tbody>
 </table>
@@ -2499,30 +2495,30 @@ The initial contents of this table were obtained from the ISO 19115 <a href="#40
 <div id="_requirement-69" class="quoteblock">
 <div class="title">Requirement 69</div>
 <blockquote>
-Each <code>md_scope</code> column value in a <code>gpkg_metadata</code> table or updateable view SHALL be one of the name column values from <a href="#metadata_scopes">Metadata Scopes</a>.
+在<code>gpkg_metadata</code>表或可更新视图中，每个<code>md_scope</code>列值都必须来自表<a href="#metadata_scopes">元数据(Metadata)的作用域</a>的<em>名称</em>列。
 </blockquote>
 </div>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metadata_reference_table">2.4.3. Metadata Reference Table</h4>
+<h4 id="__59">2.4.3. 元数据参考表</h4>
 <div class="sect4">
-<h5 id="_data_2">2.4.3.1. Data</h5>
+<h5 id="__60">2.4.3.1. 数据</h5>
 <div class="sect5">
-<h6 id="metadata_reference_table_table_definition">2.4.3.1.1. Table Definition</h6>
+<h6 id="metadata_reference_table_table_definition">2.4.3.1.1. 表定义</h6>
 <div id="_requirement-70" class="quoteblock">
 <div class="title">Requirement 70</div>
 <blockquote>
-A GeoPackage that contains a <code>gpkg_metadata</code> table SHALL contain a <code>gpkg_metadata_reference</code> table per clause 2.4.3.1.1 <a href="#metadata_reference_table_table_definition">Table Definition</a>, <a href="#gpkg_metadata_reference_cols">Metadata Reference Table Definition (Table Name: gpkg_metadata_reference)</a> and <a href="#gpkg_metadata_reference_sql">gpkg_metadata_reference Table Definition SQL</a>.
+在包含<code>gpkg_metadata</code>表的GeoPackage中，也应该包含一个<code>gpkg_metadata_reference</code>表，<code>gpkg_metadata_reference</code>表要符合 2.4.3.1.1 <a href="#metadata_reference_table_table_definition">表定义</a>, <a href="#gpkg_metadata_reference_cols">元数据参考的定义 (表名: gpkg_metadata_reference)</a> 和 <a href="#gpkg_metadata_reference_sql">gpkg_metadata_reference Table Definition SQL</a>的定义
 </blockquote>
 </div>
 <div class="paragraph">
-<p>The second component of GeoPackage metadata is the <code>gpkg_metadata_reference</code> table that links metadata in the <code>gpkg_metadata</code> table to data in the feature, and tiles tables defined in clauses 2.1.6 and 2.2.7.
-The <code>gpkg_metadata_reference</code> table is not required to contain any rows.</p>
+<p>GeoPackage元数据的第2个组件就是<code>gpkg_metadata_reference</code>表，它将<code>gpkg_metadata</code>表中的元数据与2.1.6和2.2.7章节定义的矢量要素数据、瓦片数据关联了起来。
+表<code>gpkg_metadata_reference</code>可以没有任何记录。</p>
 </div>
 <table id="gpkg_metadata_reference_cols" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 16. Metadata Reference Table Definition (Table Name: gpkg_metadata_reference)</caption>
+<caption class="title">Table 16. 元数据参考的定义 (表名: gpkg_metadata_reference)</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -2545,7 +2541,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>reference_scope</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lowercase metadata reference scope; one of ‘geopackage’, ‘table’,‘column’, ’row’, ’row/col’</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">元数据参考的作用域，取值为小写的‘geopackage’, ‘table’,‘column’, ’row’, ’row/col’之一</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2553,7 +2549,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>table_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the table to which this metadata reference applies, or NULL for reference_scope of ‘geopackage’.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">本元数据参考针对的表名，当<code>reference_scope</code>的值为‘geopackage’时，取值为NULL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2561,7 +2557,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>column_name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TEXT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the column to which this metadata reference applies; NULL for <code>reference_scope</code> of ‘geopackage’,‘table’ or ‘row’, or the name of a column in the <code>table_name</code> table for <code>reference_scope</code> of ‘column’ or ‘row/col’</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">本元数据参考针对的列名，当<code>reference_scope</code>的值为‘geopackage’、 ‘table’ 或 ‘row’时，取值为NULL，当<code>reference_scope</code>的值为 ‘column’ 或 ‘row/col’ 时，取值为<code>table_name</code>对应的表中的列名。</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2569,7 +2565,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>row_id_value</code> <span class="footnote">[<a id="_footnoteref_31" class="footnote" href="#_footnote_31" title="View footnote.">31</a>]</span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">NULL for <code>reference_scope</code> of ‘geopackage’, ‘table’ or ‘column’, or the rowed of a row record in the <code>table_name</code> table for <code>reference_scope</code> of ‘row’ or ‘row/col’</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当<code>reference_scope</code>的值为‘geopackage’、‘table’ 或 ‘column’ 时，取值为NULL；当<code>reference_scope</code>的值为 ‘row’ 或 ‘row/col’ 时，取值为<code>table_name</code>表中某条记录的id值。</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2577,7 +2573,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>timestamp</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DATETIME</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">timestamp value in ISO 8601 format as defined by the strftime function '%Y-%m-%dT%H:%M:%fZ' format string applied to the current time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ISO 8601格式的时间戳，格式为'%Y-%m-%dT%H:%M:%fZ'，可通过strftime函数获取当前时间。</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">strftime('%Y-%m-%dT%H:%M:%fZ', 'now')</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -2585,7 +2581,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>md_file_id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gpkg_metadata</code> table id column value for the metadata to which this <code>gpkg_metadata_reference</code> applies</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">本<code>gpkg_metadata_reference</code>表针对的元数据记录，用<code>gpkg_metadata</code>表的id列的值标识。</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
@@ -2593,7 +2589,7 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>md_parent_id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>gpkg_metadata</code> table id column value for the hierarchical parent <code>gpkg_metadata</code> for the <code>gpkg_metadata</code> to which this <code>gpkg_metadata_reference</code> applies, or NULL if <code>md_file_id</code> forms the root of a metadata hierarchy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">本<code>gpkg_metadata_reference</code>表针对的元数据记录在父<code>gpkg_metadata</code>表中对应的记录id，当 <code>md_file_id</code> 标识的就是元数据层次结构的根时，取值为NULL</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FK</p></td>
@@ -2602,57 +2598,57 @@ The <code>gpkg_metadata_reference</code> table is not required to contain any ro
 </table>
 
 <div class="paragraph">
-<p>Every row in <code>gpkg_metadata_reference</code> that has null value as <code>md_parent_id</code> forms the root of a metadata hierarchy.<span class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnote_32" title="View footnote.">32</a>]</span></p>
+<p>在<code>gpkg_metadata_reference</code>表中，当<code>md_parent_id</code>列的值为null时，表示该条记录就是元数据层次结构的根。<span class="footnote">[<a id="_footnoteref_32" class="footnote" href="#_footnote_32" title="View footnote.">32</a>]</span></p>
 </div>
 <div class="paragraph">
-<p>See <a href="#table_definition_sql">Table Definition SQL (Normative)</a> clause <a href="#gpkg_metadata_reference_sql">gpkg_metadata_reference Table Definition SQL</a>.</p>
+<p>参见 <a href="#table_definition_sql">Table Definition SQL (Normative)</a> 章节中的 <a href="#gpkg_metadata_reference_sql">gpkg_metadata_reference Table Definition SQL</a>。</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_2">2.4.3.1.2. Table Data Values</h6>
+<h6 id="__61">2.4.3.1.2. 表数据取值</h6>
 <div id="_requirement-71" class="quoteblock">
 <div class="title">Requirement 71</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table reference scope column value SHALL be one of ‘geopackage’, ‘table’, ‘column’, ’row’, ’row/col’ in lowercase.
+在<code>gpkg_metadata_reference</code>表中，<code>reference_scope</code>列的取值应该为小写的‘geopackage’, ‘table’,‘column’, ’row’, ’row/col’之一
 </blockquote>
 </div>
 <div id="_requirement-72" class="quoteblock">
 <div class="title">Requirement 72</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row with a <code>reference_scope</code> column value of ‘geopackage’ SHALL have a <code>table_name</code> column value that is NULL.
-Every other <code>gpkg_metadata_reference</code> table row SHALL have a <code>table_name</code> column value that references a value in the <code>gpkg_contents</code> <code>table_name</code> column.
+在<code>gpkg_metadata_reference</code>表的记录中，当<code>reference_scope</code>列的值为‘geopackage’时，该记录的<code>table_name</code>列值应该为NULL。
+其它记录的<code>table_name</code>列值应该与表<code>gpkg_contents</code>中<code>table_name</code>列的值一一对应。
 </blockquote>
 </div>
 <div id="_requirement-73" class="quoteblock">
 <div class="title">Requirement 73</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row with a <code>reference_scope</code> column value of ‘geopackage’,‘table’ or ‘row’ SHALL have a <code>column_name</code> column value that is NULL.
-Every other <code>gpkg_metadata_reference</code> table row SHALL have a <code>column_name</code> column value that contains the name of a column in the SQLite table or view identified by the <code>table_name</code> column value.
+在<code>gpkg_metadata_reference</code>表的记录中，当<code>reference_scope</code>列的值为‘geopackage’、 ‘table’ 或 ‘row’时，该记录的<code>column_name</code>列值应该为NULL。
+其它记录的<code>column_name</code>列值应该为<code>table_name</code>列对应的SQLite表或视图中的一个列名。
 </blockquote>
 </div>
 <div id="_requirement-74" class="quoteblock">
 <div class="title">Requirement 74</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row with a <code>reference_scope</code> column value of ‘geopackage’, ‘table’ or ‘column’ SHALL have a <code>row_id_value</code> column value that is NULL.
-Every other <code>gpkg_metadata_reference</code> table row SHALL have a <code>row_id_value</code> column value that contains the ROWID of a row in the SQLite table or view identified by the <code>table_name</code> column value.
+在<code>gpkg_metadata_reference</code>表的记录中，当<code>reference_scope</code>列的值为‘geopackage’、‘table’ 或 ‘column’时，该记录的<code>row_id_value</code>列值应该为NULL。
+其它记录的<code>row_id_value</code>列值应该为<code>table_name</code>列对应的SQLite表或视图中的某条记录的id值（ROWID）。
 </blockquote>
 </div>
 <div id="_requirement-75" class="quoteblock">
 <div class="title">Requirement 75</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row timestamp column value SHALL be in ISO 8601 <a href="#29">[29]</a> format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.<span class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnote_33" title="View footnote.">33</a>]</span>
+在<code>gpkg_metadata_reference</code>表的记录中，<code>timestamp</code> 列的取值应该符合ISO 8601 <a href="#29">[29]</a>规范，应该是一个包含UTC 小时, 分钟, 秒，以及秒的小数部分的完整的日期字符串，并应该带有‘Z’ (‘zulu’)后缀来标识时间为协调世界时（UTC）。<span class="footnote">[<a id="_footnoteref_33" class="footnote" href="#_footnote_33" title="View footnote.">33</a>]</span>
 </blockquote>
 </div>
 <div id="_requirement-76" class="quoteblock">
 <div class="title">Requirement 76</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row <code>md_file_id</code> column value SHALL be an id column value from the <code>gpkg_metadata</code> table.
+在<code>gpkg_metadata_reference</code>表的记录中，<code>md_file_id</code>列的值应该来自<code>gpkg_metadata</code>表的id列。
 </blockquote>
 </div>
 <div id="_requirement-77" class="quoteblock">
 <div class="title">Requirement 77</div>
 <blockquote>
-Every <code>gpkg_metadata_reference</code> table row <code>md_parent_id</code> column value that is NOT NULL SHALL be an id column value from the <code>gpkg_metadata</code> table that is not equal to the <code>md_file_id</code> column value for that row.
+在<code>gpkg_metadata_reference</code>表的记录中，当<code>md_parent_id</code>列的取值不为NULL时，取值应该来自<code>gpkg_metadata</code>表的id列，并且与同一记录中的<code>md_file_id</code>列的值不同。
 </blockquote>
 </div>
 </div>
@@ -2660,9 +2656,9 @@ Every <code>gpkg_metadata_reference</code> table row <code>md_parent_id</code> c
 </div>
 </div>
 <div class="sect2">
-<h3 id="__54">2.5. 扩展机制</h3>
+<h3 id="__62">2.5. 扩展机制</h3>
 <div class="sect3">
-<h4 id="__55">2.5.1. 介绍</h4>
+<h4 id="__63">2.5.1. 介绍</h4>
 <div class="paragraph">
 <p>GeoPackage扩展是一个或多个必要条款集合，这些条款需要按照<a href="#extension_template">GeoPackage Extension Template (Normative)</a>中的GeoPackage扩展模板格式形成文档。
 GeoPackage扩展可以配置/扩展GeoPackage规范中现有的必要条款，或者新增必要条款。现有必要条款的扩展示例包括：附加几何对象类型、附加几何对象SQL方法、以及附加栅格瓦片格式；新增必要条款的扩展示例包括：空间索引、触发器、附加表、BLOB列的其他编码格式、以及其他SQL方法。</p>
@@ -2674,9 +2670,9 @@ GeoPackage扩展可以配置/扩展GeoPackage规范中现有的必要条款，�
 </div>
 </div>
 <div class="sect3">
-<h4 id="__56">2.5.2. 扩展</h4>
+<h4 id="__64">2.5.2. 扩展</h4>
 <div class="sect4">
-<h5 id="__57">2.5.2.1. 数据</h5>
+<h5 id="__65">2.5.2.1. 数据</h5>
 <div class="sect5">
 <h6 id="extensions_table_definition">2.5.2.1.1. 表定义</h6>
 <div id="_requirement-78" class="quoteblock">
@@ -2751,7 +2747,7 @@ GeoPackage可能包含一个名为gpkg_extensions的表或可更新视图，如�
 </div>
 </div>
 <div class="sect5">
-<h6 id="_table_data_values_3">2.5.2.1.2. Table Data Values</h6>
+<h6 id="_table_data_values">2.5.2.1.2. Table Data Values</h6>
 <div id="_requirement-79" class="quoteblock">
 <div class="title">Requirement 79</div>
 <blockquote>
@@ -2832,7 +2828,7 @@ Definitions of those extensions in the form specified by the template in <a href
 <div class="sect3">
 <h4 id="gpkg_geometry_types_extension">3.1.1. GeoPackage Geometry Types Extension</h4>
 <div class="sect4">
-<h5 id="_data_3">3.1.1.1. Data</h5>
+<h5 id="_data">3.1.1.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clause <a href="#sql_geometry_types">SQL几何类型</a> partially described in <a href="#extension_geometry_types">GeoPackage Geometry Types Extension Template (Normative)</a> defines additional geometry types.</p>
 </div>
@@ -2869,7 +2865,7 @@ A GeoPackage that contains a gpkg_geometry_columns table or updateable view with
 <div class="sect3">
 <h4 id="gpkg_user_geometry_types_extension">3.1.2. User-Defined Geometry Types Extension</h4>
 <div class="sect4">
-<h5 id="_data_4">3.1.2.1. Data</h5>
+<h5 id="_data_2">3.1.2.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clauses <a href="#gpb_format">几何编码</a>, <a href="#sql_geometry_types">SQL几何类型</a> and <a href="#gpkg_geometry_types_extension">GeoPackage Geometry Types Extension</a> partially described in <a href="#extension_geometry_encoding">User-Defined Geometry Types Encoding Extension Template (Normative)</a> enables encoding of additional user-defined geometry types in ExtendedGeoPackageBinary format in an Extended GeoPackage.</p>
 </div>
@@ -2914,7 +2910,7 @@ The <code>geometry_type_name</code> value in a <code>gpkg_geometry_columns</code
 <div class="sect3">
 <h4 id="_rtree_spatial_indexes">3.1.3. RTree Spatial Indexes</h4>
 <div class="sect4">
-<h5 id="_data_5">3.1.3.1. Data</h5>
+<h5 id="_data_3">3.1.3.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_rtree">RTree Spatial Index Extension (Normative)</a> adds a new capability for spatially indexing columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
@@ -2953,7 +2949,7 @@ A GeoPackage that implements spatial indexes SHALL have a gpkg_extensions table 
 <div class="sect3">
 <h4 id="_geometry_type_triggers">3.1.4. Geometry Type Triggers</h4>
 <div class="sect4">
-<h5 id="_data_6">3.1.4.1. Data</h5>
+<h5 id="_data_4">3.1.4.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_geometry_type_triggers">Geometry Type Triggers Extension (Normative)</a> adds a new geometry type triggers capability for columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
@@ -2989,7 +2985,7 @@ A GeoPackage that implements geometry type triggers on geometry columns SHALL co
 <div class="sect3">
 <h4 id="_srs_id_triggers">3.1.5. SRS_ID Triggers</h4>
 <div class="sect4">
-<h5 id="_data_7">3.1.5.1. Data</h5>
+<h5 id="_data_5">3.1.5.1. Data</h5>
 <div class="paragraph">
 <p>This extension described in <a href="#extension_geometry_srsid_triggers">Geometry SRS ID Triggers Extension (Normative)</a> adds a new srs_id triggers capability for columns with geometries encoded per clause <a href="#gpb_format">几何编码</a> and <a href="#gpkg_user_geometry_types_extension">User-Defined Geometry Types Extension</a>.</p>
 </div>
@@ -3031,7 +3027,7 @@ A GeoPackage that implements srs_id triggers on feature table geometry columns S
 <div class="sect3">
 <h4 id="_zoom_levels">3.2.1. Zoom Levels</h4>
 <div class="sect4">
-<h5 id="_data_8">3.2.1.1. Data</h5>
+<h5 id="_data_6">3.2.1.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clause <a href="#zoom_levels">Zoom Levels</a> described in <a href="#extension_zoom_other_intervals">Zoom Other Intervals Extension (Normative)</a> allows zoom level intervals other than a factor of two.</p>
 </div>
@@ -3064,7 +3060,7 @@ A GeoPackage that implements other zoom intervals SHALL have a gpkg_extensions t
 <div class="sect3">
 <h4 id="tile_enc_webp">3.2.2. Tile Encoding WEBP</h4>
 <div class="sect4">
-<h5 id="_data_9">3.2.2.1. Data</h5>
+<h5 id="_data_7">3.2.2.1. Data</h5>
 <div class="paragraph">
 <p>This extension of clauses <a href="#tile_enc_png">Tile Encoding PNG</a> and <a href="#tile_enc_jpeg">Tile Encoding JPEG</a> described in <a href="#extension_tiles_webp">Tiles Encoding WebP Extension (Normative)</a> allows encoding of tile images in WebP format.</p>
 </div>
@@ -3116,7 +3112,7 @@ The GeoPackage specification does not place any constraints on application, plat
 <div class="sect4">
 <h5 id="_sqlite_container">A.1.1.1. SQLite Container</h5>
 <div class="sect5">
-<h6 id="_data_10">A.1.1.1.1. Data</h6>
+<h6 id="_data_8">A.1.1.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>File Format</strong></p>
 </div>
@@ -3602,7 +3598,7 @@ The GeoPackage specification does not place any constraints on application, plat
 <div class="sect4">
 <h5 id="_spatial_reference_systems">A.1.1.2. Spatial Reference Systems</h5>
 <div class="sect5">
-<h6 id="_data_11">A.1.1.2.1. Data</h6>
+<h6 id="_data_9">A.1.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -3776,7 +3772,7 @@ AUTHORITY["EPSG","4326"] (rounding the UNIT conversion factors to 16 decimal pla
 <div class="sect4">
 <h5 id="_contents">A.1.1.3. Contents</h5>
 <div class="sect5">
-<h6 id="_data_12">A.1.1.3.1. Data</h6>
+<h6 id="_data_10">A.1.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -4066,7 +4062,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_contents_2">A.2.1.2. Contents</h5>
 <div class="sect5">
-<h6 id="_data_13">A.2.1.2.1. Data</h6>
+<h6 id="_data_11">A.2.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Contents Table Feature Row</strong></p>
 </div>
@@ -4118,7 +4114,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_geometry_encoding">A.2.1.3. Geometry Encoding</h5>
 <div class="sect5">
-<h6 id="_data_14">A.2.1.3.1. Data</h6>
+<h6 id="_data_12">A.2.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>BLOB Format</strong></p>
 </div>
@@ -4208,7 +4204,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_sql_geometry_types">A.2.1.4. SQL Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_15">A.2.1.4.1. Data</h6>
+<h6 id="_data_13">A.2.1.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>Core Types</strong></p>
 </div>
@@ -4365,7 +4361,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_geometry_columns">A.2.1.5. Geometry Columns</h5>
 <div class="sect5">
-<h6 id="_data_16">A.2.1.5.1. Data</h6>
+<h6 id="_data_14">A.2.1.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -4804,7 +4800,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_vector_features_user_data_tables">A.2.1.6. Vector Features User Data Tables</h5>
 <div class="sect5">
-<h6 id="_data_17">A.2.1.6.1. Data</h6>
+<h6 id="_data_15">A.2.1.6.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5087,7 +5083,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_contents_3">A.2.2.1. Contents</h5>
 <div class="sect5">
-<h6 id="_data_18">A.2.2.1.1. Data</h6>
+<h6 id="_data_16">A.2.2.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Contents Table – Tiles Row</strong></p>
 </div>
@@ -5164,7 +5160,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_zoom_levels_2">A.2.2.2. Zoom Levels</h5>
 <div class="sect5">
-<h6 id="_data_19">A.2.2.2.1. Data</h6>
+<h6 id="_data_17">A.2.2.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Zoom Times Two</strong></p>
 </div>
@@ -5246,7 +5242,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_encoding_png">A.2.2.3. Tile Encoding PNG</h5>
 <div class="sect5">
-<h6 id="_data_20">A.2.2.3.1. Data</h6>
+<h6 id="_data_18">A.2.2.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>MIME Type PNG</strong></p>
 </div>
@@ -5329,7 +5325,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_encoding_jpeg">A.2.2.4. Tile Encoding JPEG</h5>
 <div class="sect5">
-<h6 id="_data_21">A.2.2.4.1. Data</h6>
+<h6 id="_data_19">A.2.2.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>MIME Type JPEG</strong></p>
 </div>
@@ -5412,7 +5408,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_matrix_set">A.2.2.5. Tile Matrix Set</h5>
 <div class="sect5">
-<h6 id="_data_22">A.2.2.5.1. Data</h6>
+<h6 id="_data_20">A.2.2.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5639,7 +5635,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_tile_matrix">A.2.2.6. Tile Matrix</h5>
 <div class="sect5">
-<h6 id="_data_23">A.2.2.6.1. Data</h6>
+<h6 id="_data_21">A.2.2.6.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6274,7 +6270,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_tile_pyramid_user_data">A.2.2.7. Tile Pyramid User Data</h5>
 <div class="sect5">
-<h6 id="_data_24">A.2.2.7.1. Data</h6>
+<h6 id="_data_22">A.2.2.7.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6574,7 +6570,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_data_columns">A.2.3.1. Data Columns</h5>
 <div class="sect5">
-<h6 id="_data_25">A.2.3.1.1. Data</h6>
+<h6 id="_data_23">A.2.3.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6827,7 +6823,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_data_column_constraints">A.2.3.2. Data Column Constraints</h5>
 <div class="sect5">
-<h6 id="_data_26">A.2.3.2.1. Data</h6>
+<h6 id="_data_24">A.2.3.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7324,11 +7320,11 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect3">
-<h4 id="_metadata_2">A.2.4. Metadata</h4>
+<h4 id="_metadata">A.2.4. Metadata</h4>
 <div class="sect4">
-<h5 id="_metadata_table_2">A.2.4.1. Metadata Table</h5>
+<h5 id="_metadata_table">A.2.4.1. Metadata Table</h5>
 <div class="sect5">
-<h6 id="_data_27">A.2.4.1.1. Data</h6>
+<h6 id="_data_25">A.2.4.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7449,9 +7445,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect4">
-<h5 id="_metadata_reference_table_2">A.2.4.2. Metadata Reference Table</h5>
+<h5 id="_metadata_reference_table">A.2.4.2. Metadata Reference Table</h5>
 <div class="sect5">
-<h6 id="_data_28">A.2.4.2.1. Data</h6>
+<h6 id="_data_26">A.2.4.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7954,7 +7950,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_extensions">A.2.5.1. Extensions</h5>
 <div class="sect5">
-<h6 id="_data_29">A.2.5.1.1. Data</h6>
+<h6 id="_data_27">A.2.5.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -8453,7 +8449,7 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect4">
 <h5 id="_geometry_types">A.3.1.1. Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_30">A.3.1.1.1. Data</h6>
+<h6 id="_data_28">A.3.1.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>GeoPackage Extension Types</strong></p>
 </div>
@@ -8737,7 +8733,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_user_defined_geometry_types">A.3.1.2. User-Defined Geometry Types</h5>
 <div class="sect5">
-<h6 id="_data_31">A.3.1.2.1. Data</h6>
+<h6 id="_data_29">A.3.1.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>Extensions Encoding</strong></p>
 </div>
@@ -9026,7 +9022,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_spatial_indexes">A.3.1.3. Spatial Indexes</h5>
 <div class="sect5">
-<h6 id="_data_32">A.3.1.3.1. Data</h6>
+<h6 id="_data_30">A.3.1.3.1. Data</h6>
 <div class="paragraph">
 <p><strong>Spatial Indexes Implementation</strong></p>
 </div>
@@ -9312,7 +9308,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_geometry_type_triggers_2">A.3.1.4. Geometry Type Triggers</h5>
 <div class="sect5">
-<h6 id="_data_33">A.3.1.4.1. Data</h6>
+<h6 id="_data_31">A.3.1.4.1. Data</h6>
 <div class="paragraph">
 <p><strong>Geometry Type Triggers Implementation</strong></p>
 </div>
@@ -9579,7 +9575,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_srs_id_triggers_2">A.3.1.5. SRS_ID Triggers</h5>
 <div class="sect5">
-<h6 id="_data_34">A.3.1.5.1. Data</h6>
+<h6 id="_data_32">A.3.1.5.1. Data</h6>
 <div class="paragraph">
 <p><strong>SRS_ID Triggers – Implementation</strong></p>
 </div>
@@ -9840,7 +9836,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_zoom_levels_3">A.3.2.1. Zoom Levels</h5>
 <div class="sect5">
-<h6 id="_data_35">A.3.2.1.1. Data</h6>
+<h6 id="_data_33">A.3.2.1.1. Data</h6>
 <div class="paragraph">
 <p><strong>Zoom Other Intervals—Extensions Name</strong></p>
 </div>
@@ -9974,7 +9970,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_tile_encoding_webp">A.3.2.2. Tile Encoding WEBP</h5>
 <div class="sect5">
-<h6 id="_data_36">A.3.2.2.1. Data</h6>
+<h6 id="_data_34">A.3.2.2.1. Data</h6>
 <div class="paragraph">
 <p><strong>WEBP – Extensions Name</strong></p>
 </div>
@@ -13553,7 +13549,7 @@ Implementer must provide code4name(geometry_type_name) SQL function
 </div>
 </div>
 <div class="sect2">
-<h3 id="_metadata_3">D.2. metadata</h3>
+<h3 id="_metadata_2">D.2. metadata</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 40. metadata Trigger Definition SQL</caption>
 <colgroup>
@@ -14892,7 +14888,7 @@ An example of the data items in such a model is shown in the following table.</p
 <div class="paragraph">
 <p>Title of the Extension</p>
 </div>
-<h3 id="_introduction_2" class="float">Introduction</h3>
+<h3 id="_introduction" class="float">Introduction</h3>
 <div class="paragraph">
 <p>Description of extension</p>
 </div>
@@ -14994,7 +14990,7 @@ An example of the data items in such a model is shown in the following table.</p
 <div class="paragraph">
 <p>GeoPackage Non-Linear Geometry Types</p>
 </div>
-<h3 id="_introduction_3" class="float">Introduction</h3>
+<h3 id="_introduction_2" class="float">Introduction</h3>
 <div class="paragraph">
 <p>Clause 2.1.4 of the GeoPackage Version 1 Encoding Standard specifies support for the Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeomCollection geometry types in the GeoPackageBinary geometry encoding format specified in clause 2.1.3.
 This extension specifies support for the additional CircularString, CompoundCurve, CurvePolygon, MultiCurve, MultiSurface, Curve, and Surface geometry types in the GeoPackage Binary geometry encoding format using the codes listed in Annex D.</p>
@@ -15041,7 +15037,7 @@ This extension specifies support for the additional CircularString, CompoundCurv
 <div class="paragraph">
 <p>User Defined Geometry Types Extension of GeoPackageBinary Geometry Encoding</p>
 </div>
-<h3 id="_introduction_4" class="float">Introduction</h3>
+<h3 id="_introduction_3" class="float">Introduction</h3>
 <div class="paragraph">
 <p>This extension specifies a standard way to implement user defined extensions of the GeoPackageBinary geometry encoding format to encode geometry types not specified in clauses <a href="#sql_geometry_types">SQL几何类型</a> and 3.1.1 and listed in <a href="#geometry_types">Geometry Types (Normative)</a>.
 It is intended to be a bridge to enable use of geometry types like EllipiticalCurve in Extended GeoPackages until standard encodings of such types are developed and published for the Well Known Binary (WKB) format.</p>
@@ -15119,7 +15115,7 @@ The actual extension geometry body is not specified, but SHALL be described in t
 <div class="paragraph">
 <p>Rtree Spatial Indexes</p>
 </div>
-<h3 id="_introduction_5" class="float">Introduction</h3>
+<h3 id="_introduction_4" class="float">Introduction</h3>
 <div class="paragraph">
 <p>The rtree index extension provides a means to encode an rtree index for geometry values in a GeoPackage. An RTree index provides a significant performance advantage for searches with basic envelope spatial criteria that return subsets of the rows in a feature table with a non-trivial number (thousands or more) of rows.</p>
 </div>
@@ -15360,7 +15356,7 @@ These spatial index triggers SHALL be defined as follows:</p>
 <div class="paragraph">
 <p>Geometry Type Triggers</p>
 </div>
-<h3 id="_introduction_6" class="float">Introduction</h3>
+<h3 id="_introduction_5" class="float">Introduction</h3>
 <div class="paragraph">
 <p>Geometry type triggers prevent the storage of geometries of types that are not assignable from the geometry types specified in the gpkg_geometry_columns table in the geometry columns of the specified tables.</p>
 </div>
@@ -15457,7 +15453,7 @@ These spatial index triggers SHALL be defined as follows:</p>
 <div class="paragraph">
 <p>Geometry SRS_ID Triggers</p>
 </div>
-<h3 id="_introduction_7" class="float">Introduction</h3>
+<h3 id="_introduction_6" class="float">Introduction</h3>
 <div class="paragraph">
 <p>Geometry SRS_ID triggers prevent the storage of geometries with spatial reference system identifiers that are not specified in the <code>gpkg_geometry_columns</code> table in the geometry columns of the specified tables.</p>
 </div>
@@ -15549,7 +15545,7 @@ These spatial index triggers SHALL be defined as follows:</p>
 <div class="paragraph">
 <p>Zoom Other Intervals</p>
 </div>
-<h3 id="_introduction_8" class="float">Introduction</h3>
+<h3 id="_introduction_7" class="float">Introduction</h3>
 <div class="paragraph">
 <p>In a GeoPackage, zoom levels are integers in sequence from 0 to n that identify tile matrix layers in a tile matrix set that contain tiles of decreasing spatial extent and finer spatial resolution.
 Adjacent zoom levels immediately precede or follow each other and differ by a value of 1.
@@ -15603,7 +15599,7 @@ See WMTS <a href="#16">[16]</a> Annex E for additional examples of both conventi
 <div class="paragraph">
 <p>Tile Encoding WebP</p>
 </div>
-<h3 id="_introduction_9" class="float">Introduction</h3>
+<h3 id="_introduction_8" class="float">Introduction</h3>
 <div class="paragraph">
 <p>PNG and JPEG are the default MIME types for encoding images in tile pyramid user data tables.
 This extension allows the use of <code>image/x-webp</code> as an additional encoding type.</p>
@@ -15916,7 +15912,7 @@ For undated references, the latest edition of the normative document referred to
 <a href="#_footnoteref_24">24</a>. An informative example of raster image metadata is provided in &lt;&lt;tiles_example_appendix&gt;&gt;
 </div>
 <div class="footnote" id="_footnote_25">
-<a href="#_footnoteref_25">25</a>. For example, for ISO 19139 metadata the URI value should be the metadata schema namespace <a href="http://www.isotc211.org/2005/gmd">http://www.isotc211.org/2005/gmd</a>
+<a href="#_footnoteref_25">25</a>. 例如, 对于元数据ISO 19139来说，这个URI的指应该是命名空间 <a href="http://www.isotc211.org/2005/gmd">http://www.isotc211.org/2005/gmd</a>
 </div>
 <div class="footnote" id="_footnote_26">
 <a href="#_footnoteref_26">26</a>. The scope codes in &lt;&lt;metadata_scopes&gt;&gt; include a very wide set of descriptive information types as “metadata” to describe data.
