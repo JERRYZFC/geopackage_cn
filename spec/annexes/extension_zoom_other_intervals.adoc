@@ -1,6 +1,6 @@
 [[extension_zoom_other_intervals]]
 [appendix]
-== 其他缩放间隔扩展 (规范性的)
+== 鍏朵粬缂╂斁闂撮殧鎵╁睍 (瑙勮寖鎬х殑)
 
 [float]
 === Extension Title

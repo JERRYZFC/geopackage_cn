@@ -1,6 +1,6 @@
 [[extension_template]]
 [appendix]
-== GeoPackage À©Õ¹µÄÄ£°å (¹æ·¶ĞÔµÄ)
+== GeoPackage æ‰©å±•çš„æ¨¡æ¿ (è§„èŒƒæ€§çš„)
 
 [float]
 === Extension Title

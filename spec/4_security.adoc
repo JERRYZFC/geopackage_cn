@@ -1,4 +1,4 @@
-== Security Considerations
+== 安全事项
 
-Security considerations for implementations utilizing GeoPackages are in the domain of the implementing application, deployment platform, operating system and networking environment.
-The GeoPackage specification does not place any constraints on application, platform, operating system level or network security.
+在执行应用程序，部署平台、操作系统和网络环境时，利用GeoPackage进行实现需要考虑安全事项。
+GeoPackage规范在应用程序、平台、 操作系统级别或网络安全上没有任何约束。

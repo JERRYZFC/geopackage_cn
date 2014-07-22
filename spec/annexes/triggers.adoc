@@ -1,5 +1,5 @@
 [appendix]
-== ´¥·¢Æ÷(Trigger)µÄSQL¶¨Òå (×ÊÁÏĞÔµÄ)
+== è§¦å‘å™¨(Trigger)çš„SQLå®šä¹‰ (èµ„æ–™æ€§çš„)
 
 === gpkg_tile_matrix
 

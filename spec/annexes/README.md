@@ -1,6 +1,6 @@
-����
+警告
 =======
 
-��Ҫ˵�����ǣ����������еĸ�¼��Annexes�����Ѿ�ת��Ϊ��Asciidoc�汾������PDF��Word�ĵ��в���ȷʵ�ĸ�¼��PDF��Word�ĵ�������2013��8��6��ʱ��������[RFC public comment page](http://www.opengeospatial.org/standards/requests/105) ���ҵ���
+需要说明的是，并不是所有的附录（Annexes）都已经转换为了Asciidoc版本。请在PDF或Word文档中查阅确实的附录，PDF或Word文档可以在2013年8月6日时，可以在[RFC public comment page](http://www.opengeospatial.org/standards/requests/105) 中找到。
 
-ע��: ���ǻ�ӭ�й������ܽ���¼��Word�汾ת��ΪAsciidoc�汾��
+注意: 我们欢迎有贡献者能将附录从Word版本转换为Asciidoc版本。

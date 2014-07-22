@@ -1,6 +1,6 @@
 [[extension_geometry_types]]
 [appendix]
-== GeoPackage ¼¸ºÎÀàĞÍÀ©Õ¹µÄÄ£°å (¹æ·¶ĞÔµÄ)
+== GeoPackage å‡ ä½•ç±»å‹æ‰©å±•çš„æ¨¡æ¿ (è§„èŒƒæ€§çš„)
 
 [float]
 === Extension Title

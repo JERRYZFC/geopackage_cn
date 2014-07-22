@@ -1,6 +1,6 @@
 [[geometry_types]]
 [appendix]
-== 几何对象类型 (规范性的)
+== 鍑犱綍瀵硅薄绫诲瀷 (瑙勮寖鎬х殑)
 
 [[geometry_types_core]]
 .Geometry Type Codes (Core)

@@ -1,6 +1,6 @@
 [[tiles_factor2_example_appendix]]
 [appendix]
-== ÍßÆ¬Á½±¶Ëõ·ÅÊ¾Àı (×ÊÁÏĞÔµÄ)
+== ç“¦ç‰‡ä¸¤å€ç¼©æ”¾ç¤ºä¾‹ (èµ„æ–™æ€§çš„)
 
 .Zoom Times Two Example
 [cols=",,,,,",options="header"]

@@ -1,6 +1,6 @@
 [[extension_geometry_srsid_triggers]]
 [appendix]
-== ¼¸ºÎ¶ÔÏó SRS ID ´¥·¢Æ÷À©Õ¹ (¹æ·¶ĞÔµÄ)
+== å‡ ä½•å¯¹è±¡ SRS ID è§¦å‘å™¨æ‰©å±• (è§„èŒƒæ€§çš„)
 
 [float]
 === Extension Title
