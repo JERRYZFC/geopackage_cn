@@ -2,10 +2,11 @@
 
 ==== 介绍
 GeoPackage中使用两个表来存储元数据的MIME类型，以及这些MIME类型和GeoPackage中的要素、栅格和瓦片数据的关系。这两个表可以为实现ISO 19115 <<28>>中定义的分层元数据模型提供必要支持，参见Annex B B.5.25 MD_ScopeCode, <<metadata_example_appendix>> ， <<raster_or_tile_metadata_example_appendix>>。所以当新增或者更新GeoPackage中的数据时，可以单独修改与之相关的本地特定元数据，或者关联到已有的全局通用元数据。
-gpkg_metadata表包含了元数据，在<<_metadata_table>>中将会进行详细的介绍。然后gpkg_metadata_reference表把gpkg_metadata表和GeoPackage中的数据关联起来，在<<_metadata_reference_table>>中会进行详细的介绍。
+gpkg_metadata表包含了元数据，在<<metadata_table>>中将会进行详细的介绍。然后gpkg_metadata_reference表把gpkg_metadata表和GeoPackage中的数据关联起来，在<<metadata_reference_table>>中会进行详细的介绍。
 
 GeoPackage中并不要求必须提供这样的元数据或者必须以一级以上的分层结构的形式定义元数据footnote:[Informative examples of hierarchical metadata are provided in <<metadata_example_appendix>>]。但是当提供了元数据时，应该使用这些表。元数据footnote:[An informative example of raster image metadata is provided in <<tiles_example_appendix>>]以及把元数据关联到GeoPackage中内容的数据不应该保存在其它表里。
 
+[[metadata_table]]
 ==== 元数据表
 
 ===== 数据
@@ -80,6 +81,7 @@ GeoPackage元数据的第一部分是gpkg_metadata表。该表存储官方定义
 [requirement]
 在`gpkg_metadata`表或可更新视图中，每个`md_scope`列值都必须来自表<<metadata_scopes>>的'名称'列。
 
+[[metadata_reference_table]]
 ==== 元数据参考表
 
 ===== 数据

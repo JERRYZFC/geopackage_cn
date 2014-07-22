@@ -68,7 +68,7 @@ GeoPackage数据表中的列仅可以使用<<table_column_data_types>>中规定�
 |DOUBLE, REAL         | IEEE 64位浮点数。在SQLite中存储为REAL类型
 |TEXT{(maxchar_count)}| UTF-8或UTF-16编码的变长字符串，编码类型取决于PRAGMA encoding指令（参见：http://www.sqlite.org/pragma.html#pragma_encoding）。maxchar_count是可选的，它限定了字符串长度。如果未指定，则字符串长度是无限的。限制字符串长度是为了更好的表达信息，当字符串过长时，应用程序可能会把字符串截断。定义maxchar_count使应用程序能够根据字符串长度上限进行最佳处理。在SQLite中存储为TEXT类型
 |BLOB{(max_size)}     |变长的二进制数据。max_size是可选的，它限定了数据的二进制长度。如果未指定，则长度是无限的。数据大小提供了信息参考。定义max_size使应用程序能够根据数据大小上限进行最佳处理。在SQLite中存储为BLOB类型
-|<geometry_type_name> | 几何对象（Geometry）根据<<_geometry_encoding>> 进行编码。 <geometry type_name> 是符合2.1.3条款的<<geometry_types>>所列的其中一个几何类型，或是符合3.1.2条款和 <<extension_geometry_encoding>>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型
+|<geometry_type_name> | 几何对象（Geometry）根据<<geometry_encoding>> 进行编码。 <geometry type_name> 是符合2.1.3条款的<<geometry_types>>所列的其中一个几何类型，或是符合3.1.2条款和 <<extension_geometry_encoding>>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型
 |DATE                 | ISO-8601标准的日期字符串，字符串格式为YYYY-MM-DD，使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型
 |DATETIME             | ISO-8601标准的日期/时间字符串，字符串格式为YYYY-MM-DDTHH：MM：SS.SSSZ，T用作分隔符，后缀Z表示DATETIME为协调世界时（UTC）,字符串使用UTF-8或UTF-16编码。参见TEXT类型。在SQLite中存储为TEXT类型
 |=======================================================================

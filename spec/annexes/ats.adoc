@@ -281,6 +281,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
+[[geometry_encoding]]
 ===== 几何对象编码
 
 ====== 数据

@@ -144,6 +144,7 @@ ISO 13249-3 <<12>>中定义的WKB（well-known binary）并没有为空的点集
 [requirement] 
 GeoPackage要素表中存储的几何对象，类型应该是表<<geometry_types>>、<<geometry_types_core>>中基本类型（Geometry, Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, GeomCollection），应该使用GeoPackageBinary几何编码格式进行二进制编码。
 
+[[geometry_columns]]
 ==== 几何要素列
 
 ===== 数据 
@@ -216,7 +217,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 在GeoPackage中，每个这样的要素表或视图都必须有一个INTEGER类型的列，该列的约束必须是'PRIMARY KEY AUTOINCREMENT'，
 参见 <<example_feature_table_cols>>和<<example_feature_table_sql>> 。
 
-通过表`gpkg_metadata_reference`（参见<<_metadata_reference_table>>）中的rowid <<B5>> 值，要素表的integer主键可以将要素与表`gpkg_metadata`中的元数据记录关联起来。
+通过表`gpkg_metadata_reference`（参见<<metadata_reference_table>>）中的rowid <<B5>> 值，要素表的integer主键可以将要素与表`gpkg_metadata`中的元数据记录关联起来。
 
 [requirement]
 要素表有且仅有一个几何要素列。
@@ -240,7 +241,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 
 ====== 表数据值 
 
-几何要素存储在几何对象列中，几何对象列由表`gpkg_geometry_columns`中的`geometry_column`列值指定，列值为`geometry_column`列值的小写形式。表`gpkg_geometry_columns`的定义参见<<_geometry_columns>>。
+几何要素存储在几何对象列中，几何对象列由表`gpkg_geometry_columns`中的`geometry_column`列值指定，列值为`geometry_column`列值的小写形式。表`gpkg_geometry_columns`的定义参见<<geometry_columns>>。
 
 由表`gpkg_geometry_columns`的`geometry_type_name`标识的几何要素类型必须是 <<geometry_types>>中的其中一个 。
 
