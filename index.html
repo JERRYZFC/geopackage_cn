@@ -652,7 +652,7 @@ GeoPackage应该包含一个<code>gpkg_spatial_ref_sys</code>表，<code>gpkg_sp
 <div class="sect5">
 <h6 id="__14">1.1.2.1.2. 表数据的取值</h6>
 <div class="paragraph">
-<p>表gpkg_spatial_ref_sys中，表示WKT值的列应该定义几何要素和栅格瓦片所使用的空间坐标系（SRS），当SRS未知时表示为 undefined（参见<a href="#_requirement-11">Requirement 11</a>）。WKT的值应该由<a href="#32">[32]</a> 条款7中指定的EBNF syntax构成，应该包含可选的&lt;authority&gt; EBNF entities，非WGS-84的WKT值应该包含可选的 &lt;to wgs84&gt; EBNF entities。WKT值可能会省略可选的 &lt;to wgs84&gt; 和 &lt;twin axes&gt;  EBNF entities。任何指定的&lt;authority&gt;中（比如<a href="#13">[13]</a><a href="#14">[14]</a>），都可能获取到EBNF的名称和数值。例如，通过<a href="#spatial_ref_sys_data_values_default">[spatial_ref_sys_data_values_default]</a>测试方法的第(3)步的返回值，就可以测试WGS-84的定义，WGS-84的定义参见<a href="#_requirement-11">Requirement 11</a>：</p>
+<p>表gpkg_spatial_ref_sys中，表示WKT值的列应该定义几何要素和栅格瓦片所使用的空间坐标系（SRS），当SRS未知时表示为 undefined（参见<a href="#_requirement-11">Requirement 11</a>）。WKT的值应该由<a href="#32">[32]</a> 条款7中指定的EBNF（扩展的BN范式）语句构成，应该包含可选的&lt;authority&gt; EBNF 实体，非WGS-84的WKT值应该包含可选的 &lt;to wgs84&gt; EBNF 实体。WKT值可以省略可选的 &lt;to wgs84&gt; 和 &lt;twin axes&gt; EBNF 实体。从任何具体的&lt;authority&gt;（比如<a href="#13">[13]</a><a href="#14">[14]</a>），都可以获取EBNF的名称和数值。例如，通过<a href="#spatial_ref_sys_data_values_default">[spatial_ref_sys_data_values_default]</a>测试方法的第(3)步的返回值，就可以测试WGS-84的定义，WGS-84的定义参见<a href="#_requirement-11">Requirement 11</a>：</p>
 </div>
 <div id="_requirement-11" class="quoteblock">
 <div class="title">Requirement 11</div>
@@ -1284,7 +1284,7 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 <blockquote>
 GeoPackage可以有包含有矢量要素的表或可更新的视图。
 在GeoPackage中，每个这样的要素表或视图都必须有一个INTEGER类型的列，该列的约束必须是<em>PRIMARY KEY AUTOINCREMENT</em>，
-参见 <a href="#example_feature_table_cols">EXAMPLE : Sample Feature Table or View Definition</a>和<a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a> 。
+参见 <a href="#example_feature_table_cols">EXAMPLE : 样本要素表/视图的定义</a>和<a href="#example_feature_table_sql">sample_feature_table Table Definition SQL (Informative)</a> 。
 </blockquote>
 </div>
 <div class="paragraph">
@@ -1300,7 +1300,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <p>非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值可以构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。</p>
 </div>
 <table id="example_feature_table_cols" class="tableblock frame-all grid-all" style="width:100%; ">
-<caption class="title">Table 7. EXAMPLE : Sample Feature Table or View Definition</caption>
+<caption class="title">Table 7. EXAMPLE : 样本要素表/视图的定义</caption>
 <colgroup>
 <col style="width:%;">
 <col style="width:%;">
@@ -1428,8 +1428,8 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="paragraph">
 <p>同一个容器中，GeoPackage可以在不通的数据表或视图中存储多个栅格和瓦片金字塔数据集。
 <span class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</span>
-“Tile pyramid（瓦片金字塔）” 指的是在不同缩放级别下，瓦片表示的是不同空间范围、具备不同分辨率，这种金字塔形结构的概念，以及瓦片数据本身。
-“Tile matrix（瓦片矩阵）” 指的是在指定的缩放级别下，瓦片组成的行和列。这些瓦片在同一缩放级别下表示相同的空间范围、具备相同的分辨率 。
+“Tile pyramid（瓦片金字塔）”的概念中，不同缩放级别下的瓦片表示不同空间范围、具备不同分辨率，“Tile pyramid（瓦片金字塔）”也指瓦片数据本身。
+“Tile matrix（瓦片矩阵）” 指的是某一缩放级别下，瓦片组成的行和列。该缩放级别中的这些瓦片表示相同的空间范围，具有相同的分辨率 。
 “Tile matrix set（瓦片矩阵集合）”指的是瓦片金字塔层次结构的定义。</p>
 </div>
 <div class="paragraph">
