@@ -1,173 +1,173 @@
-== Registered Extensions
+﻿== 已注册的扩展
 
-This clause specifies requirements for GeoPackage extensions.
-Definitions of those extensions in the form specified by the template in <<extension_template>> are provided in Annexes J through P.
+本章节规定了GeoPackage扩展的必要条款。
+这些扩展是基于 <<extension_template>> 中的模板定义的，在附录J-P中可以找到它们的定义。
  
-=== Features
+=== 要素
 
-The extensions defined in the following sub clauses MAY be implemented in a GeoPackage that implements features per clause <<features>>.
+在包含<<features>>章节定义的要素的GeoPackage中，可以实现如下子章节定义的扩展。
 
 [[gpkg_geometry_types_extension]]
-==== GeoPackage Geometry Types Extension
+==== GeoPackage 几何类型扩展
 
-===== Data
+===== 数据
 
-This extension of clause <<sql_geometry_types>> partially described in <<extension_geometry_types>> defines additional geometry types.
+本扩展定义了附加的几何类型，是<<sql_geometry_types>>章节的扩展，在<<extension_geometry_types>>中做了部分描述。
 
-====== Extension Types
-
-[requirement]
-A GeoPackage MAY store feature table geometries with the extended non-linear geometry types (CircularString, CompoundCurve, CurvePolygon, MultiCurve, MultiSurface, Curve, Surface) in <<geometry_types>>.
-If it does so, they SHALL be encoded in the GeoPackageBinary geometry format.
-
-====== Extensions Types - Extensions Name
+====== 扩展类型
 
 [requirement]
-An extension name to specify a feature geometry extension type SHALL be defined for the “gpkg” author name using the “gpkg_geom_<gname>” template where <gname> is the uppercase name of the extension geometry type from <<geometry_types>> used in a GeoPackage.
+在GeoPackage中，几何要素表中的几何类型可以是<<geometry_types>>中所列的扩展非线性的几何类型（CircularString, CompoundCurve, CurvePolygon, MultiCurve, MultiSurface, Curve, Surface）。
+此时，几何对象必须使用GeoPackageBinary几何对象格式进行编码。
 
-====== Extensions Types - Extensions Row
+====== 扩展类型 - 扩展名称
 
 [requirement]
-A GeoPackage that contains a gpkg_geometry_columns table or updateable view with row records that specify extension geometry_type_name column values SHALL contain a gpkg_extensions table that contains row records with table_name and column_name values from the gpkg_geometry_columns row records that identify extension type uses, and extension_name column values for each of those geometry types constructed per clause 3.1.1.1.2.
+定义一个几何要素扩展类型时，扩展名称中的作者名应该是“gpkg”，即使用“gpkg_geom_<gname>”模板，其中<gname>是扩展几何类型，取值为GeoPackage中使用的<<geometry_types>>之一，全大写表示。
+
+====== 扩展类型 - 扩展记录
+
+[requirement]
+在包含 gpkg_geometry_columns 表/可更新视图的GeoPackage中，如果 gpkg_geometry_columns 表包含 geometry_type_name 列值为扩展类型的记录，那么该GeoPackage中也必须包含一个 gpkg_extensions 表，gpkg_extensions 表的部分（全部）记录的table_name 和 column_name 列值应该来自 gpkg_geometry_columns 表，用来标识扩展类型的使用范围，这些记录的extension_name列值应该涵盖 3.1.1.1.2 章节定义的几何类型。
 
 [[gpkg_user_geometry_types_extension]]
-==== User-Defined Geometry Types Extension
+==== 用户自定义几何类型的扩展
 
-===== Data
+===== 数据
 
-This extension of clauses <<gpb_format>>, <<sql_geometry_types>> and <<gpkg_geometry_types_extension>> partially described in <<extension_geometry_encoding>> enables encoding of additional user-defined geometry types in ExtendedGeoPackageBinary format in an Extended GeoPackage.
+本扩展定义了在扩展的GeoPackage中，对用户自定义几何类型使用ExtendedGeoPackageBinary格式进行编码的规范，是对<<gpb_format>>, <<sql_geometry_types>> 和 <<gpkg_geometry_types_extension>> 章节的扩展，在<<extension_geometry_encoding>>中做了部分描述。
 
-====== Extensions Encoding
+====== 编码格式扩展
 
 [requirement]
+ExtendedGeoPackageBinary格式由<<extension_geometry_encoding>>定义，用于对用户自定义几何类型进行编码，该格式不能用来编码如下几何类型：在 <<sql_geometry_types>> 中定义的几何类型、在 <<gpkg_geometry_types_extension>> 中定义的几何类型、以及<<geometry_types>>中所列出的几何类型。
 
-The ExtendedGeoPackageBinary format defined in <<extension_geometry_encoding>> SHALL be used to encode geometry types other than those specified in clauses <<sql_geometry_types>> and <<gpkg_geometry_types_extension>> and listed in <<geometry_types>>.
-
-====== Extensions Encoding - Extensions Name
+====== 编码格式扩展 - 扩展名称
 
 [[user_defined_geometry_ext_name_req]]
 [requirement]
-An extension name to specify a feature geometry extension type encoded in the ExtendedGeoPackageBinary format SHALL be defined for an author name that is NOT “gpkg” using the “<author_name>_geom_<gname> template where <gname> is the uppercase name of an extension geometry type NOT listed in <<geometry_types>> used in a GeoPackage.
+定义一个使用ExtendedGeoPackageBinary格式进行编码的几何对象扩展类型时，扩展名称按照模板“<author_name>_geom_<gname>”定义，其中的作者名(<author_name>)不能为“gpkg”，<gname>是GeoPackage中使用的扩展几何类型的名称，取值不能与<<geometry_types>>列出的相同，且必须全大写。
 
-====== Extensions Encoding - Extensions Row
-
-[requirement]
-An Extended GeoPackage that contains a gpkg_geometry_columns table or updateable view with row records that specify extension geometry_type_name column values other than those specified in clauses <<sql_geometry_types>> and 3.1.1 and listed in <<geometry_types>> SHALL contain a gpkg_extensions table that contains row records with table_name and column_name values from the gpkg_geometry_columns row records that identify extension type uses, and extension_name column values for each of those geometry type constructed per clause 3.1.2.1.2.
-
-====== Geometry Columns Geometry Type Name
+====== 编码格式扩展 - 扩展记录
 
 [requirement]
-The `geometry_type_name` value in a `gpkg_geometry_columns` row SHALL be the <<user_defined_geometry_ext_name_req>> extension name in uppercase.
+在包含 gpkg_geometry_columns 表/可更新视图的扩展GeoPackage中，如果 gpkg_geometry_columns 表包含 geometry_type_name 列值为扩展类型的记录，且这些类型不是在<<sql_geometry_types>> 和 3.1.1定义的类型，也没有包含在<<geometry_types>>中，那么该扩展的GeoPackage中也必须包含一个 gpkg_extensions 表，gpkg_extensions 表的部分（全部）记录的table_name 和 column_name 列值应该来自 gpkg_geometry_columns 表，用来标识扩展类型的使用范围，这些记录的 extension_name 列值应该涵盖 3.1.1.1.2 章节定义的几何类型。
 
-==== RTree Spatial Indexes
+====== 几何对象列的几何类型名称
 
-===== Data
+[requirement]
+`gpkg_geometry_columns`表的记录中，`geometry_type_name`表示扩展名称，它的取值必须符合<<user_defined_geometry_ext_name_req>>的定义，且为全大写形式。
 
-This extension described in <<extension_rtree>> adds a new capability for spatially indexing columns with geometries encoded per clause <<gpb_format>> and <<gpkg_user_geometry_types_extension>>.
+==== R树空间索引
 
-====== Spatial Indexes Implementation
+===== 数据
+
+本扩展增加了一种新的建立空间索引的能力，适用于根据 <<gpb_format>> 和 <<gpkg_user_geometry_types_extension>> 章节存储几何对象的列，在<<extension_rtree>>中做了部分描述。
+
+====== 空间索引的实现
 
 :spatial_indexes_impl_foot1: footnote:[If an application process will make many updates, it is often faster to drop the indexes, do the updates, and then recreate the indexes.]
 
-Spatial indexes provide a significant performance advantage for searches with basic envelope spatial criteria that return subsets of the rows in a feature table with a non-trivial number (thousands or more) of rows.{spatial_indexes_impl_foot1}
+在针对包含海量（几千或更多）记录的要素表进行基本的空间框选搜索，返回要素子集时，空间索引能极大提高搜索性能。{spatial_indexes_impl_foot1}
 
 [requirement]
-A GeoPackage SHALL implement spatial indexes on feature table geometry columns as specified in clause 3.1.3.1.1 using the SQLite Virtual Table RTrees and triggers specified in <<extension_rtree>>.
+按照3.1.3.1.1规定，GeoPackage应该使用<<extension_rtree>>中指定的SQLite Virtual Table RTrees和触发器，来为要素表中的几何对象列建立空间索引。
 
-====== Spatial Indexes - Extensions Name
-
-[requirement]
-The “gpkg_rtree_index” extension name SHALL be used as a gpkg_extensions table extension name column value to specify implementation of spatial indexes on a geometry column.
-
-====== Spatial Indexes - Extensions Row
+====== 空间索引 - 扩展名
 
 [requirement]
-A GeoPackage that implements spatial indexes SHALL have a gpkg_extensions table that contains a row for each spatially indexed column with extension_name “gpkg_rtree_index”, the table_name of the table with a spatially indexed column, and the column_name of the spatially indexed column.
+在gpkg_extensions表中，扩展名为“gpkg_rtree_index”的记录用来指定几何对象列的空间索引实现。
 
-==== Geometry Type Triggers
-
-===== Data
-
-This extension described in <<extension_geometry_type_triggers>> adds a new geometry type triggers capability for columns with geometries encoded per clause <<gpb_format>> and <<gpkg_user_geometry_types_extension>>.
-
-====== Geometry Type Triggers – Implementation
+====== 空间索引 - 扩展记录
 
 [requirement]
-A GeoPackage SHALL include the SQL insert and update triggers specified in <<extension_geometry_type_triggers>> on every geometry column to enforce the geometry type values specified for those columns in the gpkg_geometry_columns table.
+在实现空间索引的GeoPackage中，应该包含一个gpkg_extensions表，且在gpkg_extensions表中，针对每一个建立空间索引的列，都应该有一条extension_name列值为“gpkg_rtree_index”的记录与之对应，该条记录的table_name值对应的表中必须包含一个建立空间索引的列，该条记录的column_name值对应的列必须是一个建立了空间索引的列。
 
-====== Geometry Type Triggers – Extensions Name
+==== 几何类型触发器
 
-[requirement]
-The “gpkg_geometry_type_trigger” extension name SHALL be used as a gpkg_extensions table extension name column value to specify implementation of geometry type triggers.
+===== 数据
 
-====== Geometry Type Triggers – Extensions Row
+本扩展增加了一种新的几何类型触发器（geometry type triggers），适用于根据 <<gpb_format>> 和 <<gpkg_user_geometry_types_extension>> 章节存储几何对象的列，在<<extension_geometry_type_triggers>>中做了部分描述。
 
-[requirement]
-A GeoPackage that implements geometry type triggers on geometry columns SHALL contain a gpkg_extensions table that contains a row for each such geometry column with extension_name “gpkg_geometry_type_trigger”, table_name of the feature table with a geometry column, and column_name of the geometry column.
-
-==== SRS_ID Triggers
-
-===== Data
-
-This extension described in <<extension_geometry_srsid_triggers>> adds a new srs_id triggers capability for columns with geometries encoded per clause <<gpb_format>> and <<gpkg_user_geometry_types_extension>>.
-
-====== SRS_ID Triggers – Implementation
+====== 几何类型触发器 – 实现
 
 [requirement]
-A GeoPackage SHALL include the SQL insert and update triggers specified in <<extension_geometry_srsid_triggers>> on every geometry column to enforce the srs_id values specified for those columns in the `gpkg_geometry_columns` table.
+在GeoPackage中，为确保几何对象列对应的几何类型在gpkg_geometry_columns表中都被指定，针对每个几何对象列都应该包含SQL插入和更新的触发器，触发器由<<extension_geometry_type_triggers>>定义。
 
-====== SRS_ID Triggers – Extensions Name
-
-[requirement]
-The “gpkg_srs_id_trigger” extension name SHALL be used as a gpkg_extensions table extension name column value to specify implementation of SRS_ID triggers specified in <<extension_geometry_srsid_triggers>>.
-
-====== SRS_ID Triggers – Extensions Row
+====== 几何类型触发器 – 扩展名
 
 [requirement]
-A GeoPackage that implements srs_id triggers on feature table geometry columns SHALL contain a gpkg_extensions table that contains a row for each geometry column with extension_name “gpkg_srs_id_trigger”, table_name of the feature table with a geometry column, and column_name of the geometry column.
+在gpkg_extensions表中，扩展名为“gpkg_geometry_type_trigger”的记录用来指定几何类型触发器的实现。
 
-=== Tiles
-
-The extensions defined in the following sub clauses MAY be implemented in a GeoPackage that implements tiles per clause <<tiles>>.
-
-==== Zoom Levels
-
-===== Data
-
-This extension of clause <<zoom_levels>> described in <<extension_zoom_other_intervals>> allows zoom level intervals other than a factor of two.
-
-====== Zoom Other Intervals
-
-Tile pyramid user data tables MAY have pixel sizes that vary by irregular intervals or by regular intervals other than a factor of two (the default) between adjacent zoom levels.
-
-====== Zoom Other – Extensions Name
+====== 几何类型触发器 – 扩展记录
 
 [requirement]
-The “gpkg_zoom_other” extension name SHALL be used as a gpkg_extensions table extension name column value to specify implementation of other zoom intervals on a tile pyramid user data table as specified in <<extension_zoom_other_intervals>>.
+在实现了几何类型触发器的GeoPackage中，应该包含一个gpkg_extensions表，且在gpkg_extensions表中，针对每一个几何类型触发器对应的几何对象列，都应该有一条extension_name列值为“gpkg_geometry_type_trigger”的记录与之对应，该条记录的table_name值对应的要素表中必须包含一个几何对象列，该条记录的column_name值对应的列存储的必须是几何对象。
 
-====== Zoom Other – Extensions Row
+==== SRS_ID 触发器
+
+===== 数据
+针对根据 <<gpb_format>> 和 <<gpkg_user_geometry_types_extension>>进行编码的几何对象列，本扩展对其添加了一个新的 srs_id 触发器，该触发器由<extension_geometry_srsid_triggers>定义。
+
+====== SRS_ID 触发器– 实现
 
 [requirement]
-A GeoPackage that implements other zoom intervals SHALL have a gpkg_extensions table that contains a row for each tile pyramid user data table with other zoom intervals with extension_name “gpkg_zoom_other”, the table_name of the table with other zoom intervals, and the “tile_data” column_name.
+
+在GeoPackage 的每个几何列上应该包括在 <<extension_geometry_srsid_triggers>>中指定的SQL 插入和更新的触发器，用于同步`gpkg_geometry_columns` 表中对应列的srs_id值。
+
+====== SRS_ID 触发器 – 扩展名
+
+[requirement]
+
+在gpkg_extensions表中，扩展名为“gpkg_srs_id_trigger” 的记录用来指定SRS_ID触发器的实现。该值是在<extension_geometry_srsid_triggers>中进行指定的。 
+
+====== SRS_ID 触发器 – 扩展记录
+
+[requirement]
+
+如果GeoPackage实现了要素表几何列的srs_id触发器，那么就应该包含一个gpkg_extensions 扩展表，该扩展表中针对每一个要素几何列的触发器对应的几何对象列，都应该有一条extension_name列值为“gpkg_srs_id_trigger”的记录与之对应，该条记录的table_name值对应的要素表中必须包含一个几何对象列，该条记录的column_name值对应的列存储的必须是几何对象。
+
+=== 瓦片
+
+下面子句中定义的扩展，可能在实现了每个<tiles>句子的GeoPackage 中被实现。
+
+==== 缩放级别
+
+===== 数据
+
+在<<extension_zoom_other_intervals>>中描述的<<zoom_levels>>句子扩展，允许多级缩放。
+
+====== 其他缩放间隔
+在相邻级别缩放时，瓦片金字塔数据表中的像素大小可能按不规则的间隔变化，也可能按非2倍缩放（默认）的规则间隔变化
+
+======其他缩放 – 扩展名
+
+[requirement]
+在gpkg_extensions表中，扩展名为“gpkg_zoom_other”的记录是用来实现多级缩放。其缩放级别在<< extension_zoom_other_intervals>>金字塔用户数据表中指定。
+
+====== 其他缩放 – 扩展记录
+
+[requirement]
+实现多级缩放的GeoPackage应包含一个扩展表gpkg_extensions，该扩展表中针对每一个多级缩放列对应的多级缩放对象列，都应该有一条extension_name列值为"gpkg_zoom_other"的记录与之对应，该条记录的table_name值对应的要素表中必须包含一个多级缩放对象列，该条记录的column_name值对应的列存储的必须由多级缩放对象构成的瓦片金字塔用户数据。
 
 [[tile_enc_webp]]
-==== Tile Encoding WEBP
+==== WEBP瓦片编码格式
 
-===== Data
+===== 数据
 
-This extension of clauses <<tile_enc_png>> and <<tile_enc_jpeg>> described in <<extension_tiles_webp>> allows encoding of tile images in WebP format.
+此条款扩展了<<tile_enc_png>> 和 <<tile_enc_jpeg>>，允许瓦片图像以 WebP 格式进行编码，该扩展在<<extension_tiles_webp>> 中进行了描述
 
-===== WEBP MIME Type
+===== WEBP MIME 类型
 
-A GeoPackage that contains a tile pyramid user data table that contains tile data MAY store tile_data in MIME type image/x-webp <<22>>.
+在包含瓦片金字塔用户数据表的GeoPackage中，tile_data存储的瓦片数据可以是image/x-web <<22>>MIME类型。
 
-====== WEBP -- Extensions Name
 
-[requirement]
-The "gpkg_webp" extension name SHALL be used as a gpkg_extensions table extension name column value to specify storage of tile pyramid images in WEBP format as specified in <<extension_tiles_webp>>.
-
-====== WEBP -- Extensions Row
+====== WEBP -- 扩展名
 
 [requirement]
-A GeoPackage that contains tile pyramid user data tables with tile_data columns that contain images in WEBP format SHALL contain a gpkg_extensions table that contains row records with table_name values for each such table, “tile_data” column_name values and extension_name column values of “gpkg_webp”.
+在gpkg_extensions表中，扩展名为"gpkg_webp" 的记录用来指定瓦片金字塔影像的存储格式为WEBP格式，WEBP格式由<<extension_tiles_webp>>定义。
 
+====== WEBP -- 扩展记录
+
+[requirement]
+在包含瓦片金字塔数据表的GeoPackage中，如果数据表的title_data列存储的影像为WEBP格式，那么该GeoPackage应该包含一个 gpkg_extensions 表，针对上述的瓦片金字塔数据表，都应该能通过table_name在gpkg_extensions 表中找到对应的记录，并且这些记录的column_name列值应该为“tile_data”，extension_name列值应该为“gpkg_webp”。
