@@ -1,6 +1,6 @@
 [[metadata_example_appendix]]
 [appendix]
-== Hierarchical Metadata Example (Informative)
+== 分层元数据的示例 (资料性的)
 
 The first example use case is from ISO19115 H.2.
 Suppose we have this metadata:

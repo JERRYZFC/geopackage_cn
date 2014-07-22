@@ -1,6 +1,6 @@
 [[extension_geometry_encoding]]
 [appendix]
-== User-Defined Geometry Types Encoding Extension Template (Normative)
+== 用户自定义的几何类型编码扩展的模板 (规范性的)
 
 [float]
 === Extension Title

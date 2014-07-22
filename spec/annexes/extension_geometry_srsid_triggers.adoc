@@ -1,6 +1,6 @@
 [[extension_geometry_srsid_triggers]]
 [appendix]
-== Geometry SRS ID Triggers Extension (Normative)
+== 几何对象 SRS ID 触发器扩展 (规范性的)
 
 [float]
 === Extension Title

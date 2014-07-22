@@ -1,6 +1,6 @@
 [[extension_template]]
 [appendix]
-== GeoPackage Extension Template (Normative)
+== GeoPackage 扩展的模板 (规范性的)
 
 [float]
 === Extension Title

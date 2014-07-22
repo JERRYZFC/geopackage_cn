@@ -1,5 +1,5 @@
 [appendix]
-== Trigger Definition SQL (Informative)
+== 触发器(Trigger)的SQL定义 (资料性的)
 
 === gpkg_tile_matrix
 

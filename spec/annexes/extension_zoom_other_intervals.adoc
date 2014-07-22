@@ -1,6 +1,6 @@
 [[extension_zoom_other_intervals]]
 [appendix]
-== Zoom Other Intervals Extension (Normative)
+== 其他缩放间隔扩展 (规范性的)
 
 [float]
 === Extension Title

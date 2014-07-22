@@ -1,5 +1,5 @@
 [appendix]
-== Normative References (Normative)
+== 参考标准 (规范性的)
 
 The following normative documents contain provisions which, through reference in this text, constitute provisions of OGC 12-128.
 For dated references, subsequent amendments to, or revisions of, any of these publications do not apply.

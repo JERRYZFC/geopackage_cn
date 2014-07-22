@@ -1,6 +1,6 @@
 [[tiles_factor2_example_appendix]]
 [appendix]
-== Tiles Zoom Times Two Example (Informative)
+== 瓦片两倍缩放示例 (资料性的)
 
 .Zoom Times Two Example
 [cols=",,,,,",options="header"]

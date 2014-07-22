@@ -1,6 +1,6 @@
 [[table_definition_sql]]
 [appendix]
-== Table Definition SQL (Normative)
+== 表的SQL定义 (规范性的)
 
 === gpkg_spatial_ref_sys
 

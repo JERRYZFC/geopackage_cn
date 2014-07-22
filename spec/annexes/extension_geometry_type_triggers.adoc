@@ -1,6 +1,6 @@
 [[extension_geometry_type_triggers]]
 [appendix]
-== Geometry Type Triggers Extension (Normative)
+== 几何类型触发器扩展 (规范性的)
 
 [float]
 === Extension Title

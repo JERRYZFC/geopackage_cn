@@ -1,6 +1,6 @@
 [[extension_rtree]]
 [appendix]
-== RTree Spatial Index Extension (Normative)
+== R树空间索引扩展 (规范性的)
 
 [float]
 === Extension Title

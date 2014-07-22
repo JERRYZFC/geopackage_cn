@@ -1,8 +1,8 @@
 [appendix]
 [[background_and_context]]
-== Background and Context (Normative)
+== 背景说明 (规范性的)
 
-=== Background
+=== 背景
 
 An open standard non-proprietary platform-independent GeoPackage container for distribution and direct use of all kinds of geospatial data will increase the cross-platform interoperability of geospatial applications and web services. Standard APIs for access and management of GeoPackage data will provide consistent query and update results across such applications and services. Increased interoperability and result consistency will enlarge the potential market for such  applications and services, particularly in resource-constrained mobile computing environments like cell phones and tablets. GeoPackages will become the standard containers for "MyGeoData" that are used as a transfer format by users and Geospatial Web Services and a storage format on personal and enterprise devices.
 
@@ -18,7 +18,7 @@ Conformance classes for this specification are classified as core (mandatory) an
 
 Future versions of this specification willmay include requirements for elevation data and routes. Future enhancements to this specification, a future GeoPackage Web Service specification, and modifications to existing OGC Web Service (OWS) specifications to use GeoPackages as exchange formats willmay allow OWS to support provisioning of GeoPackages throughout an enterprise or information community.
 
-=== Document terms and definitions
+=== 术语和定义
 
 This document uses the standard terms defined in Subclause 5.3 of [OGC 06-121], which is based on the ISO/IEC Directives, Part 2. Rules for the structure and drafting of International Standards. In particular, the word "shall" (not "must") is the verb form used to indicate a requirement to be strictly followed to conform to this standard.
 
@@ -44,9 +44,9 @@ orthorectified::
 Valid GeoPackage::
     A GeoPackage that contains features per clause <<_features>> and/or tiles per clause <<tiles>> and row(s) in the `gpkg_contents` table with `data_type` column values of "features" and/or "tiles" describing the user data tables.
 
-=== Conventions
+=== 约定
 
-Symbols (and abbreviated terms)
+代号 (以及术语缩写)
 
 [terms]
 ACID::
@@ -114,7 +114,7 @@ XML::
 3D::
       Three Dimensional
 
-=== Submitting Organizations (Informative)
+=== 提交组织 (资料性的)
 
 The following organizations submitted this Encoding Standard to the Open Geospatial Consortium Inc. as a
 Request For Comment (RFC).
@@ -126,7 +126,7 @@ Request For Comment (RFC).
 * U.S. Army Geospatial Center
 * U.S. National Geospatial Intelligence Agency
 
-=== Document contributor contact points (Informative)
+=== 文档贡献者及联系方式 (资料性的)
 
 All questions regarding this document should be directed to the editor or the contributors:
 
@@ -175,7 +175,7 @@ All questions regarding this document should be directed to the editor or the co
 |Eric Zimmerman |U.S. Army Geospatial Center ERDC |Eric.Zimmerman<at>usace.army.mil
 |=======================================================================
 
-=== Revision History (Informative)
+=== 版本历史 (资料性的)
 
 .Revision History
 [cols="2,1,2,2,5a",options="header",]
@@ -453,15 +453,15 @@ Annex B |Add Extended GeoPackage definition
 |2014-01-28| R10| Paul Daisey| 1.1.3.1.1, 2.4.3.1.1, Annex C, Annex H| strftime('%Y-%m-%dT%H:%M:%fZ', CURRENT_TIMESTAMP) changed to strftime('%Y-%m-%dT%H:%M:%fZ','now')
 |=======================================================================
 
-=== Changes to the OGC® Abstract Specification
+=== OGC® 抽象规范的变更
 
 The OGC® Abstract Specification does not require changes to accommodate this OGC® standard.
 
-=== Changes to OGC® Implementation Standards
+=== OGC® 执行标准的变更
 
 None at present.
 
-=== Potential Future Work (Informative)
+=== 潜在的未来工作 (资料性的)
 
 * MAY investigate GeoPackage implementation on SQLite version 4 <<B25>>.
 * Future versions of this specification MAY include requirements for elevation data and routes.
@@ -477,7 +477,7 @@ None at present.
 * MAY create a GeoPackage Abstract Object Model to support data encodings other than SQL in a future version of this specification.
 * MAY add https://github.com/mapbox/utfgrid-spec[UTFGrid] support in a future version of this specification
 
-=== UML Notation
+=== UML 标记
 
 The diagrams that appear in this standard are presented using the Unified Modeling Language (UML) <<B14>> static structure diagrams.
 The UML notations used in this standard for RDBMS tables in a GeoPackage are described in <<uml_notation_rdbms>> below.
@@ -501,17 +501,17 @@ d. TEXT – A sequence of characters, stored using the database encoding (UTF-8,
 e. BLOB – The value is a blob of data, stored exactly as it was input.
 f. NONE – The value is a Date / Time Timestamp
 
-=== GeoPackage Tables Detailed Diagram
+=== GeoPackage 表的详细图解
 
 .GeoPackage Tables Details
 image::geopackage-uml.png[]
 
-=== GeoPackage Minimal Tables for Features Diagram
+=== 几何要素相关的最少GeoPackage表图解
 
 .GeoPackage Minimal Tables for Features
 image::geopackage-features.png[]
 
-=== GeoPackage Minimal Tables for Tiles Diagram
+=== 瓦片相关的最少GeoPackage表图解
 
 .GeoPackage Minimal Tables for Tiles
 image::geopackage-tiles.png[]

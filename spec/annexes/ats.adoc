@@ -1,14 +1,14 @@
 [appendix]
 [[abstract_test_suite]]
-== Conformance / Abstract Test Suite (Normative)
+== 一致性 / 抽象测试集 (规范性的)
 
-=== Base
+=== 基础
 
-==== Core
+==== 核心
 
-===== SQLite Container
+===== SQLite 容器
 
-====== Data
+====== 数据
 
 *File Format*
 
@@ -134,8 +134,8 @@
 |*Test Type* |Basic
 |========================================
 
-===== Spatial Reference Systems
-====== Data
+===== 空间参考系统
+====== 数据
 *Table Definition*
 
 [cols="1,5a"]
@@ -186,8 +186,8 @@
 |*Test Type* |Capability
 |========================================
 
-===== Contents 
-====== Data
+===== 内容 
+====== 数据
 *Table Definition*
 
 [cols="1,5a"]
@@ -245,7 +245,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-=== Options
+=== 可选项
 
 [cols="1,5a"]
 |========================================
@@ -261,13 +261,13 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-==== Features
+==== 要素
 
-===== Simple Features SQL Introduction
+===== 简单要素的SQL介绍
 
-===== Contents
+===== 内容
 
-====== Data
+====== 数据
 
 *Contents Table Feature Row*
 
@@ -281,9 +281,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-===== Geometry Encoding
+===== 几何对象编码
 
-====== Data
+====== 数据
 
 *BLOB Format*
 
@@ -307,9 +307,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-===== SQL Geometry Types
+===== SQL几何类型
 
-====== Data
+====== 数据
 
 *Core Types*
 
@@ -351,9 +351,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-===== Geometry Columns
+===== 几何要素列
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -464,9 +464,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-===== Vector Features User Data Tables
+===== 矢量要素数据表
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -536,11 +536,11 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-==== Tiles
+==== 瓦片
 
-===== Contents
+===== 内容
 
-====== Data
+====== 数据
 
 *Contents Table – Tiles Row*
 
@@ -561,9 +561,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 |*Test Type* |Capability
 |========================================
 
-===== Zoom Levels
+===== 缩放级别
 
-====== Data
+====== 数据
 
 *Zoom Times Two*
 
@@ -589,9 +589,9 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Tile Encoding PNG
-====== Data
-*MIME Type PNG*
+===== PNG瓦片编码格式
+====== 数据
+*PNG MIME类型*
 
 [cols="1,5a"]
 |========================================
@@ -614,11 +614,11 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Tile Encoding JPEG
+===== JPEG瓦片编码格式
 
-====== Data
+====== 数据
 
-*MIME Type JPEG*
+*JPEG MIME类型*
 
 [cols="1,5a"]
 |========================================
@@ -641,9 +641,9 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Tile Matrix Set
+===== 瓦片矩阵集
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -702,8 +702,8 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Tile Matrix 
-====== Data
+===== 瓦片矩阵 
+====== 数据
 *Table Definition*
 
 [cols="1,5a"]
@@ -866,9 +866,9 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Tile Pyramid User Data
+===== 瓦片金字塔数据表
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -947,9 +947,9 @@ END;
 
 ==== Schema
 
-===== Data Columns
+===== 数据列
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -1014,9 +1014,9 @@ END;
 |*Test Type* |Capability
 |========================================
 
-===== Data Column Constraints
+===== 数据列约束
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -1140,11 +1140,11 @@ END;
 |*Test Type* |Capability
 |========================================
 
-==== Metadata
+==== 元数据
 
-===== Metadata Table
+===== 元数据表
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -1177,9 +1177,9 @@ END;
 |*Test Type:* |Capabilities
 |========================================
 
-===== Metadata Reference Table
+===== 元数据参考表
 
-====== Data
+====== 数据
 
 *Table Definition*
 
@@ -1434,13 +1434,13 @@ END;
 |*Test Type* |Capability
 |========================================
 
-=== Registered Extensions
+=== 已注册的扩展
 
-==== Features
+==== 要素
 
-===== Geometry Types
+===== 几何对象类型
 
-====== Data
+====== 数据
 
 *GeoPackage Extension Types*
 
@@ -1519,9 +1519,9 @@ viii. Otherwise log pass
 |*Test Type* |Capability
 |========================================
 
-===== User-Defined Geometry Types
+===== 用户自定义的几何类型
 
-====== Data
+====== 数据
 *Extensions Encoding*
 
 [cols="1,5a"]
@@ -1596,8 +1596,8 @@ viii. Otherwise log pass
 |*Test Type* |Capability
 |========================================
 
-===== Spatial Indexes
-====== Data
+===== 空间索引
+====== 数据
 *Spatial Indexes Implementation*
 
 [cols="1,5a"]
@@ -1747,8 +1747,8 @@ viii. Otherwise log pass
 |*Test Type* |Capability
 |========================================
 
-===== SRS_ID Triggers
-====== Data
+===== SRS_ID 触发器
+====== 数据
 *SRS_ID Triggers – Implementation*
 
 [cols="1,5a"]
@@ -1816,9 +1816,9 @@ viii. Otherwise log pass
 |*Test Type* |Capability
 |========================================
 
-==== Tiles
-===== Zoom Levels
-====== Data
+==== 瓦片
+===== 缩放级别
+====== 数据
 *Zoom Other Intervals—Extensions Name*
 
 [cols="1,5a"]
@@ -1855,8 +1855,8 @@ viii. Otherwise log pass
 |*Test Type:* |Capability
 |========================================
 
-===== Tile Encoding WEBP
-====== Data
+===== WEBP瓦片编码格式
+====== 数据
 *WEBP – Extensions Name*
 
 [cols="1,5a"]

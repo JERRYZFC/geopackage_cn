@@ -1,5 +1,5 @@
 [appendix]
-== Bibliography (Informative)
+== 参考资料 (资料性的)
 
 [bibliography]
 - [[[B1]]] http://developer.android.com/guide/topics/data/data-storage.html#db 

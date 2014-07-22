@@ -1,6 +1,6 @@
 [[extension_geometry_types]]
 [appendix]
-== GeoPackage Geometry Types Extension Template (Normative)
+== GeoPackage 几何类型扩展的模板 (规范性的)
 
 [float]
 === Extension Title
