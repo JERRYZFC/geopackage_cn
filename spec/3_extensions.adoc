@@ -1,4 +1,5 @@
-﻿== 已注册的扩展
+[[registered_extensions]]
+== 已注册的扩展
 
 本章节规定了GeoPackage扩展的必要条款。
 这些扩展是基于 <<extension_template>> 中的模板定义的，在附录J-P中可以找到它们的定义。
@@ -140,7 +141,7 @@ ExtendedGeoPackageBinary格式由<<extension_geometry_encoding>>定义，用于�
 ====== 其他缩放间隔
 在相邻级别缩放时，瓦片金字塔数据表中的像素大小可能按不规则的间隔变化，也可能按非2倍缩放（默认）的规则间隔变化
 
-======其他缩放 – 扩展名
+====== 其他缩放 – 扩展名
 
 [requirement]
 在gpkg_extensions表中，扩展名为“gpkg_zoom_other”的记录是用来实现多级缩放。其缩放级别在<< extension_zoom_other_intervals>>金字塔用户数据表中指定。
