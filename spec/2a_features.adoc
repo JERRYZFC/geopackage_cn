@@ -225,7 +225,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值可以构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。
 
 [[example_feature_table_cols]]
-.EXAMPLE : Sample Feature Table or View Definition
+.EXAMPLE : 样本要素表/视图的定义
 [cols=",,,,,",options="header"]
 |=======================================================================
 |Column Name |Type |Description |Null |Default |Key

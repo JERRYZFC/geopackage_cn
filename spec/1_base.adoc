@@ -141,7 +141,7 @@ GeoPackage应该包含一个`gpkg_spatial_ref_sys`表，`gpkg_spatial_ref_sys`�
 
 ====== 表数据的取值
 
-表gpkg_spatial_ref_sys中，表示WKT值的列应该定义几何要素和栅格瓦片所使用的空间坐标系（SRS），当SRS未知时表示为 undefined（参见<<_requirement-11>>）。WKT的值应该由<<32>> 条款7中指定的EBNF syntax构成，应该包含可选的<authority> EBNF entities，非WGS-84的WKT值应该包含可选的 <to wgs84> EBNF entities。WKT值可能会省略可选的 <to wgs84> 和 <twin axes>  EBNF entities。任何指定的<authority>中（比如<<13>><<14>>），都可能获取到EBNF的名称和数值。例如，通过<<spatial_ref_sys_data_values_default>>测试方法的第(3)步的返回值，就可以测试WGS-84的定义，WGS-84的定义参见<<_requirement-11>>：
+表gpkg_spatial_ref_sys中，表示WKT值的列应该定义几何要素和栅格瓦片所使用的空间坐标系（SRS），当SRS未知时表示为 undefined（参见<<_requirement-11>>）。WKT的值应该由<<32>> 条款7中指定的EBNF（扩展的BN范式）语句构成，应该包含可选的<authority> EBNF 实体，非WGS-84的WKT值应该包含可选的 <to wgs84> EBNF 实体。WKT值可以省略可选的 <to wgs84> 和 <twin axes> EBNF 实体。从任何具体的<authority>（比如<<13>><<14>>），都可以获取EBNF的名称和数值。例如，通过<<spatial_ref_sys_data_values_default>>测试方法的第(3)步的返回值，就可以测试WGS-84的定义，WGS-84的定义参见<<_requirement-11>>：
 
 [requirement]
 GeoPackage中的表`gpkg_spatial_ref_sys`应该包含至少3条记录，一条记录表示 http://www.google.com/search?as_q=WGS-84[WGS-84] <<15>>坐标系，该记录的organization为http://www.epsg.org/Geodetic.html[EPSG] 或 epsg <<B3>>，`organization_coordsys_id` 为 http://www.epsg-registry.org/report.htm?type=selection&entity=urn:ogc:def:crs:EPSG::4326&reportDetail=long&title=WGS%2084&style=urn:uuid:report-style:default-with-code&style_name=OGP%20Default%20With%20Code[4326] <<13>><<14>>；一条记录表示未定义的笛卡尔坐标系，该记录的`srs_id`值为-1，`organization`值为“NONE”，`organization_coordsys_id`值为-1，`definition`值为“undefined”；一条记录表示未定义的地理坐标系，该记录的`srs_id`值为0，`organization`值为“NONE”，`organization_coordsys_id`值为0，`definition`值为“undefined”
