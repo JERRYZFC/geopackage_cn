@@ -461,6 +461,7 @@ The OGC® Abstract Specification does not require changes to accommodate this OG
 
 None at present.
 
+[[potential_future_work]]
 === 潜在的未来工作 (资料性的)
 
 * MAY investigate GeoPackage implementation on SQLite version 4 <<B25>>.

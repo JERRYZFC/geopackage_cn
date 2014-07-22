@@ -13,13 +13,13 @@ OGC®  编码标准定义了用于数据交换的GeoPackage协议，定义了Geo
 
 *扩展的GeoPackage*在*GeoPackage*基础上包含了额外的数据要素（表或列）或SQL结构（数据类型、方法、索引、约束或触发器），这些额外的数据要素或SQL结构在本编码规范中没有指定。
 
-*GeoPackage* 可能为“空”（矢量要素和/或瓦片矩阵金字塔对应的数据表中没有记录），也可能包含一个或多个矢量要素类型的记录，以及一个或多个瓦片金字塔（tile matrix pyramid）类型的影像瓦片。GeoPackage元数据能够描述GeoPackage的数据内容，以及确定同步外部数据时的源和目标。
+*GeoPackage* 可能为“空”（矢量要素和(或)瓦片矩阵金字塔对应的数据表中没有记录），也可能包含一个或多个矢量要素类型的记录，以及一个或多个瓦片金字塔（tile matrix pyramid）类型的影像瓦片。GeoPackage元数据能够描述GeoPackage的数据内容，以及确定同步外部数据时的源和目标。
 GeoPackage可能包含几何要素的空间索引，以及用于维护索引、确保内容约束的SQL触发器（triggers）。
 
 *Geopackage SQLite配置项*由SQLite 3软件库和一组编译和运行时的配置项组成。
 
-*Geopackage SQLite 扩展*是一个支持SQLite加载的扩展项，可能提供SQL功能<<12>> 以支持支持空间索引和SQL触发器，SQL触发器与确定配置需求的SQLite库关联，为访问GeoPackage文件提供SQL API<<1>> <<2>> <<3>> <<4>>。
-本标准不解决<<background_and_context>>中<<_potential_future_work>>条款的问题，它们可能在本规范的后续版本或其他规范中解决。
+*Geopackage SQLite 扩展*是一个支持SQLite加载的扩展项，可能提供SQL功能<<12>> 以支持空间索引和SQL触发器，SQL触发器与确定配置需求的SQLite库关联，为访问GeoPackage文件提供SQL API<<1>> <<2>> <<3>> <<4>>。
+本标准不解决<<background_and_context>>中<<potential_future_work>>条款的问题，它们可能在本规范的后续版本或其他规范中解决。
 
 
 [[geopackage_tables_figure]]
