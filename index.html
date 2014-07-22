@@ -253,7 +253,7 @@ Document language: 	English<br></p>
 <li><a href="#__149">B.6. 版本历史 (资料性的)</a></li>
 <li><a href="#_ogc">B.7. OGC® 抽象规范的变更</a></li>
 <li><a href="#_ogc_2">B.8. OGC® 执行标准的变更</a></li>
-<li><a href="#__150">B.9. 潜在的未来工作 (资料性的)</a></li>
+<li><a href="#potential_future_work">B.9. 潜在的未来工作 (资料性的)</a></li>
 <li><a href="#_uml">B.10. UML 标记</a></li>
 <li><a href="#_geopackage">B.11. GeoPackage 表的详细图解</a></li>
 <li><a href="#__geopackage">B.12. 几何要素相关的最少GeoPackage表图解</a></li>
@@ -299,8 +299,8 @@ Document language: 	English<br></p>
 <li><a href="#extension_geometry_srsid_triggers"> Annex N: 几何对象 SRS ID 触发器扩展 (规范性的)</a></li>
 <li><a href="#extension_zoom_other_intervals"> Annex O: 其他缩放间隔扩展 (规范性的)</a></li>
 <li><a href="#extension_tiles_webp"> Annex P: WEBP瓦片编码格式扩展 (规范性的)</a></li>
-<li><a href="#__151"> Annex Q: 参考标准 (规范性的)</a></li>
-<li><a href="#__152"> Annex R: 参考资料 (资料性的)</a></li>
+<li><a href="#__150"> Annex Q: 参考标准 (规范性的)</a></li>
+<li><a href="#__151"> Annex R: 参考资料 (资料性的)</a></li>
 </ul>
 </li>
 </ul>
@@ -329,15 +329,15 @@ Document language: 	English<br></p>
 <p><strong>扩展的GeoPackage</strong>在<strong>GeoPackage</strong>基础上包含了额外的数据要素（表或列）或SQL结构（数据类型、方法、索引、约束或触发器），这些额外的数据要素或SQL结构在本编码规范中没有指定。</p>
 </div>
 <div class="paragraph">
-<p><strong>GeoPackage</strong> 可能为“空”（矢量要素和/或瓦片矩阵金字塔对应的数据表中没有记录），也可能包含一个或多个矢量要素类型的记录，以及一个或多个瓦片金字塔（tile matrix pyramid）类型的影像瓦片。GeoPackage元数据能够描述GeoPackage的数据内容，以及确定同步外部数据时的源和目标。
+<p><strong>GeoPackage</strong> 可能为“空”（矢量要素和(或)瓦片矩阵金字塔对应的数据表中没有记录），也可能包含一个或多个矢量要素类型的记录，以及一个或多个瓦片金字塔（tile matrix pyramid）类型的影像瓦片。GeoPackage元数据能够描述GeoPackage的数据内容，以及确定同步外部数据时的源和目标。
 GeoPackage可能包含几何要素的空间索引，以及用于维护索引、确保内容约束的SQL触发器（triggers）。</p>
 </div>
 <div class="paragraph">
 <p><strong>Geopackage SQLite配置项</strong>由SQLite 3软件库和一组编译和运行时的配置项组成。</p>
 </div>
 <div class="paragraph">
-<p><strong>Geopackage SQLite 扩展</strong>是一个支持SQLite加载的扩展项，可能提供SQL功能<a href="#12">[12]</a> 以支持支持空间索引和SQL触发器，SQL触发器与确定配置需求的SQLite库关联，为访问GeoPackage文件提供SQL API<a href="#1">[1]</a> <a href="#2">[2]</a> <a href="#3">[3]</a> <a href="#4">[4]</a>。
-本标准不解决<a href="#background_and_context">背景说明 (规范性的)</a>中<a href="#_potential_future_work">[_potential_future_work]</a>条款的问题，它们可能在本规范的后续版本或其他规范中解决。</p>
+<p><strong>Geopackage SQLite 扩展</strong>是一个支持SQLite加载的扩展项，可能提供SQL功能<a href="#12">[12]</a> 以支持空间索引和SQL触发器，SQL触发器与确定配置需求的SQLite库关联，为访问GeoPackage文件提供SQL API<a href="#1">[1]</a> <a href="#2">[2]</a> <a href="#3">[3]</a> <a href="#4">[4]</a>。
+本标准不解决<a href="#background_and_context">背景说明 (规范性的)</a>中<a href="#potential_future_work">潜在的未来工作 (资料性的)</a>条款的问题，它们可能在本规范的后续版本或其他规范中解决。</p>
 </div>
 <div id="geopackage_tables_figure" class="imageblock">
 <div class="content">
@@ -1454,12 +1454,12 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="zoom_levels">2.2.3. 缩放级别</h4>
 <div class="paragraph">
-<p>在GeoPackage中,瓦片矩阵集中有不同级别的瓦片矩阵图层， 缩放级别是指与瓦片矩阵图层相对应的从0到n的有序整形数字，用于标识不同的瓦片矩阵图层。随着缩放级别的递增，每个瓦片所代表的实际空间范围会变小，空间分辨率却会越高，图像也会更加清晰。
-相邻缩放级别间递增或递减，值相差1。像素大小是一个真实数字，单位为瓦片图像空间参考系的地形单位，这个真实数字规定了一个像素所代表的现实世界区域大小。
-在一个瓦片矩阵集中，影响某些或所有相邻的缩放级别之间像素大小的因素包括：固定倍率、不同倍率或倍率间隔数。
-在使用最普遍的“两倍缩放（zoom times two）”惯例中，所有相邻缩放级别的像素大小相差2倍，如下面<a href="#tiles_factor2_example_appendix">瓦片两倍缩放示例 (资料性的)</a> 中所展示的那样。
-“多倍缩放（ zoom other intervals ）”惯例中，使用不同的倍率或不规则间隔得到的像素大小，是为了栅格数据直观的图像显示或为了与全球通用的图像产品的原始坐标大小保持一致 。
-参见 WMTS <a href="#16">[16]</a> Annex E，这是两种惯例的另外示例 。</p>
+<p>在GeoPackage中,瓦片矩阵集中有不同级别的瓦片矩阵图层，缩放级别是指与瓦片矩阵图层相对应的从0到n的有序整形数字，用于标识不同的瓦片矩阵图层。随着缩放级别的递增，每个瓦片所代表的实际空间范围会变小，空间分辨率却会越高，图像也会更加清晰。
+相邻缩放级别间递增或递减，值相差1。像素大小是一个真实数字，单位为瓦片图像空间参考系的地形单位，这个数字规定了一个像素所代表的现实世界区域大小。
+在瓦片矩阵集的相邻的缩放级别间，像素大小可以按照固定倍率、不同倍率或间隔变化
+在常用的“两倍缩放（zoom times two）”惯例中，所有相邻缩放级别的像素大小相差2倍，如下面<a href="#tiles_factor2_example_appendix">瓦片两倍缩放示例 (资料性的)</a> 中所展示的那样。
+而在“其他缩放间隔（zoom other intervals）”惯例中，为了栅格数据直观的图像显示、以及与常用的全球影像产品中的原始像素大小保持一致，像素大小会按照不同倍率或不规则的间隔进行变化。
+参见 WMTS <a href="#16">[16]</a> Annex E，这是两种惯例的附加示例。</p>
 </div>
 <div class="sect4">
 <h5 id="__36">2.2.3.1. 数据</h5>
@@ -12796,7 +12796,7 @@ Annex B</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="__150">B.9. 潜在的未来工作 (资料性的)</h3>
+<h3 id="potential_future_work">B.9. 潜在的未来工作 (资料性的)</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -15639,7 +15639,7 @@ This extension allows the use of <code>image/x-webp</code> as an additional enco
 </div>
 </div>
 <div class="sect1">
-<h2 id="__151"> Annex Q: 参考标准 (规范性的)</h2>
+<h2 id="__150"> Annex Q: 参考标准 (规范性的)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following normative documents contain provisions which, through reference in this text, constitute provisions of OGC 12-128.
@@ -15750,7 +15750,7 @@ For undated references, the latest edition of the normative document referred to
 </div>
 </div>
 <div class="sect1">
-<h2 id="__152"> Annex R: 参考资料 (资料性的)</h2>
+<h2 id="__151"> Annex R: 参考资料 (资料性的)</h2>
 <div class="sectionbody">
 <div class="ulist bibliography">
 <ul class="bibliography">
