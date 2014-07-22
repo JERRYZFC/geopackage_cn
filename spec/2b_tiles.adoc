@@ -30,7 +30,7 @@ GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现�
  `gpkg_contents` 表必须对于每个瓦片金字塔用户数据表或视图 都对应包含一条记录， 这条记录中要包含 名为`data_type` 列，且列值为 “tiles”.
 
 [[zoom_levels]]
-==== Zoom Levels
+==== 缩放级别
 
 在GeoPackage中,瓦片矩阵集中有不同级别的瓦片矩阵图层， 缩放级别是指与瓦片矩阵图层相对应的从0到n的有序整形数字，用于标识不同的瓦片矩阵图层。随着缩放级别的递增，每个瓦片所代表的实际空间范围会变小，空间分辨率却会越高，图像也会更加清晰。
 相邻缩放级别间递增或递减，值相差1。像素大小是一个真实数字，单位为瓦片图像空间参考系的地形单位，这个真实数字规定了一个像素所代表的现实世界区域大小。
@@ -47,11 +47,11 @@ GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现�
 在一个有瓦片金字塔的GeoPackage中，默认情况下{zoom_times_two_foot1}，瓦片矩阵表中相邻缩放级别的像素大小相差2倍。
 
 [[tile_enc_png]]
-==== Tile Encoding PNG
+==== PNG瓦片编码格式
 
 ===== 数据
 
-====== MIME Type PNG
+====== PNG MIME类型
 
 :png_req_foot1: footnote:[See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.]
 [requirement]
@@ -60,17 +60,17 @@ GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现�
 
 
 [[tile_enc_jpeg]]
-==== Tile Encoding JPEG
+==== JPEG瓦片编码格式
 
 ===== 数据
 
-====== MIME Type JPEG
+====== JPEG MIME类型
 
 :jpg_req_foot1: footnote:[See Clause 3.2.2 regarding use of the WebP alternative tile MIME type as a registered extension.]
 [requirement]
 在GeoPackage中，瓦片金字塔数据表中的瓦片数据如果不是 http://www.iana.org/assignments/media-types/index.html[MIME type] http://libpng.org/pub/png/[image/png] <<20>><<21>>类型，那么默认就是 http://www.ietf.org/rfc/rfc2046.txt[MIME type] http://www.jpeg.org/public/jfif.pdf[image/jpeg] <<17>><<18>><<19>>类型。{jpg_req_foot1}
 
-==== 瓦片矩阵集合
+==== 瓦片矩阵集
 
 ===== 数据
 

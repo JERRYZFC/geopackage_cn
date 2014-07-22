@@ -2,7 +2,7 @@
 === 要素
 
 [[sfsql_intro]]
-==== 简单要素的SQL访问介绍   
+==== 简单要素的SQL介绍   
 
 矢量要素数据表达具有地理位置信息的地物，包括类似行政区划的概念对象，诸如道路、河流的现实对象，以及它们包含的具体信息。
 在通过关系型数据库的SQL语句存储、访问和使用地理空间要素/几何对象方面，已经有许多国际标准<<9>><<10>><<11>><<12>> 。
@@ -63,7 +63,7 @@ Curve如果不与自身相交（在起点和终点除外），则认为它是简
 用户数据表或视图中的每个矢量要素都应该包括值为小写“features”的列。
 
 [[gpb_format]]
-==== 几何编码
+==== 几何对象编码
 
 ===== 数据
 
@@ -71,9 +71,7 @@ Curve如果不与自身相交（在起点和终点除外），则认为它是简
 ====== BLOB 格式
 
 [requirement]
-
-GeoPackage必须要在所有要素表中以SQL BLOBS 存储几何要素，这些几何要素可以有或没有可选的海拔（Z）和/或测量（M）的值，
-SQL BLOBS使用的是表<<gpb_spec>>和条款<<gpb_data_blob_format>>中指定的StandardGeoPackageBinary格式。
+在GeoPackage的要素表中，必须以SQL BLOB格式存储几何对象，存储时使用标准的GeoPackageBinary格式进行编码，存储的几何对象可以带有或没有可选的海拔（Z）值和/或测量（M）值，其中GeoPackageBinary格式可参见表<<gpb_spec>>和<<gpb_data_blob_format>>章节的定义。
 
 :geopackage_binary_foot1: footnote:[OGC WKB simple feature geometry types specified in <<13>> are a subset of the ISO WKB geometry types specified in <<16>>]
 :geopackage_binary_foot2: footnote:[WKB geometry types are are restricted to 0, 1 and 2-dimensional geometric objects that exist in 2, 3 or 4-dimensional coordinate space; they are not geographic or geodesic geometry types.]
@@ -199,7 +197,7 @@ GeoPackage要素表中存储的几何对象，类型应该是表<<geometry_types
 表`gpkg_geometry_columns`中的m值必须是0, 1或2。 
 
 [[feature_user_tables]]
-==== 矢量要素用户数据表
+==== 矢量要素数据表
 
 ===== 数据
 
