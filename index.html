@@ -149,19 +149,19 @@ Document language: 	English<br></p>
 <li><a href="#__19">2.1.2. 内容</a></li>
 <li><a href="#gpb_format">2.1.3. 几何对象编码</a></li>
 <li><a href="#sql_geometry_types">2.1.4. SQL几何类型</a></li>
-<li><a href="#__25">2.1.5. 几何要素列</a></li>
+<li><a href="#geometry_columns">2.1.5. 几何要素列</a></li>
 <li><a href="#feature_user_tables">2.1.6. 矢量要素数据表</a></li>
 </ul>
 </li>
 <li><a href="#tiles">2.2. 瓦片</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__32">2.2.1. 瓦片矩阵介绍</a></li>
-<li><a href="#__33">2.2.2. 内容</a></li>
+<li><a href="#__31">2.2.1. 瓦片矩阵介绍</a></li>
+<li><a href="#__32">2.2.2. 内容</a></li>
 <li><a href="#zoom_levels">2.2.3. 缩放级别</a></li>
 <li><a href="#tile_enc_png">2.2.4. PNG瓦片编码格式</a></li>
 <li><a href="#tile_enc_jpeg">2.2.5. JPEG瓦片编码格式</a></li>
-<li><a href="#__40">2.2.6. 瓦片矩阵集</a></li>
+<li><a href="#__39">2.2.6. 瓦片矩阵集</a></li>
 <li><a href="#tile_matrix">2.2.7. 瓦片矩阵</a></li>
 <li><a href="#tiles_user_tables">2.2.8. 瓦片金字塔数据表</a></li>
 </ul>
@@ -170,23 +170,23 @@ Document language: 	English<br></p>
 <li>
 <ul class="sectlevel3">
 <li><a href="#_schema_2">2.3.1. Schema 介绍</a></li>
-<li><a href="#__45">2.3.2. 数据列</a></li>
-<li><a href="#__48">2.3.3. 数据列约束</a></li>
+<li><a href="#__44">2.3.2. 数据列</a></li>
+<li><a href="#__47">2.3.3. 数据列约束</a></li>
 </ul>
 </li>
-<li><a href="#__51">2.4. 元数据</a></li>
+<li><a href="#__50">2.4. 元数据</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__52">2.4.1. 介绍</a></li>
-<li><a href="#__53">2.4.2. 元数据表</a></li>
-<li><a href="#__56">2.4.3. 元数据参考表</a></li>
+<li><a href="#__51">2.4.1. 介绍</a></li>
+<li><a href="#metadata_table">2.4.2. 元数据表</a></li>
+<li><a href="#metadata_reference_table">2.4.3. 元数据参考表</a></li>
 </ul>
 </li>
-<li><a href="#__59">2.5. 扩展机制</a></li>
+<li><a href="#__56">2.5. 扩展机制</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__60">2.5.1. 介绍</a></li>
-<li><a href="#__61">2.5.2. 扩展</a></li>
+<li><a href="#__57">2.5.1. 介绍</a></li>
+<li><a href="#__58">2.5.2. 扩展</a></li>
 </ul>
 </li>
 </ul>
@@ -194,50 +194,50 @@ Document language: 	English<br></p>
 <li><a href="#registered_extensions">3. 已注册的扩展</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#__63">3.1. 要素</a></li>
+<li><a href="#__60">3.1. 要素</a></li>
 <li>
 <ul class="sectlevel3">
 <li><a href="#gpkg_geometry_types_extension">3.1.1. GeoPackage 几何类型扩展</a></li>
 <li><a href="#gpkg_user_geometry_types_extension">3.1.2. 用户自定义几何类型的扩展</a></li>
 <li><a href="#_r">3.1.3. R树空间索引</a></li>
-<li><a href="#__77">3.1.4. 几何类型触发器</a></li>
+<li><a href="#__74">3.1.4. 几何类型触发器</a></li>
 <li><a href="#_srs_id">3.1.5. SRS_ID 触发器</a></li>
 </ul>
 </li>
-<li><a href="#__83">3.2. 瓦片</a></li>
+<li><a href="#__80">3.2. 瓦片</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__84">3.2.1. 缩放级别</a></li>
+<li><a href="#__81">3.2.1. 缩放级别</a></li>
 <li><a href="#tile_enc_webp">3.2.2. WEBP瓦片编码格式</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#__90">4. 安全事项</a></li>
+<li><a href="#__87">4. 安全事项</a></li>
 <li><a href="#abstract_test_suite"> Annex A: 一致性 / 抽象测试集 (规范性的)</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#__91">A.1. 基础</a></li>
+<li><a href="#__88">A.1. 基础</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__92">A.1.1. 核心</a></li>
+<li><a href="#__89">A.1.1. 核心</a></li>
 </ul>
 </li>
-<li><a href="#__98">A.2. 可选项</a></li>
+<li><a href="#__95">A.2. 可选项</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__99">A.2.1. 要素</a></li>
-<li><a href="#__109">A.2.2. 瓦片</a></li>
+<li><a href="#__96">A.2.1. 要素</a></li>
+<li><a href="#__105">A.2.2. 瓦片</a></li>
 <li><a href="#_schema_3">A.2.3. Schema</a></li>
-<li><a href="#__126">A.2.4. 元数据</a></li>
+<li><a href="#__122">A.2.4. 元数据</a></li>
 <li><a href="#_extension_mechanism">A.2.5. Extension Mechanism</a></li>
 </ul>
 </li>
-<li><a href="#__131">A.3. 已注册的扩展</a></li>
+<li><a href="#__127">A.3. 已注册的扩展</a></li>
 <li>
 <ul class="sectlevel3">
-<li><a href="#__132">A.3.1. 要素</a></li>
-<li><a href="#__140">A.3.2. 瓦片</a></li>
+<li><a href="#__128">A.3.1. 要素</a></li>
+<li><a href="#__136">A.3.2. 瓦片</a></li>
 </ul>
 </li>
 </ul>
@@ -245,12 +245,12 @@ Document language: 	English<br></p>
 <li><a href="#background_and_context"> Annex B: 背景说明 (规范性的)</a></li>
 <li>
 <ul class="sectlevel2">
-<li><a href="#__144">B.1. 背景</a></li>
-<li><a href="#__145">B.2. 术语和定义</a></li>
-<li><a href="#__146">B.3. 约定</a></li>
-<li><a href="#__147">B.4. 提交组织 (资料性的)</a></li>
-<li><a href="#__148">B.5. 文档贡献者及联系方式 (资料性的)</a></li>
-<li><a href="#__149">B.6. 版本历史 (资料性的)</a></li>
+<li><a href="#__140">B.1. 背景</a></li>
+<li><a href="#__141">B.2. 术语和定义</a></li>
+<li><a href="#__142">B.3. 约定</a></li>
+<li><a href="#__143">B.4. 提交组织 (资料性的)</a></li>
+<li><a href="#__144">B.5. 文档贡献者及联系方式 (资料性的)</a></li>
+<li><a href="#__145">B.6. 版本历史 (资料性的)</a></li>
 <li><a href="#_ogc">B.7. OGC® 抽象规范的变更</a></li>
 <li><a href="#_ogc_2">B.8. OGC® 执行标准的变更</a></li>
 <li><a href="#potential_future_work">B.9. 潜在的未来工作 (资料性的)</a></li>
@@ -299,8 +299,8 @@ Document language: 	English<br></p>
 <li><a href="#extension_geometry_srsid_triggers"> Annex N: 几何对象 SRS ID 触发器扩展 (规范性的)</a></li>
 <li><a href="#extension_zoom_other_intervals"> Annex O: 其他缩放间隔扩展 (规范性的)</a></li>
 <li><a href="#extension_tiles_webp"> Annex P: WEBP瓦片编码格式扩展 (规范性的)</a></li>
-<li><a href="#__150"> Annex Q: 参考标准 (规范性的)</a></li>
-<li><a href="#__151"> Annex R: 参考资料 (资料性的)</a></li>
+<li><a href="#__146"> Annex Q: 参考标准 (规范性的)</a></li>
+<li><a href="#__147"> Annex R: 参考资料 (资料性的)</a></li>
 </ul>
 </li>
 </ul>
@@ -474,7 +474,7 @@ GeoPackage数据表中的列仅可以使用<a href="#table_column_data_types">Ge
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;geometry_type_name&gt;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">几何对象（Geometry）根据<a href="#_geometry_encoding">[_geometry_encoding]</a> 进行编码。 &lt;geometry type_name&gt; 是符合2.1.3条款的<a href="#geometry_types">几何对象类型 (规范性的)</a>所列的其中一个几何类型，或是符合3.1.2条款和 <a href="#extension_geometry_encoding">用户自定义的几何类型编码扩展的模板 (规范性的)</a>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">几何对象（Geometry）根据<a href="#geometry_encoding">几何对象编码</a> 进行编码。 &lt;geometry type_name&gt; 是符合2.1.3条款的<a href="#geometry_types">几何对象类型 (规范性的)</a>所列的其中一个几何类型，或是符合3.1.2条款和 <a href="#extension_geometry_encoding">用户自定义的几何类型编码扩展的模板 (规范性的)</a>的用户自定义几何类型。XY、XYZ、XYM和XYZM类型的几何对象使用的是同一数据类型。在SQLite中存储为BLOB类型</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DATE</p></td>
@@ -828,7 +828,7 @@ Bounding box(<code>min_x</code>, <code>min_y</code>, <code>max_x</code>, <code>m
 <h2 id="options">2. 可选项</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>本章节中描述的可选要求都依赖于上述<a href="#_base">[_base]</a>章节中定义的必选要求。
+<p>本章节中描述的可选要求都依赖于上述<a href="#base">基础</a>章节中定义的必选要求。
 本章节中的每个子条款都是能在GeoPackage中使用的独立功能模块。这些模块是可选的。
 GeoPackage中可以使用一个或多个本章节中定义的可选模块，没有被使用的可选表可以忽略。
 但GeoPackage文件中至少要包含一个要素数据表或瓦片数据表，它们各自要符合<a href="#features">要素</a>和<a href="#tiles">瓦片</a>的定义。</p>
@@ -1141,11 +1141,11 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 </div>
 </div>
 <div class="sect3">
-<h4 id="__25">2.1.5. 几何要素列</h4>
+<h4 id="geometry_columns">2.1.5. 几何要素列</h4>
 <div class="sect4">
-<h5 id="__26">2.1.5.1. 数据</h5>
+<h5 id="__25">2.1.5.1. 数据</h5>
 <div class="sect5">
-<h6 id="__27">2.1.5.1.1. 表定义</h6>
+<h6 id="__26">2.1.5.1.1. 表定义</h6>
 <div id="_requirement-21" class="quoteblock">
 <div class="title">Requirement 21</div>
 <blockquote>
@@ -1222,7 +1222,7 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 </div>
 </div>
 <div class="sect5">
-<h6 id="__28">2.1.5.1.2. 表数据值</h6>
+<h6 id="__27">2.1.5.1.2. 表数据值</h6>
 <div id="_requirement-22" class="quoteblock">
 <div class="title">Requirement 22</div>
 <blockquote>
@@ -1271,9 +1271,9 @@ GeoPackage要素表中存储的几何对象，类型应该是表<a href="#geomet
 <div class="sect3">
 <h4 id="feature_user_tables">2.1.6. 矢量要素数据表</h4>
 <div class="sect4">
-<h5 id="__29">2.1.6.1. 数据</h5>
+<h5 id="__28">2.1.6.1. 数据</h5>
 <div class="sect5">
-<h6 id="__30">2.1.6.1.1. 表定义</h6>
+<h6 id="__29">2.1.6.1.1. 表定义</h6>
 <div class="paragraph">
 <p>在GeoPackage文件中，上面的<a href="#sfsql_intro">简单要素的SQL介绍</a>章节描述的是SQL schema中描述矢量要素的第三个部分。
 包括几何对象在内的要素属性，在要素表中对应的是列。
@@ -1288,7 +1288,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>通过表<code>gpkg_metadata_reference</code>（参见<a href="#_metadata_reference_table">[_metadata_reference_table]</a>）中的rowid <a href="#B5">[B5]</a> 值，要素表的integer主键可以将要素与表<code>gpkg_metadata</code>中的元数据记录关联起来。</p>
+<p>通过表<code>gpkg_metadata_reference</code>（参见<a href="#metadata_reference_table">元数据参考表</a>）中的rowid <a href="#B5">[B5]</a> 值，要素表的integer主键可以将要素与表<code>gpkg_metadata</code>中的元数据记录关联起来。</p>
 </div>
 <div id="_requirement-30" class="quoteblock">
 <div class="title">Requirement 30</div>
@@ -1376,9 +1376,9 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 </div>
 </div>
 <div class="sect5">
-<h6 id="__31">2.1.6.1.2. 表数据值</h6>
+<h6 id="__30">2.1.6.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>几何要素存储在几何对象列中，几何对象列由表<code>gpkg_geometry_columns</code>中的<code>geometry_column</code>列值指定，列值为<code>geometry_column</code>列值的小写形式。表<code>gpkg_geometry_columns</code>的定义参见<a href="#_geometry_columns">[_geometry_columns]</a>。</p>
+<p>几何要素存储在几何对象列中，几何对象列由表<code>gpkg_geometry_columns</code>中的<code>geometry_column</code>列值指定，列值为<code>geometry_column</code>列值的小写形式。表<code>gpkg_geometry_columns</code>的定义参见<a href="#geometry_columns">几何要素列</a>。</p>
 </div>
 <div class="paragraph">
 <p>由表<code>gpkg_geometry_columns</code>的<code>geometry_type_name</code>标识的几何要素类型必须是 <a href="#geometry_types">几何对象类型 (规范性的)</a>中的其中一个 。</p>
@@ -1414,7 +1414,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect2">
 <h3 id="tiles">2.2. 瓦片</h3>
 <div class="sect3">
-<h4 id="__32">2.2.1. 瓦片矩阵介绍</h4>
+<h4 id="__31">2.2.1. 瓦片矩阵介绍</h4>
 <div class="paragraph">
 <p>有关存储、索引、访问和描述金子塔中瓦片的商业和开源规则多种多样，然而，很不幸，在这个领域并没有形成标准的约定、国家标准或国际标准。
 此外，不同的影像文件格式有不同的表述特性，也各自包含不同的自描述元数据。</p>
@@ -1437,11 +1437,11 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 </div>
 </div>
 <div class="sect3">
-<h4 id="__33">2.2.2. 内容</h4>
+<h4 id="__32">2.2.2. 内容</h4>
 <div class="sect4">
-<h5 id="__34">2.2.2.1. 数据</h5>
+<h5 id="__33">2.2.2.1. 数据</h5>
 <div class="sect5">
-<h6 id="__35">2.2.2.1.1. 内容表 – 瓦片列</h6>
+<h6 id="__34">2.2.2.1.1. 内容表 – 瓦片列</h6>
 <div id="_requirement-33" class="quoteblock">
 <div class="title">Requirement 33</div>
 <blockquote>
@@ -1462,9 +1462,9 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 参见 WMTS <a href="#16">[16]</a> Annex E，这是两种惯例的附加示例。</p>
 </div>
 <div class="sect4">
-<h5 id="__36">2.2.3.1. 数据</h5>
+<h5 id="__35">2.2.3.1. 数据</h5>
 <div class="sect5">
-<h6 id="__37">2.2.3.1.1. 两倍缩放</h6>
+<h6 id="__36">2.2.3.1.1. 两倍缩放</h6>
 <div id="_requirement-34" class="quoteblock">
 <div class="title">Requirement 34</div>
 <blockquote>
@@ -1477,7 +1477,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="tile_enc_png">2.2.4. PNG瓦片编码格式</h4>
 <div class="sect4">
-<h5 id="__38">2.2.4.1. 数据</h5>
+<h5 id="__37">2.2.4.1. 数据</h5>
 <div class="sect5">
 <h6 id="_png_mime">2.2.4.1.1. PNG MIME类型</h6>
 <div id="_requirement-35" class="quoteblock">
@@ -1492,7 +1492,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="tile_enc_jpeg">2.2.5. JPEG瓦片编码格式</h4>
 <div class="sect4">
-<h5 id="__39">2.2.5.1. 数据</h5>
+<h5 id="__38">2.2.5.1. 数据</h5>
 <div class="sect5">
 <h6 id="_jpeg_mime">2.2.5.1.1. JPEG MIME类型</h6>
 <div id="_requirement-36" class="quoteblock">
@@ -1505,9 +1505,9 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 </div>
 </div>
 <div class="sect3">
-<h4 id="__40">2.2.6. 瓦片矩阵集</h4>
+<h4 id="__39">2.2.6. 瓦片矩阵集</h4>
 <div class="sect4">
-<h5 id="__41">2.2.6.1. 数据</h5>
+<h5 id="__40">2.2.6.1. 数据</h5>
 <div class="sect5">
 <h6 id="tile_matrix_set_data_table_definition">2.2.6.1.1. 表定义</h6>
 <div id="_requirement-37" class="quoteblock">
@@ -1625,7 +1625,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="tile_matrix">2.2.7. 瓦片矩阵</h4>
 <div class="sect4">
-<h5 id="__42">2.2.7.1. 数据</h5>
+<h5 id="__41">2.2.7.1. 数据</h5>
 <div class="sect5">
 <h6 id="tile_matrix_data_table_definition">2.2.7.1.1. 表的定义</h6>
 <div id="_requirement-41" class="quoteblock">
@@ -1799,7 +1799,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <div class="sect3">
 <h4 id="tiles_user_tables">2.2.8. 瓦片金字塔数据表</h4>
 <div class="sect4">
-<h5 id="__43">2.2.8.1. 数据</h5>
+<h5 id="__42">2.2.8.1. 数据</h5>
 <div class="sect5">
 <h6 id="tiles_user_tables_data_table_definition">2.2.8.1.1. 表定义</h6>
 <div id="_requirement-52" class="quoteblock">
@@ -1877,7 +1877,7 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__44">2.2.8.1.2. 表数据取值</h6>
+<h6 id="__43">2.2.8.1.2. 表数据取值</h6>
 <div class="paragraph">
 <p>每个瓦片金字塔用户数据表或视图 <span class="footnote">[<a id="_footnoteref_19" class="footnote" href="#_footnote_19" title="View footnote.">19</a>]</span>都可以包含多个瓦片矩阵，这些瓦片矩阵对应第0级或更多缩放级别，每个缩放级别对应不同的空间分辨率（地图比例尺）。</p>
 </div>
@@ -1915,9 +1915,9 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 </div>
 </div>
 <div class="sect3">
-<h4 id="__45">2.3.2. 数据列</h4>
+<h4 id="__44">2.3.2. 数据列</h4>
 <div class="sect4">
-<h5 id="__46">2.3.2.1. 数据</h5>
+<h5 id="__45">2.3.2.1. 数据</h5>
 <div class="sect5">
 <h6 id="schema_data_columns_table_definition">2.3.2.1.1. 表定义</h6>
 <div id="_requirement-56" class="quoteblock">
@@ -2006,7 +2006,7 @@ GeoPackage 中可以包含一个名为<code>gpkg_data_columns</code>的表或可
 </div>
 </div>
 <div class="sect5">
-<h6 id="__47">2.3.2.1.2. 表数据值</h6>
+<h6 id="__46">2.3.2.1.2. 表数据值</h6>
 <div id="_requirement-57" class="quoteblock">
 <div class="title">Requirement 57</div>
 <blockquote>
@@ -2029,9 +2029,9 @@ GeoPackage 中可以包含一个名为<code>gpkg_data_columns</code>的表或可
 </div>
 </div>
 <div class="sect3">
-<h4 id="__48">2.3.3. 数据列约束</h4>
+<h4 id="__47">2.3.3. 数据列约束</h4>
 <div class="sect4">
-<h5 id="__49">2.3.3.1. 数据</h5>
+<h5 id="__48">2.3.3.1. 数据</h5>
 <div class="sect5">
 <h6 id="data_column_constraints_table_definition">2.3.3.1.1. 表定义</h6>
 <div id="_requirement-60" class="quoteblock">
@@ -2129,7 +2129,7 @@ GeoPackage中可能包含名为 “gpkg_data_column_constraints” 的表或可�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__50">2.3.3.1.2. 表数据值</h6>
+<h6 id="__49">2.3.3.1.2. 表数据值</h6>
 <div class="paragraph">
 <p>gpkg_data_column_constraints表中constraint_type列的值指定了约束的类型，值的小写形式为："range", "enum", 或"glob" (文本模式匹配)。
 value列的值区分大小写，当constraint_type列值为"enum"时，value列的值为合法的枚举值；当constraint_type列值为"glob"时，value列的值为模式匹配字符串；当constraint_type列值为"range"时，value列的值为NULL。
@@ -2274,21 +2274,21 @@ constraint_type列值为"range"的记录中，min和max列的值分别指定了�
 </div>
 </div>
 <div class="sect2">
-<h3 id="__51">2.4. 元数据</h3>
+<h3 id="__50">2.4. 元数据</h3>
 <div class="sect3">
-<h4 id="__52">2.4.1. 介绍</h4>
+<h4 id="__51">2.4.1. 介绍</h4>
 <div class="paragraph">
 <p>GeoPackage中使用两个表来存储元数据的MIME类型，以及这些MIME类型和GeoPackage中的要素、栅格和瓦片数据的关系。这两个表可以为实现ISO 19115 <a href="#28">[28]</a>中定义的分层元数据模型提供必要支持，参见Annex B B.5.25 MD_ScopeCode, <a href="#metadata_example_appendix">分层元数据的示例 (资料性的)</a> ， <a href="#raster_or_tile_metadata_example_appendix">栅格瓦片元数据的示例 (资料性的)</a>。所以当新增或者更新GeoPackage中的数据时，可以单独修改与之相关的本地特定元数据，或者关联到已有的全局通用元数据。
-gpkg_metadata表包含了元数据，在<a href="#_metadata_table">[_metadata_table]</a>中将会进行详细的介绍。然后gpkg_metadata_reference表把gpkg_metadata表和GeoPackage中的数据关联起来，在<a href="#_metadata_reference_table">[_metadata_reference_table]</a>中会进行详细的介绍。</p>
+gpkg_metadata表包含了元数据，在<a href="#metadata_table">元数据表</a>中将会进行详细的介绍。然后gpkg_metadata_reference表把gpkg_metadata表和GeoPackage中的数据关联起来，在<a href="#metadata_reference_table">元数据参考表</a>中会进行详细的介绍。</p>
 </div>
 <div class="paragraph">
 <p>GeoPackage中并不要求必须提供这样的元数据或者必须以一级以上的分层结构的形式定义元数据<span class="footnote">[<a id="_footnoteref_23" class="footnote" href="#_footnote_23" title="View footnote.">23</a>]</span>。但是当提供了元数据时，应该使用这些表。元数据<span class="footnote">[<a id="_footnoteref_24" class="footnote" href="#_footnote_24" title="View footnote.">24</a>]</span>以及把元数据关联到GeoPackage中内容的数据不应该保存在其它表里。</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__53">2.4.2. 元数据表</h4>
+<h4 id="metadata_table">2.4.2. 元数据表</h4>
 <div class="sect4">
-<h5 id="__54">2.4.2.1. 数据</h5>
+<h5 id="__52">2.4.2.1. 数据</h5>
 <div class="sect5">
 <h6 id="metadata_table_table_definition">2.4.2.1.1. 表定义</h6>
 <div id="_requirement-68" class="quoteblock">
@@ -2373,7 +2373,7 @@ gpkg_metadata表包含了元数据，在<a href="#_metadata_table">[_metadata_ta
 </div>
 </div>
 <div class="sect5">
-<h6 id="__55">2.4.2.1.2. 表数据值</h6>
+<h6 id="__53">2.4.2.1.2. 表数据值</h6>
 <div class="paragraph">
 <p>表gpkg_metadata中的md_scope列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<a href="#metadata_scopes">元数据(Metadata)的作用域</a>。
 表的初始内容来自ISO 19115 <a href="#40">[40]</a>, 附录 B B.5.25 MD_ScopeCode编号列表。为了能在GeoPackage中使用，该列表经过了扩充<span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span>。增加了一个以"NA"为编号的作用域<a href="#gpkg_metadata_cols">Metadata Table Definition</a>。</p>
@@ -2501,9 +2501,9 @@ gpkg_metadata表包含了元数据，在<a href="#_metadata_table">[_metadata_ta
 </div>
 </div>
 <div class="sect3">
-<h4 id="__56">2.4.3. 元数据参考表</h4>
+<h4 id="metadata_reference_table">2.4.3. 元数据参考表</h4>
 <div class="sect4">
-<h5 id="__57">2.4.3.1. 数据</h5>
+<h5 id="__54">2.4.3.1. 数据</h5>
 <div class="sect5">
 <h6 id="metadata_reference_table_table_definition">2.4.3.1.1. 表定义</h6>
 <div id="_requirement-70" class="quoteblock">
@@ -2604,7 +2604,7 @@ gpkg_metadata表包含了元数据，在<a href="#_metadata_table">[_metadata_ta
 </div>
 </div>
 <div class="sect5">
-<h6 id="__58">2.4.3.1.2. 表数据取值</h6>
+<h6 id="__55">2.4.3.1.2. 表数据取值</h6>
 <div id="_requirement-71" class="quoteblock">
 <div class="title">Requirement 71</div>
 <blockquote>
@@ -2655,9 +2655,9 @@ gpkg_metadata表包含了元数据，在<a href="#_metadata_table">[_metadata_ta
 </div>
 </div>
 <div class="sect2">
-<h3 id="__59">2.5. 扩展机制</h3>
+<h3 id="__56">2.5. 扩展机制</h3>
 <div class="sect3">
-<h4 id="__60">2.5.1. 介绍</h4>
+<h4 id="__57">2.5.1. 介绍</h4>
 <div class="paragraph">
 <p>GeoPackage扩展是一个或多个必要条款集合，这些条款需要按照<a href="#extension_template">GeoPackage 扩展的模板 (规范性的)</a>中的GeoPackage扩展模板格式形成文档。
 GeoPackage扩展可以配置/扩展GeoPackage规范中现有的必要条款，或者新增必要条款。现有必要条款的扩展示例包括：附加几何对象类型、附加几何对象SQL方法、以及附加栅格瓦片格式；新增必要条款的扩展示例包括：空间索引、触发器、附加表、BLOB列的其他编码格式、以及其他SQL方法。</p>
@@ -2669,9 +2669,9 @@ GeoPackage扩展可以配置/扩展GeoPackage规范中现有的必要条款，�
 </div>
 </div>
 <div class="sect3">
-<h4 id="__61">2.5.2. 扩展</h4>
+<h4 id="__58">2.5.2. 扩展</h4>
 <div class="sect4">
-<h5 id="__62">2.5.2.1. 数据</h5>
+<h5 id="__59">2.5.2.1. 数据</h5>
 <div class="sect5">
 <h6 id="extensions_table_definition">2.5.2.1.1. 表定义</h6>
 <div id="_requirement-78" class="quoteblock">
@@ -2820,19 +2820,19 @@ GeoPackage实施者会使用自己的作者名来注册其他扩展。</p>
 这些扩展是基于 <a href="#extension_template">GeoPackage 扩展的模板 (规范性的)</a> 中的模板定义的，在附录J-P中可以找到它们的定义。</p>
 </div>
 <div class="sect2">
-<h3 id="__63">3.1. 要素</h3>
+<h3 id="__60">3.1. 要素</h3>
 <div class="paragraph">
 <p>在包含<a href="#features">要素</a>章节定义的要素的GeoPackage中，可以实现如下子章节定义的扩展。</p>
 </div>
 <div class="sect3">
 <h4 id="gpkg_geometry_types_extension">3.1.1. GeoPackage 几何类型扩展</h4>
 <div class="sect4">
-<h5 id="__64">3.1.1.1. 数据</h5>
+<h5 id="__61">3.1.1.1. 数据</h5>
 <div class="paragraph">
 <p>本扩展定义了附加的几何类型，是<a href="#sql_geometry_types">SQL几何类型</a>章节的扩展，在<a href="#extension_geometry_types">GeoPackage 几何类型扩展的模板 (规范性的)</a>中做了部分描述。</p>
 </div>
 <div class="sect5">
-<h6 id="__65">3.1.1.1.1. 扩展类型</h6>
+<h6 id="__62">3.1.1.1.1. 扩展类型</h6>
 <div id="_requirement-85" class="quoteblock">
 <div class="title">Requirement 85</div>
 <blockquote>
@@ -2842,7 +2842,7 @@ GeoPackage实施者会使用自己的作者名来注册其他扩展。</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="__66">3.1.1.1.2. 扩展类型 - 扩展名称</h6>
+<h6 id="__63">3.1.1.1.2. 扩展类型 - 扩展名称</h6>
 <div id="_requirement-86" class="quoteblock">
 <div class="title">Requirement 86</div>
 <blockquote>
@@ -2851,7 +2851,7 @@ GeoPackage实施者会使用自己的作者名来注册其他扩展。</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="__67">3.1.1.1.3. 扩展类型 - 扩展记录</h6>
+<h6 id="__64">3.1.1.1.3. 扩展类型 - 扩展记录</h6>
 <div id="_requirement-87" class="quoteblock">
 <div class="title">Requirement 87</div>
 <blockquote>
@@ -2864,12 +2864,12 @@ GeoPackage实施者会使用自己的作者名来注册其他扩展。</p>
 <div class="sect3">
 <h4 id="gpkg_user_geometry_types_extension">3.1.2. 用户自定义几何类型的扩展</h4>
 <div class="sect4">
-<h5 id="__68">3.1.2.1. 数据</h5>
+<h5 id="__65">3.1.2.1. 数据</h5>
 <div class="paragraph">
 <p>本扩展定义了在扩展的GeoPackage中，对用户自定义几何类型使用ExtendedGeoPackageBinary格式进行编码的规范，是对<a href="#gpb_format">几何对象编码</a>, <a href="#sql_geometry_types">SQL几何类型</a> 和 <a href="#gpkg_geometry_types_extension">GeoPackage 几何类型扩展</a> 章节的扩展，在<a href="#extension_geometry_encoding">用户自定义的几何类型编码扩展的模板 (规范性的)</a>中做了部分描述。</p>
 </div>
 <div class="sect5">
-<h6 id="__69">3.1.2.1.1. 编码格式扩展</h6>
+<h6 id="__66">3.1.2.1.1. 编码格式扩展</h6>
 <div id="_requirement-88" class="quoteblock">
 <div class="title">Requirement 88</div>
 <blockquote>
@@ -2878,7 +2878,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__70">3.1.2.1.2. 编码格式扩展 - 扩展名称</h6>
+<h6 id="__67">3.1.2.1.2. 编码格式扩展 - 扩展名称</h6>
 <div id="user_defined_geometry_ext_name_req" class="quoteblock">
 <div class="title">Requirement 89</div>
 <blockquote>
@@ -2887,7 +2887,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__71">3.1.2.1.3. 编码格式扩展 - 扩展记录</h6>
+<h6 id="__68">3.1.2.1.3. 编码格式扩展 - 扩展记录</h6>
 <div id="_requirement-90" class="quoteblock">
 <div class="title">Requirement 90</div>
 <blockquote>
@@ -2896,7 +2896,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__72">3.1.2.1.4. 几何对象列的几何类型名称</h6>
+<h6 id="__69">3.1.2.1.4. 几何对象列的几何类型名称</h6>
 <div id="_requirement-91" class="quoteblock">
 <div class="title">Requirement 91</div>
 <blockquote>
@@ -2909,12 +2909,12 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 <div class="sect3">
 <h4 id="_r">3.1.3. R树空间索引</h4>
 <div class="sect4">
-<h5 id="__73">3.1.3.1. 数据</h5>
+<h5 id="__70">3.1.3.1. 数据</h5>
 <div class="paragraph">
 <p>本扩展增加了一种新的建立空间索引的能力，适用于根据 <a href="#gpb_format">几何对象编码</a> 和 <a href="#gpkg_user_geometry_types_extension">用户自定义几何类型的扩展</a> 章节存储几何对象的列，在<a href="#extension_rtree">R树空间索引扩展 (规范性的)</a>中做了部分描述。</p>
 </div>
 <div class="sect5">
-<h6 id="__74">3.1.3.1.1. 空间索引的实现</h6>
+<h6 id="__71">3.1.3.1.1. 空间索引的实现</h6>
 <div class="paragraph">
 <p>在针对包含海量（几千或更多）记录的要素表进行基本的空间框选搜索，返回要素子集时，空间索引能极大提高搜索性能。<span class="footnote">[<a id="_footnoteref_35" class="footnote" href="#_footnote_35" title="View footnote.">35</a>]</span></p>
 </div>
@@ -2926,7 +2926,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__75">3.1.3.1.2. 空间索引 - 扩展名</h6>
+<h6 id="__72">3.1.3.1.2. 空间索引 - 扩展名</h6>
 <div id="_requirement-93" class="quoteblock">
 <div class="title">Requirement 93</div>
 <blockquote>
@@ -2935,7 +2935,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__76">3.1.3.1.3. 空间索引 - 扩展记录</h6>
+<h6 id="__73">3.1.3.1.3. 空间索引 - 扩展记录</h6>
 <div id="_requirement-94" class="quoteblock">
 <div class="title">Requirement 94</div>
 <blockquote>
@@ -2946,14 +2946,14 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect3">
-<h4 id="__77">3.1.4. 几何类型触发器</h4>
+<h4 id="__74">3.1.4. 几何类型触发器</h4>
 <div class="sect4">
-<h5 id="__78">3.1.4.1. 数据</h5>
+<h5 id="__75">3.1.4.1. 数据</h5>
 <div class="paragraph">
 <p>本扩展增加了一种新的几何类型触发器（geometry type triggers），适用于根据 <a href="#gpb_format">几何对象编码</a> 和 <a href="#gpkg_user_geometry_types_extension">用户自定义几何类型的扩展</a> 章节存储几何对象的列，在<a href="#extension_geometry_type_triggers">几何类型触发器扩展 (规范性的)</a>中做了部分描述。</p>
 </div>
 <div class="sect5">
-<h6 id="__79">3.1.4.1.1. 几何类型触发器 – 实现</h6>
+<h6 id="__76">3.1.4.1.1. 几何类型触发器 – 实现</h6>
 <div id="_requirement-95" class="quoteblock">
 <div class="title">Requirement 95</div>
 <blockquote>
@@ -2962,7 +2962,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__80">3.1.4.1.2. 几何类型触发器 – 扩展名</h6>
+<h6 id="__77">3.1.4.1.2. 几何类型触发器 – 扩展名</h6>
 <div id="_requirement-96" class="quoteblock">
 <div class="title">Requirement 96</div>
 <blockquote>
@@ -2971,7 +2971,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__81">3.1.4.1.3. 几何类型触发器 – 扩展记录</h6>
+<h6 id="__78">3.1.4.1.3. 几何类型触发器 – 扩展记录</h6>
 <div id="_requirement-97" class="quoteblock">
 <div class="title">Requirement 97</div>
 <blockquote>
@@ -2984,7 +2984,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 <div class="sect3">
 <h4 id="_srs_id">3.1.5. SRS_ID 触发器</h4>
 <div class="sect4">
-<h5 id="__82">3.1.5.1. 数据</h5>
+<h5 id="__79">3.1.5.1. 数据</h5>
 <div class="paragraph">
 <p>针对根据 <a href="#gpb_format">几何对象编码</a> 和 <a href="#gpkg_user_geometry_types_extension">用户自定义几何类型的扩展</a>进行编码的几何对象列，本扩展对其添加了一个新的 srs_id 触发器，该触发器由&lt;extension_geometry_srsid_triggers&gt;定义。</p>
 </div>
@@ -3019,25 +3019,25 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect2">
-<h3 id="__83">3.2. 瓦片</h3>
+<h3 id="__80">3.2. 瓦片</h3>
 <div class="paragraph">
 <p>下面子句中定义的扩展，可能在实现了每个&lt;tiles&gt;句子的GeoPackage 中被实现。</p>
 </div>
 <div class="sect3">
-<h4 id="__84">3.2.1. 缩放级别</h4>
+<h4 id="__81">3.2.1. 缩放级别</h4>
 <div class="sect4">
-<h5 id="__85">3.2.1.1. 数据</h5>
+<h5 id="__82">3.2.1.1. 数据</h5>
 <div class="paragraph">
 <p>在<a href="#extension_zoom_other_intervals">其他缩放间隔扩展 (规范性的)</a>中描述的<a href="#zoom_levels">缩放级别</a>句子扩展，允许多级缩放。</p>
 </div>
 <div class="sect5">
-<h6 id="__86">3.2.1.1.1. 其他缩放间隔</h6>
+<h6 id="__83">3.2.1.1.1. 其他缩放间隔</h6>
 <div class="paragraph">
 <p>在相邻级别缩放时，瓦片金字塔数据表中的像素大小可能按不规则的间隔变化，也可能按非2倍缩放（默认）的规则间隔变化</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="__87">3.2.1.1.2. 其他缩放 – 扩展名</h6>
+<h6 id="__84">3.2.1.1.2. 其他缩放 – 扩展名</h6>
 <div id="_requirement-101" class="quoteblock">
 <div class="title">Requirement 101</div>
 <blockquote>
@@ -3046,7 +3046,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect5">
-<h6 id="__88">3.2.1.1.3. 其他缩放 – 扩展记录</h6>
+<h6 id="__85">3.2.1.1.3. 其他缩放 – 扩展记录</h6>
 <div id="_requirement-102" class="quoteblock">
 <div class="title">Requirement 102</div>
 <blockquote>
@@ -3059,7 +3059,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 <div class="sect3">
 <h4 id="tile_enc_webp">3.2.2. WEBP瓦片编码格式</h4>
 <div class="sect4">
-<h5 id="__89">3.2.2.1. 数据</h5>
+<h5 id="__86">3.2.2.1. 数据</h5>
 <div class="paragraph">
 <p>此条款扩展了<a href="#tile_enc_png">PNG瓦片编码格式</a> 和 <a href="#tile_enc_jpeg">JPEG瓦片编码格式</a>，允许瓦片图像以 WebP 格式进行编码，该扩展在<a href="#extension_tiles_webp">WEBP瓦片编码格式扩展 (规范性的)</a> 中进行了描述</p>
 </div>
@@ -3093,7 +3093,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 </div>
 </div>
 <div class="sect1">
-<h2 id="__90">4. 安全事项</h2>
+<h2 id="__87">4. 安全事项</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>在执行应用程序，部署平台、操作系统和网络环境时，利用GeoPackage进行实现需要考虑安全事项。
@@ -3105,13 +3105,13 @@ GeoPackage规范在应用程序、平台、 操作系统级别或网络安全上
 <h2 id="abstract_test_suite"> Annex A: 一致性 / 抽象测试集 (规范性的)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="__91">A.1. 基础</h3>
+<h3 id="__88">A.1. 基础</h3>
 <div class="sect3">
-<h4 id="__92">A.1.1. 核心</h4>
+<h4 id="__89">A.1.1. 核心</h4>
 <div class="sect4">
 <h5 id="_sqlite_2">A.1.1.1. SQLite 容器</h5>
 <div class="sect5">
-<h6 id="__93">A.1.1.1.1. 数据</h6>
+<h6 id="__90">A.1.1.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>File Format</strong></p>
 </div>
@@ -3595,9 +3595,9 @@ GeoPackage规范在应用程序、平台、 操作系统级别或网络安全上
 </div>
 </div>
 <div class="sect4">
-<h5 id="__94">A.1.1.2. 空间参考系统</h5>
+<h5 id="__91">A.1.1.2. 空间参考系统</h5>
 <div class="sect5">
-<h6 id="__95">A.1.1.2.1. 数据</h6>
+<h6 id="__92">A.1.1.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -3769,9 +3769,9 @@ AUTHORITY["EPSG","4326"] (rounding the UNIT conversion factors to 16 decimal pla
 </div>
 </div>
 <div class="sect4">
-<h5 id="__96">A.1.1.3. 内容</h5>
+<h5 id="__93">A.1.1.3. 内容</h5>
 <div class="sect5">
-<h6 id="__97">A.1.1.3.1. 数据</h6>
+<h6 id="__94">A.1.1.3.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -3996,7 +3996,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect2">
-<h3 id="__98">A.2. 可选项</h3>
+<h3 id="__95">A.2. 可选项</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <colgroup>
 <col style="width:16%;">
@@ -4053,15 +4053,15 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </table>
 
 <div class="sect3">
-<h4 id="__99">A.2.1. 要素</h4>
+<h4 id="__96">A.2.1. 要素</h4>
 <div class="sect4">
 <h5 id="__sql">A.2.1.1. 简单要素的SQL介绍</h5>
 
 </div>
 <div class="sect4">
-<h5 id="__100">A.2.1.2. 内容</h5>
+<h5 id="__97">A.2.1.2. 内容</h5>
 <div class="sect5">
-<h6 id="__101">A.2.1.2.1. 数据</h6>
+<h6 id="__98">A.2.1.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Contents Table Feature Row</strong></p>
 </div>
@@ -4111,9 +4111,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect4">
-<h5 id="__102">A.2.1.3. 几何对象编码</h5>
+<h5 id="geometry_encoding">A.2.1.3. 几何对象编码</h5>
 <div class="sect5">
-<h6 id="__103">A.2.1.3.1. 数据</h6>
+<h6 id="__99">A.2.1.3.1. 数据</h6>
 <div class="paragraph">
 <p><strong>BLOB Format</strong></p>
 </div>
@@ -4203,7 +4203,7 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 <div class="sect4">
 <h5 id="_sql">A.2.1.4. SQL几何类型</h5>
 <div class="sect5">
-<h6 id="__104">A.2.1.4.1. 数据</h6>
+<h6 id="__100">A.2.1.4.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Core Types</strong></p>
 </div>
@@ -4358,9 +4358,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect4">
-<h5 id="__105">A.2.1.5. 几何要素列</h5>
+<h5 id="__101">A.2.1.5. 几何要素列</h5>
 <div class="sect5">
-<h6 id="__106">A.2.1.5.1. 数据</h6>
+<h6 id="__102">A.2.1.5.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -4797,9 +4797,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect4">
-<h5 id="__107">A.2.1.6. 矢量要素数据表</h5>
+<h5 id="__103">A.2.1.6. 矢量要素数据表</h5>
 <div class="sect5">
-<h6 id="__108">A.2.1.6.1. 数据</h6>
+<h6 id="__104">A.2.1.6.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5078,11 +5078,11 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect3">
-<h4 id="__109">A.2.2. 瓦片</h4>
+<h4 id="__105">A.2.2. 瓦片</h4>
 <div class="sect4">
-<h5 id="__110">A.2.2.1. 内容</h5>
+<h5 id="__106">A.2.2.1. 内容</h5>
 <div class="sect5">
-<h6 id="__111">A.2.2.1.1. 数据</h6>
+<h6 id="__107">A.2.2.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Contents Table – Tiles Row</strong></p>
 </div>
@@ -5157,9 +5157,9 @@ FROM gpkg_contents AS ge LEFT OUTER JOIN sqlite_master AS sm ON gc.table_name = 
 </div>
 </div>
 <div class="sect4">
-<h5 id="__112">A.2.2.2. 缩放级别</h5>
+<h5 id="__108">A.2.2.2. 缩放级别</h5>
 <div class="sect5">
-<h6 id="__113">A.2.2.2.1. 数据</h6>
+<h6 id="__109">A.2.2.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Zoom Times Two</strong></p>
 </div>
@@ -5241,7 +5241,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_png">A.2.2.3. PNG瓦片编码格式</h5>
 <div class="sect5">
-<h6 id="__114">A.2.2.3.1. 数据</h6>
+<h6 id="__110">A.2.2.3.1. 数据</h6>
 <div class="paragraph">
 <p><strong>PNG MIME类型</strong></p>
 </div>
@@ -5324,7 +5324,7 @@ END;</p>
 <div class="sect4">
 <h5 id="_jpeg">A.2.2.4. JPEG瓦片编码格式</h5>
 <div class="sect5">
-<h6 id="__115">A.2.2.4.1. 数据</h6>
+<h6 id="__111">A.2.2.4.1. 数据</h6>
 <div class="paragraph">
 <p><strong>JPEG MIME类型</strong></p>
 </div>
@@ -5405,9 +5405,9 @@ END;</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__116">A.2.2.5. 瓦片矩阵集</h5>
+<h5 id="__112">A.2.2.5. 瓦片矩阵集</h5>
 <div class="sect5">
-<h6 id="__117">A.2.2.5.1. 数据</h6>
+<h6 id="__113">A.2.2.5.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -5632,9 +5632,9 @@ END;</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__118">A.2.2.6. 瓦片矩阵</h5>
+<h5 id="__114">A.2.2.6. 瓦片矩阵</h5>
 <div class="sect5">
-<h6 id="__119">A.2.2.6.1. 数据</h6>
+<h6 id="__115">A.2.2.6.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6267,9 +6267,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect4">
-<h5 id="__120">A.2.2.7. 瓦片金字塔数据表</h5>
+<h5 id="__116">A.2.2.7. 瓦片金字塔数据表</h5>
 <div class="sect5">
-<h6 id="__121">A.2.2.7.1. 数据</h6>
+<h6 id="__117">A.2.2.7.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6567,9 +6567,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 <div class="sect3">
 <h4 id="_schema_3">A.2.3. Schema</h4>
 <div class="sect4">
-<h5 id="__122">A.2.3.1. 数据列</h5>
+<h5 id="__118">A.2.3.1. 数据列</h5>
 <div class="sect5">
-<h6 id="__123">A.2.3.1.1. 数据</h6>
+<h6 id="__119">A.2.3.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -6820,9 +6820,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect4">
-<h5 id="__124">A.2.3.2. 数据列约束</h5>
+<h5 id="__120">A.2.3.2. 数据列约束</h5>
 <div class="sect5">
-<h6 id="__125">A.2.3.2.1. 数据</h6>
+<h6 id="__121">A.2.3.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7319,11 +7319,11 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect3">
-<h4 id="__126">A.2.4. 元数据</h4>
+<h4 id="__122">A.2.4. 元数据</h4>
 <div class="sect4">
-<h5 id="__127">A.2.4.1. 元数据表</h5>
+<h5 id="__123">A.2.4.1. 元数据表</h5>
 <div class="sect5">
-<h6 id="__128">A.2.4.1.1. 数据</h6>
+<h6 id="__124">A.2.4.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -7444,9 +7444,9 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect4">
-<h5 id="__129">A.2.4.2. 元数据参考表</h5>
+<h5 id="__125">A.2.4.2. 元数据参考表</h5>
 <div class="sect5">
-<h6 id="__130">A.2.4.2.1. 数据</h6>
+<h6 id="__126">A.2.4.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Table Definition</strong></p>
 </div>
@@ -8442,13 +8442,13 @@ LEFT OUTER JOIN &lt;user_data_tiles_table&gt; AS udtt ON udtt.zoom_level =  gtmm
 </div>
 </div>
 <div class="sect2">
-<h3 id="__131">A.3. 已注册的扩展</h3>
+<h3 id="__127">A.3. 已注册的扩展</h3>
 <div class="sect3">
-<h4 id="__132">A.3.1. 要素</h4>
+<h4 id="__128">A.3.1. 要素</h4>
 <div class="sect4">
-<h5 id="__133">A.3.1.1. 几何对象类型</h5>
+<h5 id="__129">A.3.1.1. 几何对象类型</h5>
 <div class="sect5">
-<h6 id="__134">A.3.1.1.1. 数据</h6>
+<h6 id="__130">A.3.1.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>GeoPackage Extension Types</strong></p>
 </div>
@@ -8730,9 +8730,9 @@ viii. Otherwise log pass</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__135">A.3.1.2. 用户自定义的几何类型</h5>
+<h5 id="__131">A.3.1.2. 用户自定义的几何类型</h5>
 <div class="sect5">
-<h6 id="__136">A.3.1.2.1. 数据</h6>
+<h6 id="__132">A.3.1.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Extensions Encoding</strong></p>
 </div>
@@ -9019,9 +9019,9 @@ viii. Otherwise log pass</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="__137">A.3.1.3. 空间索引</h5>
+<h5 id="__133">A.3.1.3. 空间索引</h5>
 <div class="sect5">
-<h6 id="__138">A.3.1.3.1. 数据</h6>
+<h6 id="__134">A.3.1.3.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Spatial Indexes Implementation</strong></p>
 </div>
@@ -9574,7 +9574,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_srs_id_5">A.3.1.5. SRS_ID 触发器</h5>
 <div class="sect5">
-<h6 id="__139">A.3.1.5.1. 数据</h6>
+<h6 id="__135">A.3.1.5.1. 数据</h6>
 <div class="paragraph">
 <p><strong>SRS_ID Triggers – Implementation</strong></p>
 </div>
@@ -9831,11 +9831,11 @@ viii. Otherwise log pass</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="__140">A.3.2. 瓦片</h4>
+<h4 id="__136">A.3.2. 瓦片</h4>
 <div class="sect4">
-<h5 id="__141">A.3.2.1. 缩放级别</h5>
+<h5 id="__137">A.3.2.1. 缩放级别</h5>
 <div class="sect5">
-<h6 id="__142">A.3.2.1.1. 数据</h6>
+<h6 id="__138">A.3.2.1.1. 数据</h6>
 <div class="paragraph">
 <p><strong>Zoom Other Intervals—Extensions Name</strong></p>
 </div>
@@ -9969,7 +9969,7 @@ viii. Otherwise log pass</p>
 <div class="sect4">
 <h5 id="_webp_3">A.3.2.2. WEBP瓦片编码格式</h5>
 <div class="sect5">
-<h6 id="__143">A.3.2.2.1. 数据</h6>
+<h6 id="__139">A.3.2.2.1. 数据</h6>
 <div class="paragraph">
 <p><strong>WEBP – Extensions Name</strong></p>
 </div>
@@ -10112,7 +10112,7 @@ viii. Otherwise log pass</p>
 <h2 id="background_and_context"> Annex B: 背景说明 (规范性的)</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="__144">B.1. 背景</h3>
+<h3 id="__140">B.1. 背景</h3>
 <div class="paragraph">
 <p>An open standard non-proprietary platform-independent GeoPackage container for distribution and direct use of all kinds of geospatial data will increase the cross-platform interoperability of geospatial applications and web services. Standard APIs for access and management of GeoPackage data will provide consistent query and update results across such applications and services. Increased interoperability and result consistency will enlarge the potential market for such  applications and services, particularly in resource-constrained mobile computing environments like cell phones and tablets. GeoPackages will become the standard containers for "MyGeoData" that are used as a transfer format by users and Geospatial Web Services and a storage format on personal and enterprise devices.</p>
 </div>
@@ -10135,7 +10135,7 @@ integrity constraints, an SQL API exposed via a "C" CLI and JDBC, and manifest t
 </div>
 </div>
 <div class="sect2">
-<h3 id="__145">B.2. 术语和定义</h3>
+<h3 id="__141">B.2. 术语和定义</h3>
 <div class="paragraph">
 <p>This document uses the standard terms defined in Subclause 5.3 of [OGC 06-121], which is based on the ISO/IEC Directives, Part 2. Rules for the structure and drafting of International Standards. In particular, the word "shall" (not "must") is the verb form used to indicate a requirement to be strictly followed to conform to this standard.</p>
 </div>
@@ -10178,13 +10178,13 @@ integrity constraints, an SQL API exposed via a "C" CLI and JDBC, and manifest t
 </dd>
 <dt>Valid GeoPackage</dt>
 <dd>
-<p>A GeoPackage that contains features per clause <a href="#_features">[_features]</a> and/or tiles per clause <a href="#tiles">瓦片</a> and row(s) in the <code>gpkg_contents</code> table with <code>data_type</code> column values of "features" and/or "tiles" describing the user data tables.</p>
+<p>A GeoPackage that contains features per clause <a href="#features">要素</a> and/or tiles per clause <a href="#tiles">瓦片</a> and row(s) in the <code>gpkg_contents</code> table with <code>data_type</code> column values of "features" and/or "tiles" describing the user data tables.</p>
 </dd>
 </dl>
 </div>
 </div>
 <div class="sect2">
-<h3 id="__146">B.3. 约定</h3>
+<h3 id="__142">B.3. 约定</h3>
 <div class="paragraph">
 <p>代号 (以及术语缩写)</p>
 </div>
@@ -10322,7 +10322,7 @@ integrity constraints, an SQL API exposed via a "C" CLI and JDBC, and manifest t
 </div>
 </div>
 <div class="sect2">
-<h3 id="__147">B.4. 提交组织 (资料性的)</h3>
+<h3 id="__143">B.4. 提交组织 (资料性的)</h3>
 <div class="paragraph">
 <p>The following organizations submitted this Encoding Standard to the Open Geospatial Consortium Inc. as a
 Request For Comment (RFC).</p>
@@ -10351,7 +10351,7 @@ Request For Comment (RFC).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="__148">B.5. 文档贡献者及联系方式 (资料性的)</h3>
+<h3 id="__144">B.5. 文档贡献者及联系方式 (资料性的)</h3>
 <div class="paragraph">
 <p>All questions regarding this document should be directed to the editor or the contributors:</p>
 </div>
@@ -10648,7 +10648,7 @@ Request For Comment (RFC).</p>
 
 </div>
 <div class="sect2">
-<h3 id="__149">B.6. 版本历史 (资料性的)</h3>
+<h3 id="__145">B.6. 版本历史 (资料性的)</h3>
 <table class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 19. Revision History</caption>
 <colgroup>
@@ -15639,7 +15639,7 @@ This extension allows the use of <code>image/x-webp</code> as an additional enco
 </div>
 </div>
 <div class="sect1">
-<h2 id="__150"> Annex Q: 参考标准 (规范性的)</h2>
+<h2 id="__146"> Annex Q: 参考标准 (规范性的)</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following normative documents contain provisions which, through reference in this text, constitute provisions of OGC 12-128.
@@ -15750,7 +15750,7 @@ For undated references, the latest edition of the normative document referred to
 </div>
 </div>
 <div class="sect1">
-<h2 id="__151"> Annex R: 参考资料 (资料性的)</h2>
+<h2 id="__147"> Annex R: 参考资料 (资料性的)</h2>
 <div class="sectionbody">
 <div class="ulist bibliography">
 <ul class="bibliography">
