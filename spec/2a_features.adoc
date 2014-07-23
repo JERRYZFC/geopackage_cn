@@ -222,7 +222,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 [requirement]
 要素表有且仅有一个几何要素列。
 
-非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值可以构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。
+非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。
 
 [[example_feature_table_cols]]
 .EXAMPLE : 样本要素表/视图的定义
@@ -243,7 +243,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 
 几何要素存储在几何对象列中，几何对象列由表`gpkg_geometry_columns`中的`geometry_column`列值指定，列值为`geometry_column`列值的小写形式。表`gpkg_geometry_columns`的定义参见<<geometry_columns>>。
 
-由表`gpkg_geometry_columns`的`geometry_type_name`标识的几何要素类型必须是 <<geometry_types>>中的其中一个 。
+由表`gpkg_geometry_columns`的`geometry_type_name`标识的几何要素类型必须是 <<geometry_types>>中的一个 。
 
 :geom_type_req_foot1: footnote:[GeoPackage applications MAY use SQL triggers or tests in application code to meet this requirement]
 

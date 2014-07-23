@@ -42,7 +42,7 @@ GeoPackage元数据的第一部分是gpkg_metadata表。该表存储官方定义
 
 ====== 表数据值
 
-表gpkg_metadata中的md_scope列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<<metadata_scopes>>。
+表`gpkg_metadata`中的`md_scope`列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<<metadata_scopes>>。
 表的初始内容来自ISO 19115 <<40>>, 附录 B B.5.25 MD_ScopeCode编号列表。为了能在GeoPackage中使用，该列表经过了扩充footnote:[The scope codes in <<metadata_scopes>> include a very wide set of descriptive information types as “metadata” to describe data.]。增加了一个以"NA"为编号的作用域<<gpkg_metadata_cols>>。
 
 

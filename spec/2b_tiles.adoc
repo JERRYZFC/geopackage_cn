@@ -12,7 +12,7 @@ GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现�
 
 :tiles_intro_foot1: footnote:[Images of multiple MIME types MAY be stored in given table. For example, in a tiles table, image/png format tiles COULD be used for transparency where there is no data on the tile edges, and image/jpeg format tiles COULD be used for storage efficiency where there is image data for all pixels. Images of multiple bit depths of the same MIME type MAY also be stored in a given table, for example image/png tiles in both 8 and 24 bit depths.]
 
-同一个容器中，GeoPackage可以在不通的数据表或视图中存储多个栅格和瓦片金字塔数据集。
+同一个容器中，GeoPackage可以在不同的数据表或视图中存储多个栅格和瓦片金字塔数据集。
 {tiles_intro_foot1} 
 “Tile pyramid（瓦片金字塔）”的概念中，不同缩放级别下的瓦片表示不同空间范围、具备不同分辨率，“Tile pyramid（瓦片金字塔）”也指瓦片数据本身。
 “Tile matrix（瓦片矩阵）” 指的是某一缩放级别下，瓦片组成的行和列。该缩放级别中的这些瓦片表示相同的空间范围，具有相同的分辨率 。
@@ -232,4 +232,4 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 [requirement]
 在GeoPackage文件中，`gpkg_tile_matrix` (tm)表中的每个不同的`table_name`所对应的瓦片金字塔（tp）数据表中， tile_row列的值应该符合以下条件：当tm和tp的`zoom_level` 列值相同时，0 <= tp.tile_row <= tm.matrix_height – 1。
 
-同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，缩放级别对应瓦片表，以及瓦片表的`pixel_x_size`和`pixel_y_size`值是在gpkg_tile_matrix表中指定的。{tile_data_foot1_ref}
+瓦片表中，同一缩放级别的所有瓦片都具有相同的`pixel_x_size`和`pixel_y_size`值，该值是在gpkg_tile_matrix表中指定的。{tile_data_foot1_ref}

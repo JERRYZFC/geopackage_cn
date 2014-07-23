@@ -171,4 +171,4 @@ ExtendedGeoPackageBinary格式由<<extension_geometry_encoding>>定义，用于�
 ====== WEBP -- 扩展记录
 
 [requirement]
-在包含瓦片金字塔数据表的GeoPackage中，如果数据表的title_data列存储的影像为WEBP格式，那么该GeoPackage应该包含一个 gpkg_extensions 表，针对上述的瓦片金字塔数据表，都应该能通过table_name在gpkg_extensions 表中找到对应的记录，并且这些记录的column_name列值应该为“tile_data”，extension_name列值应该为“gpkg_webp”。
+在包含瓦片金字塔数据表的GeoPackage中，如果数据表的tile_data列存储的影像为WEBP格式，那么该GeoPackage应该包含一个 gpkg_extensions 表，针对上述的瓦片金字塔数据表，都应该能通过table_name在gpkg_extensions 表中找到对应的记录，并且这些记录的column_name列值应该为“tile_data”，extension_name列值应该为“gpkg_webp”。

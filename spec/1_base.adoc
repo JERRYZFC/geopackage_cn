@@ -59,7 +59,7 @@ GeoPackage数据表中的列仅可以使用<<table_column_data_types>>中规定�
 [cols=",,,,,",options="header"]
 |=======================================================================
 |数据类型             | 大小与说明
-|BOOLEAN              | 标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示true，1标识false
+|BOOLEAN              | 标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示false，1表示true
 |TINYINT              | 8位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-128, 127]
 |SMALLINT             | 16位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-32768, 32767]
 |MEDIUMINT            | 32位补码表示的整数。在SQLite中存储为INTEGER类型，取值范围为[-2147483648, 2147483647] 
