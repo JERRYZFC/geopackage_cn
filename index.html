@@ -438,7 +438,7 @@ GeoPackage数据表中的列仅可以使用<a href="#table_column_data_types">Ge
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示true，1标识false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">标识true或false的布尔值，在SQLite中存储为INTEGER类型，0表示false，1表示true</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TINYINT</p></td>
@@ -1297,7 +1297,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 </blockquote>
 </div>
 <div class="paragraph">
-<p>非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值可以构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。</p>
+<p>非GeoPackage标准的要素数据模型中，每个要素表中可能包含多个几何对象列，这种要素表可以按几何对象类型转换为多个独立的符合GeoPackage标准的要素表，这些独立的要素表可通过interger类型的主键值构成一个整体视图，这个整体视图与原有的非GeoPackage标准的要素数据模型拥有同样的列定义。</p>
 </div>
 <table id="example_feature_table_cols" class="tableblock frame-all grid-all" style="width:100%; ">
 <caption class="title">Table 7. EXAMPLE : 样本要素表/视图的定义</caption>
@@ -1381,7 +1381,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <p>几何要素存储在几何对象列中，几何对象列由表<code>gpkg_geometry_columns</code>中的<code>geometry_column</code>列值指定，列值为<code>geometry_column</code>列值的小写形式。表<code>gpkg_geometry_columns</code>的定义参见<a href="#geometry_columns">几何要素列</a>。</p>
 </div>
 <div class="paragraph">
-<p>由表<code>gpkg_geometry_columns</code>的<code>geometry_type_name</code>标识的几何要素类型必须是 <a href="#geometry_types">几何对象类型 (规范性的)</a>中的其中一个 。</p>
+<p>由表<code>gpkg_geometry_columns</code>的<code>geometry_type_name</code>标识的几何要素类型必须是 <a href="#geometry_types">几何对象类型 (规范性的)</a>中的一个 。</p>
 </div>
 <div id="_requirement-31" class="quoteblock">
 <div class="title">Requirement 31</div>
@@ -1426,7 +1426,7 @@ GeoPackage可以有包含有矢量要素的表或可更新的视图。
 <p>GeoPackage瓦片存储模型可以直接通过SQLite数据库中的SQL表实现，这种方法性能最高；也可以通过在已有SQLite瓦片存储中的数据表顶层，通过SQL视图实现，这种方法具有高适应性和低耦合的特征，更有利于标准的传播。</p>
 </div>
 <div class="paragraph">
-<p>同一个容器中，GeoPackage可以在不通的数据表或视图中存储多个栅格和瓦片金字塔数据集。
+<p>同一个容器中，GeoPackage可以在不同的数据表或视图中存储多个栅格和瓦片金字塔数据集。
 <span class="footnote">[<a id="_footnoteref_11" class="footnote" href="#_footnote_11" title="View footnote.">11</a>]</span>
 “Tile pyramid（瓦片金字塔）”的概念中，不同缩放级别下的瓦片表示不同空间范围、具备不同分辨率，“Tile pyramid（瓦片金字塔）”也指瓦片数据本身。
 “Tile matrix（瓦片矩阵）” 指的是某一缩放级别下，瓦片组成的行和列。该缩放级别中的这些瓦片表示相同的空间范围，具有相同的分辨率 。
@@ -1900,7 +1900,7 @@ GeoPackage中的每个瓦片矩阵集（tile matrix set）必须存储在独立�
 </blockquote>
 </div>
 <div class="paragraph">
-<p>同一缩放级别的所有瓦片都具有相同的<code>pixel_x_size</code>和<code>pixel_y_size</code>值，缩放级别对应瓦片表，以及瓦片表的<code>pixel_x_size</code>和<code>pixel_y_size</code>值是在gpkg_tile_matrix表中指定的。<span class="footnote">[<a id="_footnoteref_20" class="footnote" href="#_footnote_20" title="View footnote.">20</a>]</span></p>
+<p>瓦片表中，同一缩放级别的所有瓦片都具有相同的<code>pixel_x_size</code>和<code>pixel_y_size</code>值，该值是在gpkg_tile_matrix表中指定的。<span class="footnote">[<a id="_footnoteref_20" class="footnote" href="#_footnote_20" title="View footnote.">20</a>]</span></p>
 </div>
 </div>
 </div>
@@ -2375,7 +2375,7 @@ gpkg_metadata表包含了元数据，在<a href="#metadata_table">元数据表</
 <div class="sect5">
 <h6 id="__53">2.4.2.1.2. 表数据值</h6>
 <div class="paragraph">
-<p>表gpkg_metadata中的md_scope列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<a href="#metadata_scopes">元数据(Metadata)的作用域</a>。
+<p>表<code>gpkg_metadata</code>中的<code>md_scope</code>列是元数据对于给定行的作用域的名字。有效的作用域名及其定义参见<a href="#metadata_scopes">元数据(Metadata)的作用域</a>。
 表的初始内容来自ISO 19115 <a href="#40">[40]</a>, 附录 B B.5.25 MD_ScopeCode编号列表。为了能在GeoPackage中使用，该列表经过了扩充<span class="footnote">[<a id="_footnoteref_26" class="footnote" href="#_footnote_26" title="View footnote.">26</a>]</span>。增加了一个以"NA"为编号的作用域<a href="#gpkg_metadata_cols">Metadata Table Definition</a>。</p>
 </div>
 <table id="metadata_scopes" class="tableblock frame-all grid-all" style="width:100%; ">
@@ -3083,7 +3083,7 @@ ExtendedGeoPackageBinary格式由<a href="#extension_geometry_encoding">用户�
 <div id="_requirement-104" class="quoteblock">
 <div class="title">Requirement 104</div>
 <blockquote>
-在包含瓦片金字塔数据表的GeoPackage中，如果数据表的title_data列存储的影像为WEBP格式，那么该GeoPackage应该包含一个 gpkg_extensions 表，针对上述的瓦片金字塔数据表，都应该能通过table_name在gpkg_extensions 表中找到对应的记录，并且这些记录的column_name列值应该为“tile_data”，extension_name列值应该为“gpkg_webp”。
+在包含瓦片金字塔数据表的GeoPackage中，如果数据表的tile_data列存储的影像为WEBP格式，那么该GeoPackage应该包含一个 gpkg_extensions 表，针对上述的瓦片金字塔数据表，都应该能通过table_name在gpkg_extensions 表中找到对应的记录，并且这些记录的column_name列值应该为“tile_data”，extension_name列值应该为“gpkg_webp”。
 </blockquote>
 </div>
 </div>
