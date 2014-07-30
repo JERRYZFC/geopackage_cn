@@ -70,9 +70,9 @@ Geopackage SWG目前有以下的邮件列表：
 
 [Luciad](http://www.luciad.com/)已经把它们的实现[libgpkg](https://bitbucket.org/luciad/libgpkg)开源。[libgpkg](https://bitbucket.org/luciad/libgpkg)完整地支持要素，瓦片，空间索引等。
 
-GDAL(http://www.gdal.org/)支持geopackage的实现位于[github repository](https://github.com/pramsey/gdal/tree/gpkg)，正在开发中。
+GDAL(http://www.gdal.org/) 支持geopackage的实现位于 [github repository](https://github.com/pramsey/gdal/tree/gpkg) ，正在开发中。
 
 GeoPackage 示例数据
 ----------------------
-[Sigma Bravo](http://www.sigmabravo.com.au/services/it.aspx) 创建了[Haiti OSM tiles and points](https://portal.opengeospatial.org/files/?artifact_id=52605)geopackage 示例数据。
+[Sigma Bravo](http://www.sigmabravo.com.au/services/it.aspx) 创建了[Haiti OSM tiles and points](https://portal.opengeospatial.org/files/?artifact_id=52605) geopackage 示例数据。
 

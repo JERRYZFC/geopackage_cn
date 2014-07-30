@@ -48,7 +48,20 @@ Document language: 	English +
 
 GeoPackage规范的版权和知识产权都属于OGC。
 
-本GeoPackage规范中文版本的翻译者为：SuperMap公司。
+参与本GeoPackage规范中文版本翻译的组织有：SuperMap
+
+本GeoPackage规范中文版本翻译的主要贡献者如下：
+
+[cols="1,1a,2,2",options="header",]
+|=======================================================================
+|姓名 |组织 |负责章节 | Email
+|曹利平 |SuperMap |1，2.1.1-2.1.4, 2.2.7-2.2.8, 2.3 | caoliping@supermap.com
+|孙笑玉 |SuperMap |2.1.5-2.1.6, 2.2.1-2.2.6 | sunxiaoyu@supermap.com
+|谷永权 |SuperMap |2.5 | guyongquan@supermap.com
+|周世杰 |SuperMap |3.2，4 | zhoushijie@supermap.com
+|苏乐乐 |SuperMap |2.4, 3.1 | sulele@supermap.com
+|=======================================================================
+
 
 == 许可说明 ==
 
