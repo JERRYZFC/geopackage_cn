@@ -44,7 +44,7 @@ Document language: 	English +
 本文档是对OGC GeoPackage资料库 (https://github.com/opengis/geopackage) 完整的中文翻译，便于中文传播。
 除本小结（中文翻译说明）外，都基于GeoPackage规范原文忠实翻译，未对GeoPackage原文的意思做任何增、删、变动。
 
-该规范的英文HTML版本(原版)可在地址 http://opengis.github.io/geopackage/ 中得到。
+该规范的英文HTML版本(原版)可在地址 http://www.geopackage.org/spec/ 中得到。
 
 GeoPackage规范的版权和知识产权都属于OGC。
 
